@@ -1,0 +1,10 @@
+<svg version="1.2" baseProfile="tiny-ps" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 13" width="26" height="13">
+	<title>product</title>
+	<defs>
+		<image  width="26" height="13" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAANCAMAAACAR47fAAAAAXNSR0IB2cksfwAAAEhQTFRF/////v369O/e8+7b+Pbr/v378ezUAAAAkIZZ8u3ZiX9U9fLiZVw7JCET4teo////////////////8u3Y8u3Y+fft4tep39OgXS+tagAAABh0Uk5TONH///rs1//87/vW///8Mrbl5vTY1P//yalDrgAAAEZJREFUeJxjYGBkYoYBFlY4m4mRgYGBjR0OODgRbDZUKS40KW4eXhjgQ5XiFxAUggFBYVRdIuxYAZpdg1RKVEwcCxATZQAASyoKhNaRjuIAAAAASUVORK5CYII="/>
+	</defs>
+	<style>
+		tspan { white-space:pre }
+	</style>
+	<use id="Background" href="#img1" x="0" y="0" />
+</svg>

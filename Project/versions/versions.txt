@@ -1,0 +1,7 @@
+http://159.223.192.8/
+Server version: 8.0.29-0ubuntu0.20.04.3 - (Ubuntu)
+Protocol version: 10            
+
+http://64.227.7.157/
+Server version: 5.7.38-0ubuntu0.18.04.1 - (Ubuntu)
+Protocol version: 10                                                       

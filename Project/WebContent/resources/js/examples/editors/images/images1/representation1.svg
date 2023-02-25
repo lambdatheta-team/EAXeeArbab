@@ -1,0 +1,10 @@
+<svg version="1.2" baseProfile="tiny-ps" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 182 79" width="32" height="14">
+	<title>Presentation1</title>
+	<defs>
+		<image  width="187" height="80" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALsAAABQCAMAAAB2zfQZAAAAAXNSR0IB2cksfwAAAFdQTFRF9/f3v7+/7+/v39/fAAAAf39/////t7e3ICAgn5+fGBgYCAgIcHBwQEBAUFBQ5+fneHh4MDAwSEhIl5eXEBAQp6en19fXaGhoWFhYz8/PYGBgODg4h4eHuZeOgQAAAB10Uk5TAP8A////AP//////////gP/////////////////qqP39AAABG0lEQVR4nO3b206DQBRG4dnQXWhxrFhbrfr+zymHCwNJD47U5ST/uuXmYzIQktmEYLlWhHKVayY7kuxMsjPJziQ7k+xMsjPJziQ7k4XCc60M63yTnUl2JtmZZGfK3l7V9LdJQvVmsG9pR1LNYKcVicnOJDuT7EyyM8nOJDuT7EyyM8nOJDuT7EyyM8nOJDuT7EyyM8nOJDtSzmdlD//Uvo1dj+Ns1Wb6a9BuejZMS1cj9ml0fuOuhNrb+Oy+Nytu1eL2lxjdD3ZMA8/tzZ+Y2/jakctfk6d2vye56Ze5St0XV+3ro9ne/S3G5QY66n4vH+y0PHlmn2TDjfh79+S3P/N+xH6NP+2u4ov2eafxvVqdGW2thqsLbuOb+wKBQv/qbc6wSQAAAABJRU5ErkJggg=="/>
+	</defs>
+	<style>
+		tspan { white-space:pre }
+	</style>
+	<use id="Background" href="#img1" x="-4" y="-1" />
+</svg>

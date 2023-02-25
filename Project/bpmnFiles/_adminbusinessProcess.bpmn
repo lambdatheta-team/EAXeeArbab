@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
+  <process id="Process_1bjl1g8">
+    <startEvent id="Event_05k3nte" name="asdasd" />
+    <startEvent id="Event_0jkg09q" name="asdasd" />
+    <startEvent id="Event_1m9v7vj" name="c" />
+  </process>
+  <bpmndi:BPMNDiagram id="sid-74620812-92c4-44e5-949c-aa47393d3830">
+    <bpmndi:BPMNPlane id="sid-cdcae759-2af7-4a6d-bd02-53f3352a731d" bpmnElement="Process_1bjl1g8">
+      <bpmndi:BPMNShape id="Event_05k3nte_di" bpmnElement="Event_05k3nte">
+        <omgdc:Bounds x="332" y="152" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="332" y="195" width="36" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0jkg09q_di" bpmnElement="Event_0jkg09q">
+        <omgdc:Bounds x="582" y="152" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="582" y="195" width="36" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1m9v7vj_di" bpmnElement="Event_1m9v7vj">
+        <omgdc:Bounds x="442" y="72" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="457" y="115" width="6" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+    <bpmndi:BPMNLabelStyle id="sid-e0502d32-f8d1-41cf-9c4a-cbb49fecf581">
+      <omgdc:Font name="Arial" size="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" />
+    </bpmndi:BPMNLabelStyle>
+    <bpmndi:BPMNLabelStyle id="sid-84cb49fd-2f7c-44fb-8950-83c3fa153d3b">
+      <omgdc:Font name="Arial" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" />
+    </bpmndi:BPMNLabelStyle>
+  </bpmndi:BPMNDiagram>
+</definitions>

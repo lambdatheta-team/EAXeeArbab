@@ -1,0 +1,10 @@
+<svg version="1.2" baseProfile="tiny-ps" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 24" width="22" height="24">
+	<title>artifact</title>
+	<defs>
+		<image  width="22" height="24" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAYCAMAAADJYP15AAAAAXNSR0IB2cksfwAAAHhQTFRF////6/HqhI+CeYN3vcq7+fr5/Pz7/v7+////AAAA0N3NAAAA8PTuxdTBHyIe/v7+0N3Ogo2AHiIdgo2AGh4a+/z7g46B/v7+////8PTv/////////Pz8/v/+////8vby////////////0d3O3ufd////////////+dbPPgAAACh0Uk5TVef///7V6q4mAOv/1/n/ser5/vj/svqrHNHY5+jNU/bmyEnr6niMje85TNMAAABpSURBVHic7chbFkMwFEDRS6lLSKP1DqUkzH+GGtrVJjIE5+N8bADHvXzz/GuAoQogIr/ihN5wZ/bPKblvbvCDkCxHG29ucKFOy0rnuuHv2u6pc88H1WvU+dMEVmYnW1kcWQCgnBejWeIKPiQZTOmbPmYAAAAASUVORK5CYII="/>
+	</defs>
+	<style>
+		tspan { white-space:pre }
+	</style>
+	<use id="Background" href="#img1" x="0" y="0" />
+</svg>

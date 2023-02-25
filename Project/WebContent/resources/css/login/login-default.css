@@ -1,0 +1,44 @@
+body{
+
+color: #e20a16;
+
+}
+
+#login-btn{
+
+width:100px !important;
+border-radius:12px;
+background-color:#0d7e8a !important;
+
+}
+
+.logo{
+
+transition: transform .2s;
+
+}
+
+/* .logo:hover{ */
+
+/* transform: scale(1.5); */
+
+/* } */
+.container-login100{
+
+ background: linear-gradient(to bottom, #e3fdff 8%, #0d7e8a 100%);
+
+}
+
+.li.ui-tabs-active{
+background:#0d7e8a;
+}
+.ui-tabs .ui-tabs-nav .ui-tabs-anchor{
+background:#e3fdff
+}
+.wrap-login100{
+
+	    background: #e3fdff;
+}
+.wrap-input100{
+	    background-color: #e8f0fe;
+}

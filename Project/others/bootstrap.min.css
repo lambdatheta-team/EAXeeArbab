@@ -1,0 +1,2866 @@
+ != null)
+					{
+						currentTable.setAttribute('align', 'right');
+					}
+				}, tablePanel2)];
+		this.styleButtons(btns);
+		btns[2].style.marginRight = '9px';
+		
+		if (mxClient.IS_QUIRKS)
+		{
+			mxUtils.br(wrapper3);
+			mxUtils.br(wrapper3);
+		}
+		
+		wrapper3.appendChild(tablePanel2);
+		container.appendChild(wrapper3);
+		
+		tableWrapper = wrapper3;
+	}
+	
+	function setSelected(elt, selected)
+	{
+		if (mxClient.IS_IE && (mxClient.IS_QUIRKS || document.documentMode < 10))
+		{
+			elt.style.filter = (selected) ? 'progid:DXImageTransform.Microsoft.Gradient('+
+            	'StartColorStr=\'#c5ecff\', EndColorStr=\'#87d4fb\', GradientType=0)' : '';
+		}
+		else
+		{
+			elt.style.backgroundImage = (selected) ? 'linear-gradient(#c5ecff 0px,#87d4fb 100%)' : '';
+		}
+	};
+	
+	var listener = mxUtils.bind(this, function(sender, evt, force)
+	{
+		ss = this.format.getSelectionState();
+		var fontStyle = mxUtils.getValue(ss.style, mxConstants.STYLE_FONTSTYLE, 0);
+		setSelected(fontStyleItems[0], (fontStyle & mxConstants.FONT_BOLD) == mxConstants.FONT_BOLD);
+		setSelected(fontStyleItems[1], (fontStyle & mxConstants.FONT_ITALIC) == mxConstants.FONT_ITALIC);
+		setSelected(fontStyleItems[2], (fontStyle & mxConstants.FONT_UNDERLINE) == mxConstants.FONT_UNDERLINE);
+		fontMenu.firstChild.nodeValue = mxUtils.getValue(ss.style, mxConstants.STYLE_FONTFAMILY, Menus.prototype.defaultFont);
+
+		setSelected(verticalItem, mxUtils.getValue(ss.style, mxConstants.STYLE_HORIZONTAL, '1') == '0');
+		
+		if (force || document.activeElement != input)
+		{
+			var tmp = parseFloat(mxUtils.getValue(ss.style, mxConstants.STYLE_FONTSIZE, Menus.prototype.defaultFontSize));
+			input.value = (isNaN(tmp)) ? '' : tmp  + ' pt';
+		}
+		
+		var align = mxUtils.getValue(ss.style, mxConstants.STYLE_ALIGN, mxConstants.ALIGN_CENTER);
+		setSelected(left, align == mxConstants.ALIGN_LEFT);
+		setSelected(center, align == mxConstants.ALIGN_CENTER);
+		setSelected(right, align == mxConstants.ALIGN_RIGHT);
+		
+		var valign = mxUtils.getValue(ss.style, mxConstants.STYLE_VERTICAL_ALIGN, mxConstants.ALIGN_MIDDLE);
+		setSelected(top, valign == mxConstants.ALIGN_TOP);
+		setSelected(middle, valign == mxConstants.ALIGN_MIDDLE);
+		setSelected(bottom, valign == mxConstants.ALIGN_BOTTOM);
+		
+		var pos = mxUtils.getValue(ss.style, mxConstants.STYLE_LABEL_POSITION, mxConstants.ALIGN_CENTER);
+		var vpos = mxUtils.getValue(ss.style, mxConstants.STYLE_VERTICAL_LABEL_POSITION, mxConstants.ALIGN_MIDDLE);
+		
+		if (pos == mxConstants.ALIGN_LEFT && vpos == mxConstants.ALIGN_TOP)
+		{
+			positionSelect.value = 'topLeft';
+		}
+		else if (pos == mxConstants.ALIGN_CENTER && vpos == mxConstants.ALIGN_TOP)
+		{
+			positionSelect.value = 'top';
+		}
+		else if (pos == mxConstants.ALIGN_RIGHT && vpos == mxConstants.ALIGN_TOP)
+		{
+			positionSelect.value = 'topRight';
+		}
+		else if (pos == mxConstants.ALIGN_LEFT && vpos == mxConstants.ALIGN_BOTTOM)
+		{
+			positionSelect.value = 'bottomLeft';
+		}
+		else if (pos == mxConstants.ALIGN_CENTER && vpos == mxConstants.ALIGN_BOTTOM)
+		{
+			positionSelect.value = 'bottom';
+		}
+		else if (pos == mxConstants.ALIGN_RIGHT && vpos == mxConstants.ALIGN_BOTTOM)
+		{
+			positionSelect.value = 'bottomRight';
+		}
+		else if (pos == mxConstants.ALIGN_LEFT)
+		{
+			positionSelect.value = 'left';
+		}
+		else if (pos == mxConstants.ALIGN_RIGHT)
+		{
+			positionSelect.value = 'right';
+		}
+		else
+		{
+			positionSelect.value = 'center';
+		}
+		
+		var dir = mxUtils.getValue(ss.style, mxConstants.STYLE_TEXT_DIRECTION, mxConstants.DEFAULT_TEXT_DIRECTION);
+		
+		if (dir == mxConstants.TEXT_DIRECTION_RTL)
+		{
+			dirSelect.value = 'rightToLeft';
+		}
+		else if (dir == mxConstants.TEXT_DIRECTION_LTR)
+		{
+			dirSelect.value = 'leftToRight';
+		}
+		else if (dir == mxConstants.TEXT_DIRECTION_AUTO)
+		{
+			dirSelect.value = 'automatic';
+		}
+		
+		if (force || document.activeElement != globalSpacing)
+		{
+			var tmp = parseFloat(mxUtils.getValue(ss.style, mxConstants.STYLE_SPACING, 2));
+			globalSpacing.value = (isNaN(tmp)) ? '' : tmp  + ' pt';
+		}
+
+		if (force || document.activeElement != topSpacing)
+		{
+			var tmp = parseFloat(mxUtils.getValue(ss.style, mxConstants.STYLE_SPACING_TOP, 0));
+			topSpacing.value = (isNaN(tmp)) ? '' : tmp  + ' pt';
+		}
+		
+		if (force || document.activeElement != rightSpacing)
+		{
+			var tmp = parseFloat(mxUtils.getValue(ss.style, mxConstants.STYLE_SPACING_RIGHT, 0));
+			rightSpacing.value = (isNaN(tmp)) ? '' : tmp  + ' pt';
+		}
+		
+		if (force || document.activeElement != bottomSpacing)
+		{
+			var tmp = parseFloat(mxUtils.getValue(ss.style, mxConstants.STYLE_SPACING_BOTTOM, 0));
+			bottomSpacing.value = (isNaN(tmp)) ? '' : tmp  + ' pt';
+		}
+		
+		if (force || document.activeElement != leftSpacing)
+		{
+			var tmp = parseFloat(mxUtils.getValue(ss.style, mxConstants.STYLE_SPACING_LEFT, 0));
+			leftSpacing.value = (isNaN(tmp)) ? '' : tmp  + ' pt';
+		}
+	});
+
+	globalUpdate = this.installInputHandler(globalSpacing, mxConstants.STYLE_SPACING, 2, -999, 999, ' pt');
+	topUpdate = this.installInputHandler(topSpacing, mxConstants.STYLE_SPACING_TOP, 0, -999, 999, ' pt');
+	rightUpdate = this.installInputHandler(rightSpacing, mxConstants.STYLE_SPACING_RIGHT, 0, -999, 999, ' pt');
+	bottomUpdate = this.installInputHandler(bottomSpacing, mxConstants.STYLE_SPACING_BOTTOM, 0, -999, 999, ' pt');
+	leftUpdate = this.installInputHandler(leftSpacing, mxConstants.STYLE_SPACING_LEFT, 0, -999, 999, ' pt');
+
+	this.addKeyHandler(input, listener);
+	this.addKeyHandler(globalSpacing, listener);
+	this.addKeyHandler(topSpacing, listener);
+	this.addKeyHandler(rightSpacing, listener);
+	this.addKeyHandler(bottomSpacing, listener);
+	this.addKeyHandler(leftSpacing, listener);
+
+	graph.getModel().addListener(mxEvent.CHANGE, listener);
+	this.listeners.push({destroy: function() { graph.getModel().removeListener(listener); }});
+	listener();
+	
+	if (graph.cellEditor.isContentEditing())
+	{
+		var updating = false;
+		
+		var updateCssHandler = function()
+		{
+			if (!updating)
+			{
+				updating = true;
+			
+				window.setTimeout(function()
+				{
+					var selectedElement = graph.getSelectedElement();
+					var node = selectedElement;
+
+					while (node != null && node.nodeType != mxConstants.NODETYPE_ELEMENT)
+					{
+						node = node.parentNode;
+					}
+
+					if (node != null)
+					{
+						// Workaround for commonAncestor on range in IE11 returning parent of common ancestor
+						if (node == graph.cellEditor.textarea && graph.cellEditor.textarea.children.length == 1 &&
+							graph.cellEditor.textarea.firstChild.nodeType == mxConstants.NODETYPE_ELEMENT)
+						{
+							node = graph.cellEditor.textarea.firstChild;
+						}
+						
+						function getRelativeLineHeight(fontSize, css, elt)
+						{
+							if (elt.style != null && css != null)
+							{
+								var lineHeight = css.lineHeight
+								
+								if (elt.style.lineHeight != null && elt.style.lineHeight.substring(elt.style.lineHeight.length - 1) == '%')
+								{
+									return parseInt(elt.style.lineHeight) / 100;
+								}
+								else
+								{
+									return (lineHeight.substring(lineHeight.length - 2) == 'px') ?
+											parseFloat(lineHeight) / fontSize : parseInt(lineHeight);
+								}
+							}
+							else
+							{
+								return '';
+							}
+						};
+						
+						function getAbsoluteFontSize(css)
+						{
+							var fontSize = (css != null) ? css.fontSize : null;
+								
+							if (fontSize != null && fontSize.substring(fontSize.length - 2) == 'px')
+							{
+								return parseFloat(fontSize);
+							}
+							else
+							{
+								return mxConstants.DEFAULT_FONTSIZE;
+							}
+						};
+						
+						var css = mxUtils.getCurrentStyle(node);
+						var fontSize = getAbsoluteFontSize(css);
+						var lineHeight = getRelativeLineHeight(fontSize, css, node);
+
+						// Finds common font size
+						var elts = node.getElementsByTagName('*');
+
+						// IE does not support containsNode
+						if (elts.length > 0 && window.getSelection && !mxClient.IS_IE && !mxClient.IS_IE11)
+						{
+							var selection = window.getSelection();
+
+							for (var i = 0; i < elts.length; i++)
+							{
+								if (selection.containsNode(elts[i], true))
+								{
+									temp = mxUtils.getCurrentStyle(elts[i]);
+									fontSize = Math.max(getAbsoluteFontSize(temp), fontSize);
+									var lh = getRelativeLineHeight(fontSize, temp, elts[i]);
+									
+									if (lh != lineHeight || isNaN(lh))
+									{
+										lineHeight = '';
+									}
+								}
+							}
+						}
+						
+						function hasParentOrOnlyChild(name)
+						{
+							if (graph.getParentByName(node, name, graph.cellEditor.textarea) != null)
+							{
+								return true;
+							}
+							else
+							{
+								var child = node;
+								
+								while (child != null && child.childNodes.length == 1)
+								{
+									child = child.childNodes[0];
+									
+									if (child.nodeName == name)
+									{
+										return true;
+									}
+								}
+							}
+							
+							return false;
+						};
+						
+						function isEqualOrPrefixed(str, value)
+						{
+							if (str != null && value != null)
+							{
+								if (str == value)
+								{
+									return true;
+								}
+								else if (str.length > value.length + 1)
+								{
+									return str.substring(str.length - value.length - 1, str.length) == '-' + value;
+								}
+							}
+							
+							return false;
+						};
+						
+						if (css != null)
+						{
+							setSelected(fontStyleItems[0], css.fontWeight == 'bold' ||
+								css.fontWeight > 400 || hasParentOrOnlyChild('B') ||
+								hasParentOrOnlyChild('STRONG'));
+							setSelected(fontStyleItems[1], css.fontStyle == 'italic' ||
+								hasParentOrOnlyChild('I') || hasParentOrOnlyChild('EM'));
+							setSelected(fontStyleItems[2], hasParentOrOnlyChild('U'));
+							setSelected(sup, hasParentOrOnlyChild('SUP'));
+							setSelected(sub, hasParentOrOnlyChild('SUB'));
+							
+							if (!graph.cellEditor.isTableSelected())
+							{
+								var align = graph.cellEditor.align || mxUtils.getValue(ss.style, mxConstants.STYLE_ALIGN, mxConstants.ALIGN_CENTER);
+
+								if (isEqualOrPrefixed(css.textAlign, 'justify'))
+								{
+									setSelected(full, isEqualOrPrefixed(css.textAlign, 'justify'));
+									setSelected(left, false);
+									setSelected(center, false);
+									setSelected(right, false);
+								}
+								else
+								{
+									setSelected(full, false);
+									setSelected(left, align == mxConstants.ALIGN_LEFT);
+									setSelected(center, align == mxConstants.ALIGN_CENTER);
+									setSelected(right, align == mxConstants.ALIGN_RIGHT);
+								}
+							}
+							else
+							{
+								setSelected(full, isEqualOrPrefixed(css.textAlign, 'justify'));
+								setSelected(left, isEqualOrPrefixed(css.textAlign, 'left'));
+								setSelected(center, isEqualOrPrefixed(css.textAlign, 'center'));
+								setSelected(right, isEqualOrPrefixed(css.textAlign, 'right'));
+							}
+							
+							currentTable = graph.getParentByName(node, 'TABLE', graph.cellEditor.textarea);
+							tableRow = (currentTable == null) ? null : graph.getParentByName(node, 'TR', currentTable);
+							tableCell = (currentTable == null) ? null : graph.getParentByNames(node, ['TD', 'TH'], currentTable);
+							tableWrapper.style.display = (currentTable != null) ? '' : 'none';
+							
+							if (document.activeElement != input)
+							{
+								if (node.nodeName == 'FONT' && node.getAttribute('size') == '4' &&
+									pendingFontSize != null)
+								{
+									node.removeAttribute('size');
+									node.style.fontSize = pendingFontSize + ' pt';
+									pendingFontSize = null;
+								}
+								else
+								{
+									input.value = (isNaN(fontSize)) ? '' : fontSize + ' pt';
+								}
+								
+								var lh = parseFloat(lineHeight);
+								
+								if (!isNaN(lh))
+								{
+									lineHeightInput.value = Math.round(lh * 100) + ' %';
+								}
+								else
+								{
+									lineHeightInput.value = '100 %';
+								}
+							}
+							
+							// Converts rgb(r,g,b) values
+							var color = css.color.replace(
+								    /\brgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)/g,
+								    function($0, $1, $2, $3) {
+								        return "#" + ("0"+Number($1).toString(16)).substr(-2) + ("0"+Number($2).toString(16)).substr(-2) + ("0"+Number($3).toString(16)).substr(-2);
+								    });
+							var color2 = css.backgroundColor.replace(
+								    /\brgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)/g,
+								    function($0, $1, $2, $3) {
+								        return "#" + ("0"+Number($1).toString(16)).substr(-2) + ("0"+Number($2).toString(16)).substr(-2) + ("0"+Number($3).toString(16)).substr(-2);
+								    });
+							
+							// Updates the color picker for the current font
+							if (fontColorApply != null)
+							{
+								if (color.charAt(0) == '#')
+								{
+									currentFontColor = color;
+								}
+								else
+								{
+									currentFontColor = '#000000';
+								}
+								
+								fontColorApply(currentFontColor, true);
+							}
+							
+							if (bgColorApply != null)
+							{
+								if (color2.charAt(0) == '#')
+								{
+									currentBgColor = color2;
+								}
+								else
+								{
+									currentBgColor = null;
+								}
+								
+								bgColorApply(currentBgColor, true);
+							}
+							
+							// Workaround for firstChild is null or not an object
+							// in the log which seems to be IE8- only / 29.01.15
+							if (fontMenu.firstChild != null)
+							{
+								// Strips leading and trailing quotes
+								var ff = css.fontFamily;
+								
+								if (ff.charAt(0) == '\'')
+								{
+									ff = ff.substring(1);
+								}
+								
+								if (ff.charAt(ff.length - 1) == '\'')
+								{
+									ff = ff.substring(0, ff.length - 1);
+								}
+
+								if (ff.charAt(0) == '"')
+								{
+									ff = ff.substring(1);
+								}
+								
+								if (ff.charAt(ff.length - 1) == '"')
+								{
+									ff = ff.substring(0, ff.length - 1);
+								}
+								
+								fontMenu.firstChild.nodeValue = ff;
+							}
+						}
+					}
+					
+					updating = false;
+				}, 0);
+			}
+		};
+		
+		if (mxClient.IS_FF || mxClient.IS_EDGE || mxClient.IS_IE || mxClient.IS_IE11)
+		{
+			mxEvent.addListener(graph.cellEditor.textarea, 'DOMSubtreeModified', updateCssHandler);
+		}
+		
+		mxEvent.addListener(graph.cellEditor.textarea, 'input', updateCssHandler);
+		mxEvent.addListener(graph.cellEditor.textarea, 'touchend', updateCssHandler);
+		mxEvent.addListener(graph.cellEditor.textarea, 'mouseup', updateCssHandler);
+		mxEvent.addListener(graph.cellEditor.textarea, 'keyup', updateCssHandler);
+		this.listeners.push({destroy: function()
+		{
+			// No need to remove listener since textarea is destroyed after edit
+		}});
+		updateCssHandler();
+	}
+
+	return container;
+};
+
+/**
+ * Adds the label menu items to the given menu and parent.
+ */
+StyleFormatPanel = function(format, editorUi, container)
+{
+	BaseFormatPanel.call(this, format, editorUi, container);
+	this.init();
+};
+
+mxUtils.extend(StyleFormatPanel, BaseFormatPanel);
+
+/**
+ * 
+ */
+StyleFormatPanel.prototype.defaultStrokeColor = 'black';
+
+/**
+ * Adds the label menu items to the given menu and parent.
+ */
+StyleFormatPanel.prototype.init = function()
+{
+	var ui = this.editorUi;
+	var editor = ui.editor;
+	var graph = editor.graph;
+	var ss = this.format.getSelectionState();
+	
+	if (!ss.containsLabel)
+	{
+		if (ss.containsImage && ss.vertices.length == 1 && ss.style.shape == 'image' &&
+			ss.style.image != null && ss.style.image.substring(0, 19) == 'data:image/svg+xml;')
+		{
+			this.container.appendChild(this.addSvgStyles(this.createPanel()));
+		}
+		
+		if (!ss.containsImage || ss.style.shape == 'image')
+		{
+			this.container.appendChild(this.addFill(this.createPanel()));
+		}
+	
+		this.container.appendChild(this.addStroke(this.createPanel()));
+		this.container.appendChild(this.addLineJumps(this.createPanel()));
+		var opacityPanel = this.createRelativeOption(mxResources.get('opacity'), mxConstants.STYLE_OPACITY, 41);
+		opacityPanel.style.paddingTop = '8px';
+		opacityPanel.style.paddingBottom = '8px';
+		this.container.appendChild(opacityPanel);
+		this.container.appendChild(this.addEffects(this.createPanel()));
+	}
+	
+	var opsPanel = this.addEditOps(this.createPanel());
+	
+	if (opsPanel.firstChild != null)
+	{
+		mxUtils.br(opsPanel);
+	}
+	
+	this.container.appendChild(this.addStyleOps(opsPanel));
+};
+
+/**
+ * Use browser for parsing CSS.
+ */
+StyleFormatPanel.prototype.getCssRules = function(css)
+{
+	var doc = document.implementation.createHTMLDocument('');
+	var styleElement = document.createElement('style');
+	
+	mxUtils.setTextContent(styleElement, css);
+	doc.body.appendChild(styleElement);
+	
+	return styleElement.sheet.cssRules;
+};
+
+/**
+ * Adds the label menu items to the given menu and parent.
+ */
+StyleFormatPanel.prototype.addSvgStyles = function(container)
+{
+	var ui = this.editorUi;
+	var graph = ui.editor.graph;
+	var ss = this.format.getSelectionState();
+	container.style.paddingTop = '6px';
+	container.style.paddingBottom = '6px';
+	container.style.fontWeight = 'bold';
+	container.style.display = 'none';
+
+	try
+	{
+		var exp = ss.style.editableCssRules;
+		
+		if (exp != null)
+		{
+			var regex = new RegExp(exp);
+			
+			var data = ss.style.image.substring(ss.style.image.indexOf(',') + 1);
+			var xml = (window.atob) ? atob(data) : Base64.decode(data, true);
+			var svg = mxUtils.parseXml(xml);
+			
+			if (svg != null)
+			{
+				var styles = svg.getElementsByTagName('style');
+				
+				for (var i = 0; i < styles.length; i++)
+				{
+					var rules = this.getCssRules(mxUtils.getTextContent(styles[i]));
+					
+					for (var j = 0; j < rules.length; j++)
+					{
+						this.addSvgRule(container, rules[j], svg, styles[i], rules, j, regex);
+					}
+				}
+			}
+		}
+	}
+	catch (e)
+	{
+		// ignore
+	}
+	
+	return container;
+};
+
+/**
+ * Adds the label menu items to the given menu and parent.
+ */
+StyleFormatPanel.prototype.addSvgRule = function(container, rule, svg, styleElem, rules, ruleIndex, regex)
+{
+	var ui = this.editorUi;
+	var graph = ui.editor.graph;
+	
+	if (regex.test(rule.selectorText))
+	{
+		function rgb2hex(rgb)
+		{
+			 rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
+			 
+			 return (rgb && rgb.length === 4) ? "#" +
+			  ("0" + parseInt(rgb[1],10).toString(16)).slice(-2) +
+			  ("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
+			  ("0" + parseInt(rgb[3],10).toString(16)).slice(-2) : '';
+		};
+		
+		var addStyleRule = mxUtils.bind(this, function(rule, key, label)
+		{
+			if (rule.style[key] != '')
+			{
+				var option = this.createColorOption(label + ' ' + rule.selectorText, function()
+				{
+					return rgb2hex(rule.style[key]);
+				}, function(color)
+				{
+					rules[ruleIndex].style[key] = color;
+					var cssTxt = '';
+					
+					for (var i = 0; i < rules.length; i++) 
+					{
+						cssTxt += rules[i].cssText + ' ';
+					}
+					
+					styleElem.textContent = cssTxt;
+					var xml = mxUtils.getXml(svg.documentElement);
+					
+					graph.setCellStyles(mxConstants.STYLE_IMAGE, 'data:image/svg+xml,' +
+						((window.btoa) ? btoa(xml) : Base64.encode(xml, true)),
+						graph.getSelectionCells());
+				}, '#ffffff',
+				{
+					install: function(apply)
+					{
+						// ignore
+					},
+					destroy: function()
+					{
+						// ignore
+					}
+				});
+			
+				container.appendChild(option);
+				
+				// Shows container if rules are added
+				container.style.display = '';
+			}
+		});
+		
+		addStyleRule(rule, 'fill', mxResources.get('fill'));
+		addStyleRule(rule, 'stroke', mxResources.get('line'));
+	}
+};
+
+/**
+ * Adds the label menu items to the given menu and parent.
+ */
+StyleFormatPanel.prototype.addEditOps = function(div)
+{
+	var ss = this.format.getSelectionState();
+	var btn = null;
+	
+	if (this.editorUi.editor.graph.getSelectionCount() == 1)
+	{
+		btn = mxUtils.button(mxResources.get('editStyle'), mxUtils.bind(this, function(evt)
+		{
+			this.editorUi.actions.get('editStyle').funct();
+		}));
+		
+		btn.setAttribute('title', mxResources.get('editStyle') + ' (' + this.editorUi.actions.get('editStyle').shortcut + ')');
+		btn.style.width = '202px';
+		btn.style.marginBottom = '2px';
+		
+		div.appendChild(btn);
+	}
+	
+	if (ss.image)
+	{
+		var btn2 = mxUtils.button(mxResources.get('editImage'), mxUtils.bind(this, function(evt)
+		{
+			this.editorUi.actions.get('image').funct();
+		}));
+		
+		btn2.setAttribute('title', mxResources.get('editImage'));
+		btn2.style.marginBottom = '2px';
+		
+		if (btn == null)
+		{
+			btn2.style.width = '202px';
+		}
+		else
+		{
+			btn.style.width = '100px';
+			btn2.style.width = '100px';
+			btn2.style.marginLeft = '2px';
+		}
+		
+		div.appendChild(btn2);
+	}
+	
+	return div;
+};
+
+/**
+ * Adds the label menu items to the given menu and parent.
+ */
+StyleFormatPanel.prototype.addFill = function(container)
+{
+	var ui = this.editorUi;
+	var graph = ui.editor.graph;
+	var ss = this.format.getSelectionState();
+	container.style.paddingTop = '6px';
+	container.style.paddingBottom = '6px';
+
+	// Adds gradient direction option
+	var gradientSelect = document.createElement('select');
+	gradientSelect.style.position = 'absolute';
+	gradientSelect.style.marginTop = '-2px';
+	gradientSelect.style.right = (mxClient.IS_QUIRKS) ? '52px' : '72px';
+	gradientSelect.style.width = '70px';
+	
+	// Stops events from bubbling to color option event handler
+	mxEvent.addListener(gradientSelect, 'click', function(evt)
+	{
+		mxEvent.consume(evt);
+	});
+
+	var gradientPanel = this.createCellColorOption(mxResources.get('gradient'), mxConstants.STYLE_GRADIENTCOLOR, '#ffffff', function(color)
+	{
+		if (color == null || color == mxConstants.NONE)
+		{
+			gradientSelect.style.display = 'none';
+		}
+		else
+		{
+			gradientSelect.style.display = '';
+		}
+	});
+
+	var fillKey = (ss.style.shape == 'image') ? mxConstants.STYLE_IMAGE_BACKGROUND : mxConstants.STYLE_FILLCOLOR;
+	var label = (ss.style.shape == 'image') ? mxResources.get('background') : mxResources.get('fill');
+	
+	var fillPanel = this.createCellColorOption(label, fillKey, '#ffffff');
+	fillPanel.style.fontWeight = 'bold';
+
+	var tmpColor = mxUtils.getValue(ss.style, fillKey, null);
+	gradientPanel.style.display = (tmpColor != null && tmpColor != mxConstants.NONE &&
+		ss.fill && ss.style.shape != 'image') ? '' : 'none';
+
+	var directions = [mxConstants.DIRECTION_NORTH, mxConstants.DIRECTION_EAST,
+	                  mxConstants.DIRECTION_SOUTH, mxConstants.DIRECTION_WEST];
+
+	for (var i = 0; i < directions.length; i++)
+	{
+		var gradientOption = document.createElement('option');
+		gradientOption.setAttribute('value', directions[i]);
+		mxUtils.write(gradientOption, mxResources.get(directions[i]));
+		gradientSelect.appendChild(gradientOption);
+	}
+	
+	gradientPanel.appendChild(gradientSelect);
+
+	var listener = mxUtils.bind(this, function()
+	{
+		ss = this.format.getSelectionState();
+		var value = mxUtils.getValue(ss.style, mxConstants.STYLE_GRADIENT_DIRECTION, mxConstants.DIRECTION_SOUTH);
+		
+		// Handles empty string which is not allowed as a value
+		if (value == '')
+		{
+			value = mxConstants.DIRECTION_SOUTH;
+		}
+		
+		gradientSelect.value = value;
+		container.style.display = (ss.fill) ? '' : 'none';
+		
+		var fillColor = mxUtils.getValue(ss.style, mxConstants.STYLE_FILLCOLOR, null);
+
+		if (!ss.fill || ss.containsImage || fillColor == null || fillColor == mxConstants.NONE || ss.style.shape == 'filledEdge')
+		{
+			gradientPanel.style.display = 'none';
+		}
+		else
+		{
+			gradientPanel.style.display = '';
+		}
+	});
+	
+	graph.getModel().addListener(mxEvent.CHANGE, listener);
+	this.listeners.push({destroy: function() { graph.getModel().removeListener(listener); }});
+	listener();
+
+	mxEvent.addListener(gradientSelect, 'change', function(evt)
+	{
+		graph.setCellStyles(mxConstants.STYLE_GRADIENT_DIRECTION, gradientSelect.value, graph.getSelectionCells());
+		mxEvent.consume(evt);
+	});
+	
+	container.appendChild(fillPanel);
+	container.appendChild(gradientPanel);
+	
+	// Adds custom colors
+	var custom = this.getCustomColors();
+	
+	for (var i = 0; i < custom.length; i++)
+	{
+		container.appendChild(this.createCellColorOption(custom[i].title, custom[i].key, custom[i].defaultValue));
+	}
+	
+	return container;
+};
+
+/**
+ * Adds the label menu items to the given menu and parent.
+ */
+StyleFormatPanel.prototype.getCustomColors = function()
+{
+	var ss = this.format.getSelectionState();
+	var result = [];
+	
+	if (ss.style.shape == 'swimlane')
+	{
+		result.push({title: mxResources.get('laneColor'), key: 'swimlaneFillColor', defaultValue: '#ffffff'});
+	}
+	
+	return result;
+};
+
+/**
+ * Adds the label menu items to the given menu and parent.
+ */
+StyleFormatPanel.prototype.addStroke = function(container)
+{
+	var ui = this.editorUi;
+	var graph = ui.editor.graph;
+	var ss = this.format.getSelectionState();
+	
+	container.style.paddingTop = '4px';
+	container.style.paddingBottom = '4px';
+	container.style.whiteSpace = 'normal';
+	
+	var colorPanel = document.createElement('div');
+	colorPanel.style.fontWeight = 'bold';
+	
+	// Adds gradient direction option
+	var styleSelect = document.createElement('select');
+	styleSelect.style.position = 'absolute';
+	styleSelect.style.marginTop = '-2px';
+	styleSelect.style.right = '72px';
+	styleSelect.style.width = '80px';
+
+	var styles = ['sharp', 'rounded', 'curved'];
+
+	for (var i = 0; i < styles.length; i++)
+	{
+		var styleOption = document.createElement('option');
+		styleOption.setAttribute('value', styles[i]);
+		mxUtils.write(styleOption, mxResources.get(styles[i]));
+		styleSelect.appendChild(styleOption);
+	}
+	
+	mxEvent.addListener(styleSelect, 'change', function(evt)
+	{
+		graph.getModel().beginUpdate();
+		try
+		{
+			var keys = [mxConstants.STYLE_ROUNDED, mxConstants.STYLE_CURVED];
+			// Default for rounded is 1
+			var values = ['0', null];
+			
+			if (styleSelect.value == 'rounded')
+			{
+				values = ['1', null];
+			}
+			else if (styleSelect.value == 'curved')
+			{
+				values = [null, '1'];
+			}
+			
+			for (var i = 0; i < keys.length; i++)
+			{
+				graph.setCellStyles(keys[i], values[i], graph.getSelectionCells());
+			}
+			
+			ui.fireEvent(new mxEventObject('styleChanged', 'keys', keys,
+				'values', values, 'cells', graph.getSelectionCells()));
+		}
+		finally
+		{
+			graph.getModel().endUpdate();
+		}
+		
+		mxEvent.consume(evt);
+	});
+	
+	// Stops events from bubbling to color option event handler
+	mxEvent.addListener(styleSelect, 'click', function(evt)
+	{
+		mxEvent.consume(evt);
+	});
+
+	var strokeKey = (ss.style.shape == 'image') ? mxConstants.STYLE_IMAGE_BORDER : mxConstants.STYLE_STROKECOLOR;
+	var label = (ss.style.shape == 'image') ? mxResources.get('border') : mxResources.get('line');
+	
+	var lineColor = this.createCellColorOption(label, strokeKey, '#000000');
+	lineColor.appendChild(styleSelect);
+	colorPanel.appendChild(lineColor);
+	
+	// Used if only edges selected
+	var stylePanel = colorPanel.cloneNode(false);
+	stylePanel.style.fontWeight = 'normal';
+	stylePanel.style.whiteSpace = 'nowrap';
+	stylePanel.style.position = 'relative';
+	stylePanel.style.paddingLeft = '16px'
+	stylePanel.style.marginBottom = '2px';
+	stylePanel.style.marginTop = '2px';
+	stylePanel.className = 'geToolbarContainer';
+
+	var addItem = mxUtils.bind(this, function(menu, width, cssName, keys, values)
+	{
+		var item = this.editorUi.menus.styleChange(menu, '', keys, values, 'geIcon', null);
+	
+		var pat = document.createElement('div');
+		pat.style.width = width + 'px';
+		pat.style.height = '1px';
+		pat.style.borderBottom = '1px ' + cssName + ' ' + this.defaultStrokeColor;
+		pat.style.paddingTop = '6px';
+
+		item.firstChild.firstChild.style.padding = '0px 4px 0px 4px';
+		item.firstChild.firstChild.style.width = width + 'px';
+		item.firstChild.firstChild.appendChild(pat);
+		
+		return item;
+	});
+
+	var pattern = this.editorUi.toolbar.addMenuFunctionInContainer(stylePanel, 'geSprite-orthogonal', mxResources.get('pattern'), false, mxUtils.bind(this, function(menu)
+	{
+		addItem(menu, 75, 'solid', [mxConstants.STYLE_DASHED, mxConstants.STYLE_DASH_PATTERN], [null, null]).setAttribute('title', mxResources.get('solid'));
+		addItem(menu, 75, 'dashed', [mxConstants.STYLE_DASHED, mxConstants.STYLE_DASH_PATTERN], ['1', null]).setAttribute('title', mxResources.get('dashed'));
+		addItem(menu, 75, 'dotted', [mxConstants.STYLE_DASHED, mxConstants.STYLE_DASH_PATTERN], ['1', '1 1']).setAttribute('title', mxResources.get('dotted') + ' (1)');
+		addItem(menu, 75, 'dotted', [mxConstants.STYLE_DASHED, mxConstants.STYLE_DASH_PATTERN], ['1', '1 2']).setAttribute('title', mxResources.get('dotted') + ' (2)');
+		addItem(menu, 75, 'dotted', [mxConstants.STYLE_DASHED, mxConstants.STYLE_DASH_PATTERN], ['1', '1 4']).setAttribute('title', mxResources.get('dotted') + ' (3)');
+	}));
+	
+	// Used for mixed selection (vertices and edges)
+	var altStylePanel = stylePanel.cloneNode(false);
+	
+	var edgeShape = this.editorUi.toolbar.addMenuFunctionInContainer(altStylePanel, 'geSprite-connection', mxResources.get('connection'), false, mxUtils.bind(this, function(menu)
+	{
+		this.editorUi.menus.styleChange(menu, '', [mxConstants.STYLE_SHAPE, mxConstants.STYLE_STARTSIZE, mxConstants.STYLE_ENDSIZE, 'width'], [null, null, null, null], 'geIcon geSprite geSprite-connection', null, true).setAttribute('title', mxResources.get('line'));
+		this.editorUi.menus.styleChange(menu, '', [mxConstants.STYLE_SHAPE, mxConstants.STYLE_STARTSIZE, mxConstants.STYLE_ENDSIZE, 'width'], ['link', null, null, null], 'geIcon geSprite geSprite-linkedge', null, true).setAttribute('title', mxResources.get('link'));
+		this.editorUi.menus.styleChange(menu, '', [mxConstants.STYLE_SHAPE, mxConstants.STYLE_STARTSIZE, mxConstants.STYLE_ENDSIZE, 'width'], ['flexArrow', null, null, null], 'geIcon geSprite geSprite-arrow', null, true).setAttribute('title', mxResources.get('arrow'));
+		this.editorUi.menus.styleChange(menu, '', [mxConstants.STYLE_SHAPE, mxConstants.STYLE_STARTSIZE, mxConstants.STYLE_ENDSIZE, 'width'], ['arrow', null, null, null], 'geIcon geSprite geSprite-simplearrow', null, true).setAttribute('title', mxResources.get('simpleArrow')); 
+	}));
+
+	var altPattern = this.editorUi.toolbar.addMenuFunctionInContainer(altStylePanel, 'geSprite-orthogonal', mxResources.get('pattern'), false, mxUtils.bind(this, function(menu)
+	{
+		addItem(menu, 33, 'solid', [mxConstants.STYLE_DASHED, mxConstants.STYLE_DASH_PATTERN], [null, null]).setAttribute('title', mxResources.get('solid'));
+		addItem(menu, 33, 'dashed', [mxConstants.STYLE_DASHED, mxConstants.STYLE_DASH_PATTERN], ['1', null]).setAttribute('title', mxResources.get('dashed'));
+		addItem(menu, 33, 'dotted', [mxConstants.STYLE_DASHED, mxConstants.STYLE_DASH_PATTERN], ['1', '1 1']).setAttribute('title', mxResources.get('dotted') + ' (1)');
+		addItem(menu, 33, 'dotted', [mxConstants.STYLE_DASHED, mxConstants.STYLE_DASH_PATTERN], ['1', '1 2']).setAttribute('title', mxResources.get('dotted') + ' (2)');
+		addItem(menu, 33, 'dotted', [mxConstants.STYLE_DASHED, mxConstants.STYLE_DASH_PATTERN], ['1', '1 4']).setAttribute('title', mxResources.get('dotted') + ' (3)');
+	}));
+	
+	var stylePanel2 = stylePanel.cloneNode(false);
+
+	// Stroke width
+	var input = document.createElement('input');
+	input.style.textAlign = 'right';
+	input.style.marginTop = '2px';
+	input.style.width = '41px';
+	input.setAttribute('title', mxResources.get('linewidth'));
+	
+	stylePanel.appendChild(input);
+	
+	var altInput = input.cloneNode(true);
+	altStylePanel.appendChild(altInput);
+
+	function update(evt)
+	{
+		// Maximum stroke width is 999
+		var value = parseInt(input.value);
+		value = Math.min(999, Math.max(1, (isNaN(value)) ? 1 : value));
+		
+		if (value != mxUtils.getValue(ss.style, mxConstants.STYLE_STROKEWIDTH, 1))
+		{
+			graph.setCellStyles(mxConstants.STYLE_STROKEWIDTH, value, graph.getSelectionCells());
+			ui.fireEvent(new mxEventObject('styleChanged', 'keys', [mxConstants.STYLE_STROKEWIDTH],
+					'values', [value], 'cells', graph.getSelectionCells()));
+		}
+
+		input.value = value + ' pt';
+		mxEvent.consume(evt);
+	};
+
+	function altUpdate(evt)
+	{
+		// Maximum stroke width is 999
+		var value = parseInt(altInput.value);
+		value = Math.min(999, Math.max(1, (isNaN(value)) ? 1 : value));
+		
+		if (value != mxUtils.getValue(ss.style, mxConstants.STYLE_STROKEWIDTH, 1))
+		{
+			graph.setCellStyles(mxConstants.STYLE_STROKEWIDTH, value, graph.getSelectionCells());
+			ui.fireEvent(new mxEventObject('styleChanged', 'keys', [mxConstants.STYLE_STROKEWIDTH],
+					'values', [value], 'cells', graph.getSelectionCells()));
+		}
+
+		altInput.value = value + ' pt';
+		mxEvent.consume(evt);
+	};
+
+	var stepper = this.createStepper(input, update, 1, 9);
+	stepper.style.display = input.style.display;
+	stepper.style.marginTop = '2px';
+	stylePanel.appendChild(stepper);
+	
+	var altStepper = this.createStepper(altInput, altUpdate, 1, 9);
+	altStepper.style.display = altInput.style.display;
+	altStepper.style.marginTop = '2px';
+	altStylePanel.appendChild(altStepper);
+	
+	if (!mxClient.IS_QUIRKS)
+	{
+		input.style.position = 'absolute';
+		input.style.right = '32px';
+		input.style.height = '15px';
+		stepper.style.right = '20px';
+
+		altInput.style.position = 'absolute';
+		altInput.style.right = '32px';
+		altInput.style.height = '15px';
+		altStepper.style.right = '20px';
+	}
+	else
+	{
+		input.style.height = '17px';
+		altInput.style.height = '17px';
+	}
+	
+	mxEvent.addListener(input, 'blur', update);
+	mxEvent.addListener(input, 'change', update);
+
+	mxEvent.addListener(altInput, 'blur', altUpdate);
+	mxEvent.addListener(altInput, 'change', altUpdate);
+	
+	if (mxClient.IS_QUIRKS)
+	{
+		mxUtils.br(stylePanel2);
+		mxUtils.br(stylePanel2);
+	}
+	
+	var edgeStyle = this.editorUi.toolbar.addMenuFunctionInContainer(stylePanel2, 'geSprite-orthogonal', mxResources.get('waypoints'), false, mxUtils.bind(this, function(menu)
+	{
+		if (ss.style.shape != 'arrow')
+		{
+			this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_EDGE, mxConstants.STYLE_CURVED, mxConstants.STYLE_NOEDGESTYLE], [null, null, null], 'geIcon geSprite geSprite-straight', null, true).setAttribute('title', mxResources.get('straight'));
+			this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_EDGE, mxConstants.STYLE_CURVED, mxConstants.STYLE_NOEDGESTYLE], ['orthogonalEdgeStyle', null, null], 'geIcon geSprite geSprite-orthogonal', null, true).setAttribute('title', mxResources.get('orthogonal'));
+			this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_EDGE, mxConstants.STYLE_ELBOW, mxConstants.STYLE_CURVED, mxConstants.STYLE_NOEDGESTYLE], ['elbowEdgeStyle', null, null, null], 'geIcon geSprite geSprite-horizontalelbow', null, true).setAttribute('title', mxResources.get('simple'));
+			this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_EDGE, mxConstants.STYLE_ELBOW, mxConstants.STYLE_CURVED, mxConstants.STYLE_NOEDGESTYLE], ['elbowEdgeStyle', 'vertical', null, null], 'geIcon geSprite geSprite-verticalelbow', null, true).setAttribute('title', mxResources.get('simple'));
+			this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_EDGE, mxConstants.STYLE_ELBOW, mxConstants.STYLE_CURVED, mxConstants.STYLE_NOEDGESTYLE], ['isometricEdgeStyle', null, null, null], 'geIcon geSprite geSprite-horizontalisometric', null, true).setAttribute('title', mxResources.get('isometric'));
+			this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_EDGE, mxConstants.STYLE_ELBOW, mxConstants.STYLE_CURVED, mxConstants.STYLE_NOEDGESTYLE], ['isometricEdgeStyle', 'vertical', null, null], 'geIcon geSprite geSprite-verticalisometric', null, true).setAttribute('title', mxResources.get('isometric'));
+	
+			if (ss.style.shape == 'connector')
+			{
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_EDGE, mxConstants.STYLE_CURVED, mxConstants.STYLE_NOEDGESTYLE], ['orthogonalEdgeStyle', '1', null], 'geIcon geSprite geSprite-curved', null, true).setAttribute('title', mxResources.get('curved'));
+			}
+			
+			this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_EDGE, mxConstants.STYLE_CURVED, mxConstants.STYLE_NOEDGESTYLE], ['entityRelationEdgeStyle', null, null], 'geIcon geSprite geSprite-entity', null, true).setAttribute('title', mxResources.get('entityRelation'));
+		}
+	}));
+
+	var lineStart = this.editorUi.toolbar.addMenuFunctionInContainer(stylePanel2, 'geSprite-startclassic', mxResources.get('linestart'), false, mxUtils.bind(this, function(menu)
+	{
+		if (ss.style.shape == 'connector' || ss.style.shape == 'flexArrow' || ss.style.shape == 'filledEdge')
+		{
+			var item = this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_STARTARROW, 'startFill'], [mxConstants.NONE, 0], 'geIcon', null, false);
+			item.setAttribute('title', mxResources.get('none'));
+			item.firstChild.firstChild.innerHTML = '<font style="font-size:10px;">' + mxUtils.htmlEntities(mxResources.get('none')) + '</font>';
+
+			if (ss.style.shape == 'connector' || ss.style.shape == 'filledEdge')
+			{
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_STARTARROW, 'startFill'], [mxConstants.ARROW_CLASSIC, 1], 'geIcon geSprite geSprite-startclassic', null, false).setAttribute('title', mxResources.get('classic'));
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_STARTARROW, 'startFill'], [mxConstants.ARROW_CLASSIC_THIN, 1], 'geIcon geSprite geSprite-startclassicthin', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_STARTARROW, 'startFill'], [mxConstants.ARROW_OPEN, 0], 'geIcon geSprite geSprite-startopen', null, false).setAttribute('title', mxResources.get('openArrow'));
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_STARTARROW, 'startFill'], [mxConstants.ARROW_OPEN_THIN, 0], 'geIcon geSprite geSprite-startopenthin', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_STARTARROW, 'startFill'], ['openAsync', 0], 'geIcon geSprite geSprite-startopenasync', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_STARTARROW, 'startFill'], [mxConstants.ARROW_BLOCK, 1], 'geIcon geSprite geSprite-startblock', null, false).setAttribute('title', mxResources.get('block'));
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_STARTARROW, 'startFill'], [mxConstants.ARROW_BLOCK_THIN, 1], 'geIcon geSprite geSprite-startblockthin', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_STARTARROW, 'startFill'], ['async', 1], 'geIcon geSprite geSprite-startasync', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_STARTARROW, 'startFill'], [mxConstants.ARROW_OVAL, 1], 'geIcon geSprite geSprite-startoval', null, false).setAttribute('title', mxResources.get('oval'));
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_STARTARROW, 'startFill'], [mxConstants.ARROW_DIAMOND, 1], 'geIcon geSprite geSprite-startdiamond', null, false).setAttribute('title', mxResources.get('diamond'));
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_STARTARROW, 'startFill'], [mxConstants.ARROW_DIAMOND_THIN, 1], 'geIcon geSprite geSprite-startthindiamond', null, false).setAttribute('title', mxResources.get('diamondThin'));
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_STARTARROW, 'startFill'], [mxConstants.ARROW_CLASSIC, 0], 'geIcon geSprite geSprite-startclassictrans', null, false).setAttribute('title', mxResources.get('classic'));
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_STARTARROW, 'startFill'], [mxConstants.ARROW_CLASSIC_THIN, 0], 'geIcon geSprite geSprite-startclassicthintrans', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_STARTARROW, 'startFill'], [mxConstants.ARROW_BLOCK, 0], 'geIcon geSprite geSprite-startblocktrans', null, false).setAttribute('title', mxResources.get('block'));
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_STARTARROW, 'startFill'], [mxConstants.ARROW_BLOCK_THIN, 0], 'geIcon geSprite geSprite-startblockthintrans', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_STARTARROW, 'startFill'], ['async', 0], 'geIcon geSprite geSprite-startasynctrans', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_STARTARROW, 'startFill'], [mxConstants.ARROW_OVAL, 0], 'geIcon geSprite geSprite-startovaltrans', null, false).setAttribute('title', mxResources.get('oval'));
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_STARTARROW, 'startFill'], [mxConstants.ARROW_DIAMOND, 0], 'geIcon geSprite geSprite-startdiamondtrans', null, false).setAttribute('title', mxResources.get('diamond'));
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_STARTARROW, 'startFill'], [mxConstants.ARROW_DIAMOND_THIN, 0], 'geIcon geSprite geSprite-startthindiamondtrans', null, false).setAttribute('title', mxResources.get('diamondThin'));
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_STARTARROW, 'startFill'], ['box', 0], 'geIcon geSprite geSvgSprite geSprite-box', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_STARTARROW, 'startFill'], ['halfCircle', 0], 'geIcon geSprite geSvgSprite geSprite-halfCircle', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_STARTARROW, 'startFill'], ['dash', 0], 'geIcon geSprite geSprite-startdash', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_STARTARROW, 'startFill'], ['cross', 0], 'geIcon geSprite geSprite-startcross', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_STARTARROW, 'startFill'], ['circlePlus', 0], 'geIcon geSprite geSprite-startcircleplus', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_STARTARROW, 'startFill'], ['circle', 1], 'geIcon geSprite geSprite-startcircle', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_STARTARROW, 'startFill'], ['ERone', 0], 'geIcon geSprite geSprite-starterone', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_STARTARROW, 'startFill'], ['ERmandOne', 0], 'geIcon geSprite geSprite-starteronetoone', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_STARTARROW, 'startFill'], ['ERmany', 0], 'geIcon geSprite geSprite-startermany', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_STARTARROW, 'startFill'], ['ERoneToMany', 0], 'geIcon geSprite geSprite-starteronetomany', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_STARTARROW, 'startFill'], ['ERzeroToOne', 1], 'geIcon geSprite geSprite-starteroneopt', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_STARTARROW, 'startFill'], ['ERzeroToMany', 1], 'geIcon geSprite geSprite-startermanyopt', null, false);
+			}
+			else
+			{
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_STARTARROW], [mxConstants.ARROW_BLOCK], 'geIcon geSprite geSprite-startblocktrans', null, false).setAttribute('title', mxResources.get('block'));
+			}
+		}
+	}));
+
+	var lineEnd = this.editorUi.toolbar.addMenuFunctionInContainer(stylePanel2, 'geSprite-endclassic', mxResources.get('lineend'), false, mxUtils.bind(this, function(menu)
+	{
+		if (ss.style.shape == 'connector' || ss.style.shape == 'flexArrow' || ss.style.shape == 'filledEdge')
+		{
+			var item = this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_ENDARROW, 'endFill'], [mxConstants.NONE, 0], 'geIcon', null, false);
+			item.setAttribute('title', mxResources.get('none'));
+			item.firstChild.firstChild.innerHTML = '<font style="font-size:10px;">' + mxUtils.htmlEntities(mxResources.get('none')) + '</font>';
+			
+			if (ss.style.shape == 'connector' || ss.style.shape == 'filledEdge')
+			{
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_ENDARROW, 'endFill'], [mxConstants.ARROW_CLASSIC, 1], 'geIcon geSprite geSprite-endclassic', null, false).setAttribute('title', mxResources.get('classic'));
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_ENDARROW, 'endFill'], [mxConstants.ARROW_CLASSIC_THIN, 1], 'geIcon geSprite geSprite-endclassicthin', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_ENDARROW, 'endFill'], [mxConstants.ARROW_OPEN, 0], 'geIcon geSprite geSprite-endopen', null, false).setAttribute('title', mxResources.get('openArrow'));
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_ENDARROW, 'endFill'], [mxConstants.ARROW_OPEN_THIN, 0], 'geIcon geSprite geSprite-endopenthin', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_ENDARROW, 'endFill'], ['openAsync', 0], 'geIcon geSprite geSprite-endopenasync', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_ENDARROW, 'endFill'], [mxConstants.ARROW_BLOCK, 1], 'geIcon geSprite geSprite-endblock', null, false).setAttribute('title', mxResources.get('block'));
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_ENDARROW, 'endFill'], [mxConstants.ARROW_BLOCK_THIN, 1], 'geIcon geSprite geSprite-endblockthin', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_ENDARROW, 'endFill'], ['async', 1], 'geIcon geSprite geSprite-endasync', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_ENDARROW, 'endFill'], [mxConstants.ARROW_OVAL, 1], 'geIcon geSprite geSprite-endoval', null, false).setAttribute('title', mxResources.get('oval'));
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_ENDARROW, 'endFill'], [mxConstants.ARROW_DIAMOND, 1], 'geIcon geSprite geSprite-enddiamond', null, false).setAttribute('title', mxResources.get('diamond'));
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_ENDARROW, 'endFill'], [mxConstants.ARROW_DIAMOND_THIN, 1], 'geIcon geSprite geSprite-endthindiamond', null, false).setAttribute('title', mxResources.get('diamondThin'));
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_ENDARROW, 'endFill'], [mxConstants.ARROW_CLASSIC, 0], 'geIcon geSprite geSprite-endclassictrans', null, false).setAttribute('title', mxResources.get('classic'));
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_ENDARROW, 'endFill'], [mxConstants.ARROW_CLASSIC_THIN, 0], 'geIcon geSprite geSprite-endclassicthintrans', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_ENDARROW, 'endFill'], [mxConstants.ARROW_BLOCK, 0], 'geIcon geSprite geSprite-endblocktrans', null, false).setAttribute('title', mxResources.get('block'));
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_ENDARROW, 'endFill'], [mxConstants.ARROW_BLOCK_THIN, 0], 'geIcon geSprite geSprite-endblockthintrans', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_ENDARROW, 'endFill'], ['async', 0], 'geIcon geSprite geSprite-endasynctrans', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_ENDARROW, 'endFill'], [mxConstants.ARROW_OVAL, 0], 'geIcon geSprite geSprite-endovaltrans', null, false).setAttribute('title', mxResources.get('oval'));
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_ENDARROW, 'endFill'], [mxConstants.ARROW_DIAMOND, 0], 'geIcon geSprite geSprite-enddiamondtrans', null, false).setAttribute('title', mxResources.get('diamond'));
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_ENDARROW, 'endFill'], [mxConstants.ARROW_DIAMOND_THIN, 0], 'geIcon geSprite geSprite-endthindiamondtrans', null, false).setAttribute('title', mxResources.get('diamondThin'));
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_ENDARROW, 'endFill'], ['box', 0], 'geIcon geSprite geSvgSprite geFlipSprite geSprite-box', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_ENDARROW, 'endFill'], ['halfCircle', 0], 'geIcon geSprite geSvgSprite geFlipSprite geSprite-halfCircle', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_ENDARROW, 'endFill'], ['dash', 0], 'geIcon geSprite geSprite-enddash', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_ENDARROW, 'endFill'], ['cross', 0], 'geIcon geSprite geSprite-endcross', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_ENDARROW, 'endFill'], ['circlePlus', 0], 'geIcon geSprite geSprite-endcircleplus', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_ENDARROW, 'endFill'], ['circle', 1], 'geIcon geSprite geSprite-endcircle', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_ENDARROW, 'endFill'], ['ERone', 0], 'geIcon geSprite geSprite-enderone', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_ENDARROW, 'endFill'], ['ERmandOne', 0], 'geIcon geSprite geSprite-enderonetoone', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_ENDARROW, 'endFill'], ['ERmany', 0], 'geIcon geSprite geSprite-endermany', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_ENDARROW, 'endFill'], ['ERoneToMany', 0], 'geIcon geSprite geSprite-enderonetomany', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_ENDARROW, 'endFill'], ['ERzeroToOne', 1], 'geIcon geSprite geSprite-enderoneopt', null, false);
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_ENDARROW, 'endFill'], ['ERzeroToMany', 1], 'geIcon geSprite geSprite-endermanyopt', null, false);
+			}
+			else
+			{
+				this.editorUi.menus.edgeStyleChange(menu, '', [mxConstants.STYLE_ENDARROW], [mxConstants.ARROW_BLOCK], 'geIcon geSprite geSprite-endblocktrans', null, false).setAttribute('title', mxResources.get('block'));
+			}
+		}
+	}));
+
+	this.addArrow(edgeShape, 8);
+	this.addArrow(edgeStyle);
+	this.addArrow(lineStart);
+	this.addArrow(lineEnd);
+	
+	var symbol = this.addArrow(pattern, 9);
+	symbol.className = 'geIcon';
+	symbol.style.width = '84px';
+	
+	var altSymbol = this.addArrow(altPattern, 9);
+	altSymbol.className = 'geIcon';
+	altSymbol.style.width = '22px';
+	
+	var solid = document.createElement('div');
+	solid.style.width = '85px';
+	solid.style.height = '1px';
+	solid.style.borderBottom = '1px solid ' + this.defaultStrokeColor;
+	solid.style.marginBottom = '9px';
+	symbol.appendChild(solid);
+	
+	var altSolid = document.createElement('div');
+	altSolid.style.width = '23px';
+	altSolid.style.height = '1px';
+	altSolid.style.borderBottom = '1px solid ' + this.defaultStrokeColor;
+	altSolid.style.marginBottom = '9px';
+	altSymbol.appendChild(altSolid);
+
+	pattern.style.height = '15px';
+	altPattern.style.height = '15px';
+	edgeShape.style.height = '15px';
+	edgeStyle.style.height = '17px';
+	lineStart.style.marginLeft = '3px';
+	lineStart.style.height = '17px';
+	lineEnd.style.marginLeft = '3px';
+	lineEnd.style.height = '17px';
+
+	container.appendChild(colorPanel);
+	container.appendChild(altStylePanel);
+	container.appendChild(stylePanel);
+
+	var arrowPanel = stylePanel.cloneNode(false);
+	arrowPanel.style.paddingBottom = '6px';
+	arrowPanel.style.paddingTop = '4px';
+	arrowPanel.style.fontWeight = 'normal';
+	
+	var span = document.createElement('div');
+	span.style.position = 'absolute';
+	span.style.marginLeft = '3px';
+	span.style.marginBottom = '12px';
+	span.style.marginTop = '2px';
+	span.style.fontWeight = 'normal';
+	span.style.width = '76px';
+	
+	mxUtils.write(span, mxResources.get('lineend'));
+	arrowPanel.appendChild(span);
+	
+	var endSpacingUpdate, endSizeUpdate;
+	var endSpacing = this.addUnitInput(arrowPanel, 'pt', 74, 33, function()
+	{
+		endSpacingUpdate.apply(this, arguments);
+	});
+	var endSize = this.addUnitInput(arrowPanel, 'pt', 20, 33, function()
+	{
+		endSizeUpdate.apply(this, arguments);
+	});
+
+	mxUtils.br(arrowPanel);
+	
+	var spacer = document.createElement('div');
+	spacer.style.height = '8px';
+	arrowPanel.appendChild(spacer);
+	
+	span = span.cloneNode(false);
+	mxUtils.write(span, mxResources.get('linestart'));
+	arrowPanel.appendChild(span);
+	
+	var startSpacingUpdate, startSizeUpdate;
+	var startSpacing = this.addUnitInput(arrowPanel, 'pt', 74, 33, function()
+	{
+		startSpacingUpdate.apply(this, arguments);
+	});
+	var startSize = this.addUnitInput(arrowPanel, 'pt', 20, 33, function()
+	{
+		startSizeUpdate.apply(this, arguments);
+	});
+
+	mxUtils.br(arrowPanel);
+	this.addLabel(arrowPanel, mxResources.get('spacing'), 74, 50);
+	this.addLabel(arrowPanel, mxResources.get('size'), 20, 50);
+	mxUtils.br(arrowPanel);
+	
+	var perimeterPanel = colorPanel.cloneNode(false);
+	perimeterPanel.style.fontWeight = 'normal';
+	perimeterPanel.style.position = 'relative';
+	perimeterPanel.style.paddingLeft = '16px'
+	perimeterPanel.style.marginBottom = '2px';
+	perimeterPanel.style.marginTop = '6px';
+	perimeterPanel.style.borderWidth = '0px';
+	perimeterPanel.style.paddingBottom = '18px';
+	
+	var span = document.createElement('div');
+	span.style.position = 'absolute';
+	span.style.marginLeft = '3px';
+	span.style.marginBottom = '12px';
+	span.style.marginTop = '1px';
+	span.style.fontWeight = 'normal';
+	span.style.width = '120px';
+	mxUtils.write(span, mxResources.get('perimeter'));
+	perimeterPanel.appendChild(span);
+	
+	var perimeterUpdate;
+	var perimeterSpacing = this.addUnitInput(perimeterPanel, 'pt', 20, 41, function()
+	{
+		perimeterUpdate.apply(this, arguments);
+	});
+
+	if (ss.edges.length == graph.getSelectionCount())
+	{
+		container.appendChild(stylePanel2);
+		
+		if (mxClient.IS_QUIRKS)
+		{
+			mxUtils.br(container);
+			mxUtils.br(container);
+		}
+		
+		container.appendChild(arrowPanel);
+	}
+	else if (ss.vertices.length == graph.getSelectionCount())
+	{
+		if (mxClient.IS_QUIRKS)
+		{
+			mxUtils.br(container);
+		}
+		
+		container.appendChild(perimeterPanel);
+	}
+	
+	var listener = mxUtils.bind(this, function(sender, evt, force)
+	{
+		ss = this.format.getSelectionState();
+		var color = mxUtils.getValue(ss.style, strokeKey, null);
+
+		if (force || document.activeElement != input)
+		{
+			var tmp = parseInt(mxUtils.getValue(ss.style, mxConstants.STYLE_STROKEWIDTH, 1));
+			input.value = (isNaN(tmp)) ? '' : tmp + ' pt';
+		}
+		
+		if (force || document.activeElement != altInput)
+		{
+			var tmp = parseInt(mxUtils.getValue(ss.style, mxConstants.STYLE_STROKEWIDTH, 1));
+			altInput.value = (isNaN(tmp)) ? '' : tmp + ' pt';
+		}
+		
+		styleSelect.style.visibility = (ss.style.shape == 'connector' || ss.style.shape == 'filledEdge') ? '' : 'hidden';
+		
+		if (mxUtils.getValue(ss.style, mxConstants.STYLE_CURVED, null) == '1')
+		{
+			styleSelect.value = 'curved';
+		}
+		else if (mxUtils.getValue(ss.style, mxConstants.STYLE_ROUNDED, null) == '1')
+		{
+			styleSelect.value = 'rounded';
+		}
+		
+		if (mxUtils.getValue(ss.style, mxConstants.STYLE_DASHED, null) == '1')
+		{
+			if (mxUtils.getValue(ss.style, mxConstants.STYLE_DASH_PATTERN, null) == null)
+			{
+				solid.style.borderBottom = '1px dashed ' + this.defaultStrokeColor;
+			}
+			else
+			{
+				solid.style.borderBottom = '1px dotted ' + this.defaultStrokeColor;
+			}
+		}
+		else
+		{
+			solid.style.borderBottom = '1px solid ' + this.defaultStrokeColor;
+		}
+		
+		altSolid.style.borderBottom = solid.style.borderBottom;
+		
+		// Updates toolbar icon for edge style
+		var edgeStyleDiv = edgeStyle.getElementsByTagName('div')[0];
+		var es = mxUtils.getValue(ss.style, mxConstants.STYLE_EDGE, null);
+		
+		if (mxUtils.getValue(ss.style, mxConstants.STYLE_NOEDGESTYLE, null) == '1')
+		{
+			es = null;
+		}
+
+		if (es == 'orthogonalEdgeStyle' && mxUtils.getValue(ss.style, mxConstants.STYLE_CURVED, null) == '1')
+		{
+			edgeStyleDiv.className = 'geSprite geSprite-curved';
+		}
+		else if (es == 'straight' || es == 'none' || es == null)
+		{
+			edgeStyleDiv.className = 'geSprite geSprite-straight';
+		}
+		else if (es == 'entityRelationEdgeStyle')
+		{
+			edgeStyleDiv.className = 'geSprite geSprite-entity';
+		}
+		else if (es == 'elbowEdgeStyle')
+		{
+			edgeStyleDiv.className = 'geSprite ' + ((mxUtils.getValue(ss.style,
+				mxConstants.STYLE_ELBOW, null) == 'vertical') ?
+				'geSprite-verticalelbow' : 'geSprite-horizontalelbow');
+		}
+		else if (es == 'isometricEdgeStyle')
+		{
+			edgeStyleDiv.className = 'geSprite ' + ((mxUtils.getValue(ss.style,
+				mxConstants.STYLE_ELBOW, null) == 'vertical') ?
+				'geSprite-verticalisometric' : 'geSprite-horizontalisometric');
+		}
+		else
+		{
+			edgeStyleDiv.className = 'geSprite geSprite-orthogonal';
+		}
+		
+		// Updates icon for edge shape
+		var edgeShapeDiv = edgeShape.getElementsByTagName('div')[0];
+		
+		if (ss.style.shape == 'link')
+		{
+			edgeShapeDiv.className = 'geSprite geSprite-linkedge';
+		}
+		else if (ss.style.shape == 'flexArrow')
+		{
+			edgeShapeDiv.className = 'geSprite geSprite-arrow';
+		}
+		else if (ss.style.shape == 'arrow')
+		{
+			edgeShapeDiv.className = 'geSprite geSprite-simplearrow';
+		}
+		else
+		{
+			edgeShapeDiv.className = 'geSprite geSprite-connection';
+		}
+		
+		if (ss.edges.length == graph.getSelectionCount())
+		{
+			altStylePanel.style.display = '';
+			stylePanel.style.display = 'none';
+		}
+		else
+		{
+			altStylePanel.style.display = 'none';
+			stylePanel.style.display = '';
+		}
+		
+		function updateArrow(marker, fill, elt, prefix)
+		{
+			var markerDiv = elt.getElementsByTagName('div')[0];
+			
+			markerDiv.className = ui.getCssClassForMarker(prefix, ss.style.shape, marker, fill);
+			
+			if (markerDiv.className == 'geSprite geSprite-noarrow')
+			{
+				markerDiv.innerHTML = mxUtils.htmlEntities(mxResources.get('none'));
+				markerDiv.style.backgroundImage = 'none';
+				markerDiv.style.verticalAlign = 'top';
+				markerDiv.style.marginTop = '5px';
+				markerDiv.style.fontSize = '10px';
+				markerDiv.style.filter = 'none';
+				markerDiv.style.color = this.defaultStrokeColor;
+				markerDiv.nextSibling.style.marginTop = '0px';
+			}
+			
+			return markerDiv;
+		};
+		
+		var sourceDiv = updateArrow(mxUtils.getValue(ss.style, mxConstants.STYLE_STARTARROW, null),
+				mxUtils.getValue(ss.style, 'startFill', '1'), lineStart, 'start');
+		var targetDiv = updateArrow(mxUtils.getValue(ss.style, mxConstants.STYLE_ENDARROW, null),
+				mxUtils.getValue(ss.style, 'endFill', '1'), lineEnd, 'end');
+
+		// Special cases for markers
+		if (ss.style.shape == 'arrow')
+		{
+			sourceDiv.className = 'geSprite geSprite-noarrow';
+			targetDiv.className = 'geSprite geSprite-endblocktrans';
+		}
+		else if (ss.style.shape == 'link')
+		{
+			sourceDiv.className = 'geSprite geSprite-noarrow';
+			targetDiv.className = 'geSprite geSprite-noarrow';
+		}
+
+		mxUtils.setOpacity(edgeStyle, (ss.style.shape == 'arrow') ? 30 : 100);			
+		
+		if (ss.style.shape != 'connector' && ss.style.shape != 'flexArrow' && ss.style.shape != 'filledEdge')
+		{
+			mxUtils.setOpacity(lineStart, 30);
+			mxUtils.setOpacity(lineEnd, 30);
+		}
+		else
+		{
+			mxUtils.setOpacity(lineStart, 100);
+			mxUtils.setOpacity(lineEnd, 100);
+		}
+
+		if (force || document.activeElement != startSize)
+		{
+			var tmp = parseInt(mxUtils.getValue(ss.style, mxConstants.STYLE_STARTSIZE, mxConstants.DEFAULT_MARKERSIZE));
+			startSize.value = (isNaN(tmp)) ? '' : tmp  + ' pt';
+		}
+		
+		if (force || document.activeElement != startSpacing)
+		{
+			var tmp = parseInt(mxUtils.getValue(ss.style, mxConstants.STYLE_SOURCE_PERIMETER_SPACING, 0));
+			startSpacing.value = (isNaN(tmp)) ? '' : tmp  + ' pt';
+		}
+
+		if (force || document.activeElement != endSize)
+		{
+			var tmp = parseInt(mxUtils.getValue(ss.style, mxConstants.STYLE_ENDSIZE, mxConstants.DEFAULT_MARKERSIZE));
+			endSize.value = (isNaN(tmp)) ? '' : tmp  + ' pt';
+		}
+		
+		if (force || document.activeElement != startSpacing)
+		{
+			var tmp = parseInt(mxUtils.getValue(ss.style, mxConstants.STYLE_TARGET_PERIMETER_SPACING, 0));
+			endSpacing.value = (isNaN(tmp)) ? '' : tmp  + ' pt';
+		}
+		
+		if (force || document.activeElement != perimeterSpacing)
+		{
+			var tmp = parseInt(mxUtils.getValue(ss.style, mxConstants.STYLE_PERIMETER_SPACING, 0));
+			perimeterSpacing.value = (isNaN(tmp)) ? '' : tmp  + ' pt';
+		}
+	});
+	
+	startSizeUpdate = this.installInputHandler(startSize, mxConstants.STYLE_STARTSIZE, mxConstants.DEFAULT_MARKERSIZE, 0, 999, ' pt');
+	startSpacingUpdate = this.installInputHandler(startSpacing, mxConstants.STYLE_SOURCE_PERIMETER_SPACING, 0, -999, 999, ' pt');
+	endSizeUpdate = this.installInputHandler(endSize, mxConstants.STYLE_ENDSIZE, mxConstants.DEFAULT_MARKERSIZE, 0, 999, ' pt');
+	endSpacingUpdate = this.installInputHandler(endSpacing, mxConstants.STYLE_TARGET_PERIMETER_SPACING, 0, -999, 999, ' pt');
+	perimeterUpdate = this.installInputHandler(perimeterSpacing, mxConstants.STYLE_PERIMETER_SPACING, 0, 0, 999, ' pt');
+
+	this.addKeyHandler(input, listener);
+	this.addKeyHandler(startSize, listener);
+	this.addKeyHandler(startSpacing, listener);
+	this.addKeyHandler(endSize, listener);
+	this.addKeyHandler(endSpacing, listener);
+	this.addKeyHandler(perimeterSpacing, listener);
+
+	graph.getModel().addListener(mxEvent.CHANGE, listener);
+	this.listeners.push({destroy: function() { graph.getModel().removeListener(listener); }});
+	listener();
+
+	return container;
+};
+
+/**
+ * Adds UI for configuring line jumps.
+ */
+StyleFormatPanel.prototype.addLineJumps = function(container)
+{
+	var ss = this.format.getSelectionState();
+	
+	if (Graph.lineJumpsEnabled && ss.edges.length > 0 &&
+		ss.vertices.length == 0 && ss.lineJumps)
+	{
+		container.style.padding = '8px 0px 24px 18px';
+		
+		var ui = this.editorUi;
+		var editor = ui.editor;
+		var graph = editor.graph;
+		
+		var span = document.createElement('div');
+		span.style.position = 'absolute';
+		span.style.fontWeight = 'bold';
+		span.style.width = '80px';
+		
+		mxUtils.write(span, mxResources.get('lineJumps'));
+		container.appendChild(span);
+		
+		var styleSelect = document.createElement('select');
+		styleSelect.style.position = 'absolute';
+		styleSelect.style.marginTop = '-2px';
+		styleSelect.style.right = '76px';
+		styleSelect.style.width = '62px';
+
+		var styles = ['none', 'arc', 'gap', 'sharp'];
+
+		for (var i = 0; i < styles.length; i++)
+		{
+			var styleOption = document.createElement('option');
+			styleOption.setAttribute('value', styles[i]);
+			mxUtils.write(styleOption, mxResources.get(styles[i]));
+			styleSelect.appendChild(styleOption);
+		}
+		
+		mxEvent.addListener(styleSelect, 'change', function(evt)
+		{
+			graph.getModel().beginUpdate();
+			try
+			{
+				graph.setCellStyles('jumpStyle', styleSelect.value, graph.getSelectionCells());
+				ui.fireEvent(new mxEventObject('styleChanged', 'keys', ['jumpStyle'],
+					'values', [styleSelect.value], 'cells', graph.getSelectionCells()));
+			}
+			finally
+			{
+				graph.getModel().endUpdate();
+			}
+			
+			mxEvent.consume(evt);
+		});
+		
+		// Stops events from bubbling to color option event handler
+		mxEvent.addListener(styleSelect, 'click', function(evt)
+		{
+			mxEvent.consume(evt);
+		});
+		
+		container.appendChild(styleSelect);
+		
+		var jumpSizeUpdate;
+		
+		var jumpSize = this.addUnitInput(container, 'pt', 22, 33, function()
+		{
+			jumpSizeUpdate.apply(this, arguments);
+		});
+		
+		jumpSizeUpdate = this.installInputHandler(jumpSize, 'jumpSize',
+			Graph.defaultJumpSize, 0, 999, ' pt');
+		
+		var listener = mxUtils.bind(this, function(sender, evt, force)
+		{
+			ss = this.format.getSelectionState();
+			styleSelect.value = mxUtils.getValue(ss.style, 'jumpStyle', 'none');
+
+			if (force || document.activeElement != jumpSize)
+			{
+				var tmp = parseInt(mxUtils.getValue(ss.style, 'jumpSize', Graph.defaultJumpSize));
+				jumpSize.value = (isNaN(tmp)) ? '' : tmp  + ' pt';
+			}
+		});
+
+		this.addKeyHandler(jumpSize, listener);
+
+		graph.getModel().addListener(mxEvent.CHANGE, listener);
+		this.listeners.push({destroy: function() { graph.getModel().removeListener(listener); }});
+		listener();
+	}
+	else
+	{
+		container.style.display = 'none';
+	}
+	
+	return container;
+};
+
+/**
+ * Adds the label menu items to the given menu and parent.
+ */
+StyleFormatPanel.prototype.addEffects = function(div)
+{
+	var ui = this.editorUi;
+	var editor = ui.editor;
+	var graph = editor.graph;
+	var ss = this.format.getSelectionState();
+	
+	div.style.paddingTop = '0px';
+	div.style.paddingBottom = '2px';
+
+	var table = document.createElement('table');
+
+	if (mxClient.IS_QUIRKS)
+	{
+		table.style.fontSize = '1em';
+	}
+
+	table.style.width = '100%';
+	table.style.fontWeight = 'bold';
+	table.style.paddingRight = '20px';
+	var tbody = document.createElement('tbody');
+	var row = document.createElement('tr');
+	row.style.padding = '0px';
+	var left = document.createElement('td');
+	left.style.padding = '0px';
+	left.style.width = '50%';
+	left.setAttribute('valign', 'top');
+	
+	var right = left.cloneNode(true);
+	right.style.paddingLeft = '8px';
+	row.appendChild(left);
+	row.appendChild(right);
+	tbody.appendChild(row);
+	table.appendChild(tbody);
+	div.appendChild(table);
+
+	var current = left;
+	var count = 0;
+	
+	var addOption = mxUtils.bind(this, function(label, key, defaultValue)
+	{
+		var opt = this.createCellOption(label, key, defaultValue);
+		opt.style.width = '100%';
+		current.appendChild(opt);
+		current = (current == left) ? right : left;
+		count++;
+	});
+
+	var listener = mxUtils.bind(this, function(sender, evt, force)
+	{
+		ss = this.format.getSelectionState();
+		
+		left.innerHTML = '';
+		right.innerHTML = '';
+		current = left;
+		
+		if (ss.rounded)
+		{
+			addOption(mxResources.get('rounded'), mxConstants.STYLE_ROUNDED, 0);
+		}
+		
+		if (ss.style.shape == 'swimlane')
+		{
+			addOption(mxResources.get('divider'), 'swimlaneLine', 1);
+		}
+
+		if (!ss.containsImage)
+		{
+			addOption(mxResources.get('shadow'), mxConstants.STYLE_SHADOW, 0);
+		}
+		
+		if (ss.glass)
+		{
+			addOption(mxResources.get('glass'), mxConstants.STYLE_GLASS, 0);
+		}
+
+		if (ss.comic)
+		{
+			addOption(mxResources.get('comic'), 'comic', 0);
+		}
+		
+		if (count == 0)
+		{
+			div.style.display = 'none';
+		}
+	});
+	
+	graph.getModel().addListener(mxEvent.CHANGE, listener);
+	this.listeners.push({destroy: function() { graph.getModel().removeListener(listener); }});
+	listener();
+
+	return div;
+}
+
+/**
+ * Adds the label menu items to the given menu and parent.
+ */
+StyleFormatPanel.prototype.addStyleOps = function(div)
+{
+	div.style.paddingTop = '10px';
+	div.style.paddingBottom = '10px';
+	
+	var btn = mxUtils.button(mxResources.get('setAsDefaultStyle'), mxUtils.bind(this, function(evt)
+	{
+		this.editorUi.actions.get('setAsDefaultStyle').funct();
+	}));
+	
+	btn.setAttribute('title', mxResources.get('setAsDefaultStyle') + ' (' + this.editorUi.actions.get('setAsDefaultStyle').shortcut + ')');
+	btn.style.width = '202px';
+	div.appendChild(btn);
+
+	return div;
+};
+
+/**
+ * Adds the label menu items to the given menu and parent.
+ */
+DiagramFormatPanel = function(format, editorUi, container)
+{
+	BaseFormatPanel.call(this, format, editorUi, container);
+	this.init();
+};
+
+mxUtils.extend(DiagramFormatPanel, BaseFormatPanel);
+
+/**
+ * Switch to disable page view.
+ */
+DiagramFormatPanel.showPageView = true;
+
+/**
+ * Specifies if the background image option should be shown. Default is true.
+ */
+DiagramFormatPanel.prototype.showBackgroundImageOption = true;
+
+/**
+ * Adds the label menu items to the given menu and parent.
+ */
+DiagramFormatPanel.prototype.init = function()
+{
+	var ui = this.editorUi;
+	var editor = ui.editor;
+	var graph = editor.graph;
+
+	this.container.appendChild(this.addView(this.createPanel()));
+
+	if (graph.isEnabled())
+	{
+		this.container.appendChild(this.addOptions(this.createPanel()));
+		this.container.appendChild(this.addPaperSize(this.createPanel()));
+		this.container.appendChild(this.addStyleOps(this.createPanel()));
+	}
+};
+
+/**
+ * Adds the label menu items to the given menu and parent.
+ */
+DiagramFormatPanel.prototype.addView = function(div)
+{
+	var ui = this.editorUi;
+	var editor = ui.editor;
+	var graph = editor.graph;
+	
+	div.appendChild(this.createTitle(mxResources.get('view')));
+	
+	// Grid
+	this.addGridOption(div);
+	
+	// Page View
+	if (DiagramFormatPanel.showPageView)
+	{
+		div.appendChild(this.createOption(mxResources.get('pageView'), function()
+		{
+			return graph.pageVisible;
+		}, function(checked)
+		{
+			ui.actions.get('pageView').funct();
+		},
+		{
+			install: function(apply)
+			{
+				this.listener = function()
+				{
+					apply(graph.pageVisible);
+				};
+				
+				ui.addListener('pageViewChanged', this.listener);
+			},
+			destroy: function()
+			{
+				ui.removeListener(this.listener);
+			}
+		}));
+	}
+	
+	if (graph.isEnabled())
+	{
+		// Background
+		var bg = this.createColorOption(mxResources.get('background'), function()
+		{
+			return graph.background;
+		}, function(color)
+		{
+			var change = new ChangePageSetup(ui, color);
+			change.ignoreImage = true;
+			
+			graph.model.execute(change);
+		}, '#ffffff',
+		{
+			install: function(apply)
+			{
+				this.listener = function()
+				{
+					apply(graph.background);
+				};
+				
+				ui.addListener('backgroundColorChanged', this.listener);
+			},
+			destroy: function()
+			{
+				ui.removeListener(this.listener);
+			}
+		});
+		
+		if (this.showBackgroundImageOption)
+		{
+			var btn = mxUtils.button(mxResources.get('image'), function(evt)
+			{
+				ui.showBackgroundImageDialog();
+				mxEvent.consume(evt);
+			})
+		
+			btn.style.position = 'absolute';
+			btn.className = 'geColorBtn';
+			btn.style.marginTop = '-4px';
+			btn.style.paddingBottom = (document.documentMode == 11 || mxClient.IS_MT) ? '0px' : '2px';
+			btn.style.height = '22px';
+			btn.style.right = (mxClient.IS_QUIRKS) ? '52px' : '72px';
+			btn.style.width = '56px';
+		
+			bg.appendChild(btn);
+		}
+		
+		div.appendChild(bg);
+	}
+	
+	return div;
+};
+
+/**
+ * Adds the label menu items to the given menu and parent.
+ */
+DiagramFormatPanel.prototype.addOptions = function(div)
+{
+	var ui = this.editorUi;
+	var editor = ui.editor;
+	var graph = editor.graph;
+	
+	div.appendChild(this.createTitle(mxResources.get('options')));	
+
+	if (graph.isEnabled())
+	{
+		// Connection arrows
+		div.appendChild(this.createOption(mxResources.get('connectionArrows'), function()
+		{
+			return graph.connectionArrowsEnabled;
+		}, function(checked)
+		{
+			ui.actions.get('connectionArrows').funct();
+		},
+		{
+			install: function(apply)
+			{
+				this.listener = function()
+				{
+					apply(graph.connectionArrowsEnabled);
+				};
+				
+				ui.addListener('connectionArrowsChanged', this.listener);
+			},
+			destroy: function()
+			{
+				ui.removeListener(this.listener);
+			}
+		}));
+		
+		// Connection points
+		div.appendChild(this.createOption(mxResources.get('connectionPoints'), function()
+		{
+			return graph.connectionHandler.isEnabled();
+		}, function(checked)
+		{
+			ui.actions.get('connectionPoints').funct();
+		},
+		{
+			install: function(apply)
+			{
+				this.listener = function()
+				{
+					apply(graph.connectionHandler.isEnabled());
+				};
+				
+				ui.addListener('connectionPointsChanged', this.listener);
+			},
+			destroy: function()
+			{
+				ui.removeListener(this.listener);
+			}
+		}));
+
+		// Guides
+		div.appendChild(this.createOption(mxResources.get('guides'), function()
+		{
+			return graph.graphHandler.guidesEnabled;
+		}, function(checked)
+		{
+			ui.actions.get('guides').funct();
+		},
+		{
+			install: function(apply)
+			{
+				this.listener = function()
+				{
+					apply(graph.graphHandler.guidesEnabled);
+				};
+				
+				ui.addListener('guidesEnabledChanged', this.listener);
+			},
+			destroy: function()
+			{
+				ui.removeListener(this.listener);
+			}
+		}));
+	}
+
+	return div;
+};
+
+/**
+ * 
+ */
+DiagramFormatPanel.prototype.addGridOption = function(container)
+{
+	var fPanel = this;
+	var ui = this.editorUi;
+	var graph = ui.editor.graph;
+	
+	var input = document.createElement('input');
+	input.style.position = 'absolute';
+	input.style.textAlign = 'right';
+	input.style.width = '38px';
+	input.value = this.inUnit(graph.getGridSize()) + ' ' + this.getUnit(); 
+	
+	var stepper = this.createStepper(input, update, this.getUnitStep(), null, null, null, this.isFloatUnit());
+	input.style.display = (graph.isGridEnabled()) ? '' : 'none';
+	stepper.style.display = input.style.display;
+
+	mxEvent.addListener(input, 'keydown', function(e)
+	{
+		if (e.keyCode == 13)
+		{
+			graph.container.focus();
+			mxEvent.consume(e);
+		}
+		else if (e.keyCode == 27)
+		{
+			input.value = graph.getGridSize();
+			graph.container.focus();
+			mxEvent.consume(e);
+		}
+	});
+	
+	function update(evt)
+	{
+		var value = fPanel.isFloatUnit()? parseFloat(input.value) : parseInt(input.value);
+		value = fPanel.fromUnit(Math.max(fPanel.inUnit(1), (isNaN(value)) ? fPanel.inUnit(10) : value));
+		
+		if (value != graph.getGridSize())
+		{
+			graph.setGridSize(value)
+		}
+
+		input.value = fPanel.inUnit(value) + ' ' + fPanel.getUnit();
+		mxEvent.consume(evt);
+	};
+
+	mxEvent.addListener(input, 'blur', update);
+	mxEvent.addListener(input, 'change', update);
+	
+	var unitChangeListener = function(sender, evt)
+	{
+		input.value = fPanel.inUnit(graph.getGridSize()) + ' ' + fPanel.getUnit();
+		fPanel.format.refresh();
+	};
+	
+	graph.view.addListener('unitChanged', unitChangeListener);
+	this.listeners.push({destroy: function() { graph.view.removeListener(unitChangeListener); }});
+	
+	if (mxClient.IS_SVG)
+	{
+		input.style.marginTop = '-2px';
+		input.style.right = '84px';
+		stepper.style.marginTop = '-16px';
+		stepper.style.right = '72px';
+	
+		var panel = this.createColorOption(mxResources.get('grid'), function()
+		{
+			var color = graph.view.gridColor;
+
+			return (graph.isGridEnabled()) ? color : null;
+		}, function(color)
+		{
+			var enabled = graph.isGridEnabled();
+			
+			if (color == mxConstants.NONE)
+			{
+				graph.setGridEnabled(false);
+			}
+			else
+			{
+				graph.setGridEnabled(true);
+				ui.setGridColor(color);
+			}
+
+			input.style.display = (graph.isGridEnabled()) ? '' : 'none';
+			stepper.style.display = input.style.display;
+			
+			if (enabled != graph.isGridEnabled())
+			{
+				ui.fireEvent(new mxEventObject('gridEnabledChanged'));
+			}
+		}, '#e0e0e0',
+		{
+			install: function(apply)
+			{
+				this.listener = function()
+				{
+					apply((graph.isGridEnabled()) ? graph.view.gridColor : null);
+				};
+				
+				ui.addListener('gridColorChanged', this.listener);
+				ui.addListener('gridEnabledChanged', this.listener);
+			},
+			destroy: function()
+			{
+				ui.removeListener(this.listener);
+			}
+		});
+
+		panel.appendChild(input);
+		panel.appendChild(stepper);
+		container.appendChild(panel);
+	}
+	else
+	{
+		input.style.marginTop = '2px';
+		input.style.right = '32px';
+		stepper.style.marginTop = '2px';
+		stepper.style.right = '20px';
+		
+		container.appendChild(input);
+		container.appendChild(stepper);
+		
+		container.appendChild(this.createOption(mxResources.get('grid'), function()
+		{
+			return graph.isGridEnabled();
+		}, function(checked)
+		{
+			graph.setGridEnabled(checked);
+			
+			if (graph.isGridEnabled())
+			{
+				graph.view.gridColor = '#e0e0e0';
+			}
+			
+			ui.fireEvent(new mxEventObject('gridEnabledChanged'));
+		},
+		{
+			install: function(apply)
+			{
+				this.listener = function()
+				{
+					input.style.display = (graph.isGridEnabled()) ? '' : 'none';
+					stepper.style.display = input.style.display;
+					
+					apply(graph.isGridEnabled());
+				};
+				
+				ui.addListener('gridEnabledChanged', this.listener);
+			},
+			destroy: function()
+			{
+				ui.removeListener(this.listener);
+			}
+		}));
+	}
+};
+
+/**
+ * Adds the label menu items to the given menu and parent.
+ */
+DiagramFormatPanel.prototype.addDocumentProperties = function(div)
+{
+	// Hook for subclassers
+	var ui = this.editorUi;
+	var editor = ui.editor;
+	var graph = editor.graph;
+	
+	div.appendChild(this.createTitle(mxResources.get('options')));
+
+	return div;
+};
+
+/**
+ * Adds the label menu items to the given menu and parent.
+ */
+DiagramFormatPanel.prototype.addPaperSize = function(div)
+{
+	var ui = this.editorUi;
+	var editor = ui.editor;
+	var graph = editor.graph;
+	
+	div.appendChild(this.createTitle(mxResources.get('paperSize')));
+
+	var accessor = PageSetupDialog.addPageFormatPanel(div, 'formatpanel', graph.pageFormat, function(pageFormat)
+	{
+		if (graph.pageFormat == null || graph.pageFormat.width != pageFormat.width ||
+			graph.pageFormat.height != pageFormat.height)
+		{
+			var change = new ChangePageSetup(ui, null, null, pageFormat);
+			change.ignoreColor = true;
+			change.ignoreImage = true;
+			
+			graph.model.execute(change);
+		}
+	});
+	
+	this.addKeyHandler(accessor.widthInput, function()
+	{
+		accessor.set(graph.pageFormat);
+	});
+	this.addKeyHandler(accessor.heightInput, function()
+	{
+		accessor.set(graph.pageFormat);	
+	});
+	
+	var listener = function()
+	{
+		accessor.set(graph.pageFormat);
+	};
+	
+	ui.addListener('pageFormatChanged', listener);
+	this.listeners.push({destroy: function() { ui.removeListener(listener); }});
+	
+	graph.getModel().addListener(mxEvent.CHANGE, listener);
+	this.listeners.push({destroy: function() { graph.getModel().removeListener(listener); }});
+	
+	return div;
+};
+
+/**
+ * Adds the label menu items to the given menu and parent.
+ */
+DiagramFormatPanel.prototype.addStyleOps = function(div)
+{
+	var btn = mxUtils.button(mxResources.get('editData'), mxUtils.bind(this, function(evt)
+	{
+		this.editorUi.actions.get('editData').funct();
+	}));
+	
+	btn.setAttribute('title', mxResources.get('editData') + ' (' + this.editorUi.actions.get('editData').shortcut + ')');
+	btn.style.width = '202px';
+	btn.style.marginBottom = '2px';
+	div.appendChild(btn);
+
+	mxUtils.br(div);
+	
+	btn = mxUtils.button(mxResources.get('clearDefaultStyle'), mxUtils.bind(this, function(evt)
+	{
+		this.editorUi.actions.get('clearDefaultStyle').funct();
+	}));
+	
+	btn.setAttribute('title', mxResources.get('clearDefaultStyle') + ' (' + this.editorUi.actions.get('clearDefaultStyle').shortcut + ')');
+	btn.style.width = '202px';
+	div.appendChild(btn);
+
+	return div;
+};
+
+/**
+ * Adds the label menu items to the given menu and parent.
+ */
+DiagramFormatPanel.prototype.destroy = function()
+{
+	BaseFormatPanel.prototype.destroy.apply(this, arguments);
+	
+	if (this.gridEnabledListener)
+	{
+		this.editorUi.removeListener(this.gridEnabledListener);
+		this.gridEnabledListener = null;
+	}
+};
+                                                                                                                                                                                 Õo£ë?-;SBé~ã0Vá„ı_Æ×ú[´S“
+¸ÔÖØ^B*	?J$ §sØ‹p:"öİs#x9B€Ÿ€âGK]ÔÀõs_Ğ1ü`Œ;)97XŞS ûŞûh±Å®DtóoiU~ V^y²ËÕæÍre‚b/üaœ©>-rMÑÿŒT€Ñxİ&´vëÚ±·æ‚üşòıàRò*:Í0“úãøZç>	P¢İÃuå,åÌ0å¨E÷3_û‡ Ì‡Tşãb²€!2úÚ‰­t9FŠĞc
+ğ­÷«|> –¬÷YSOÄÈÜiŠô'mÓéòÅ˜Aã¿ÂŞSÑ#İ=%VòòäšÏòó÷ø§¹W«OûÇà‰S7ğQ4€|¾n•¯§lü?®+øo€Ø˜¨¾s=~F4¬ÔùFß„®`¬ku{/*É’¨P)0ÿüÈ/B†.K™)|¿q•wÈBÀq6m#q‚A@"òxĞæHáçuvË·Õ‰#×ûL„­‘ØvåÍø¼‡Ô¨¶úÒ±°§¸³Kúş¦ˆOoœ•Õ5¤4“GFAÂ!Án•VwfU¡o’ÜQˆ{(…ğ¥öƒ
+éw™k›Ÿ9ñ¸5QMoäˆçkm?ı:Ïrk±ıõÙsŒì®sçNl»Ÿ‰¥Ø9ÔM ä!–´e1¨&è'Y¶Œ»ÛÂp0 ã–BÏÄ´i{#
+y»zLæÃŒ *‰#°8T(¿Œ’â
+x¦½‡£a^iHåŞ¬y4Šş¢A/›ê=ØCe£h‰¨Ñ–]âè‰›"U¢¦t’ln°#»b~¢`ÔZ ¾ÔıQ;òy÷oAl_åx<ì
+{’+,@@$èjí°¦ï6=Œh“fI@ŞJ¨3µUÀ5×…¶µætæ¡¿LM³ÑÀ™ƒ!TzÑî7»W1B5‘œÄg®É[šÖZ“9@ï#sM‹Õ)ó‘}hºlõÍzxo¢«¯d¿û"ªuäoV1_”É\²=îOëÓ­X“’ROŠW’Ô­ëçá- áæe`ë•¦61Û&düÀYùÜAE
+L‡	ëV
+`ø!ı½«°×”jŠ~¼â¢–{|"—!Õc¼ˆi¯yéÈúšî$©‰í%_x¥8:d›T;?«i‡¢79Y'.eƒ¡—)^â;ÿ.¨¡sRs8L Ä*|VŠ§zj¤¤Å'}£–ëùµähìèŸùQbzG_‚Ø•$–—ï³¼(è)À&ğŸgJkÂíù©Ø>—zX£ÛÕ¤ÅFÍàe*|uˆş†Xªı)ĞÉ?5¿ÖV`}¯ä¼ÖÇ¢—®ö ,q_eP®–*İeâÉq“Ró!–‹_K÷ˆ‹ Ôu¸ä0J´ÙÄ‹S¢±$r7ŸÜìá5½Q\Ôpv€§d6?”IVàÔÛ’1„½Ì7'aü(•x‡ù;p®!-_áUÇgç@)!¶§Jœõ…õGOXÜ¡nròôQÀC¥Ğ`ƒ•:È¯_/'À£6i*úqÊŸÑ>léD8iÅ“âWsàcÀBe^|&}öƒJ/ô‚9VùC‹ÄÎÙûš»&-˜Û*kš£¢O-«DS‘å²N+ı&“´»L¸á¢Î„Bc˜­·%;ÜYÊ˜÷€Ò‚±ªjKÎ+“³2FÌÙYšäw“m¤9¦ Ş»<šP§üx±Vhs‰Hˆ‰O”vÚZ^µW°kô
+ -Ó‘z¢Ş1“`¬åÆõz„€kÚ$µwuyÓ¯W7‰wºg‹«j\İ®—ˆ6·(<ÈKs6›Œßú M366”MVà¡[Mgm)¦=Ôœà…âÕEòb«ş!¦Ea>ÑF[±½¨âˆBIÃ£‚¥%Š1ÖÀGDqs2ob×)]g1ô\[õ}µ
+›tÓù–MIM DiçŸÿ©ú[-9 2K•3[l:S,ï£nÎbÖ5OÒDM›nµhk g¬-ïÕ‰0ÄÎ¨%ÓÓ_§ßc"¼ÄF[·ÔO‘*›6ÂŸG/ˆH—±J_æ†M½¾n¸QÖ ,­ê+ñÌ¦|k­Ñ©åÓ•Ş8L¹ÿÁ®Ï}oÌá!6PúñŠ8$Êr{>·d¡.êš æ[¨m_6jMp#qŠgå4[¾.ØËİÉ0“†_x¬ ‰S¡îşõ/¬óŠSÀ'y^…9Ç{ƒÕ1ª7Ÿèt¸Oš¾3ùzy[Ô7MÔ{÷^RÚñ,@><!Yw1pÆóÚ³áÉxÇæ÷ş,†}R÷Õ¹6$»[”Ş¶7¡ÒSŞ¥åqÅƒ‡ğ®Šï#HLÿƒ{ø?2.F–A3ÉÑàœõ£Pk7V“Á°ÛÏE"ÑÌF7Q,ò6ÏÂÚğßÙ6B?Àßp-#DÑoŒÍâÓ›ã"Cm‡ D¥,òLU*>şübI06ÖOÍûÌ˜jÏLJİTøæxhŸmUÆº] ´¯;QôTÜÅÚ(_=9è§Ö‹¢ˆ¡èp¼†)“ãˆçm§ùÃş—£ÛM?PN¦zxIV"Š=o›vb¦<[rê¨ß—
+úìM¥!|©iœˆJ^iB<ôÂà?'P`}p»i$½º—¥ÆoIrü³¯Ì!3§‰e5Yé…=ª×—{,­:òXR6\\¢Œ]Ğù’UÖjl§'„‚ ,ì×0?I¾‚`aU·!!SNà’ôª,„ü¿ùß!‡*^G\F5¶©ˆPğ[¯ÏL•?ŠãZUbÉao EÇ{r¦Ô{m"‚Ã—&+¯.?v$™½¶­©µFÍ·:Õÿa«ÉÔ]âş#Èä{Y¨tTkDf’	’M¶‚Şûv+÷m÷ïê®¿WÖº4ÓÕL ­²mÉïM£Ztôø®—dEÜ7û†¡H…¨2Ï ëÉ·Z4¦ÿŸ>æÍ¼IZ6fı†=I˜!Fô·šºWÚ8~8ôä5t6(µøÑ*qL‚s8 ‘?TáªºôQ’ôr@÷_+(òº<¢ÎÀ^g~i§‚p‘¡œÊñivn¨‰ùÁÜÍ~uw6]¶vPX+|%:ÕØ‚ù‰°şéàÅ<O¼D,rÌàı±ûa{”ˆ$…¹ë˜4£.ã£VìÃ›Ÿ½ËoáZ;iN¿í°Ç]¾½#lùqgÜ9ÅÏÂ¢“ˆ”y¼+«”!_¥ş‹gœÕ›o«i+âÖÔlcv„à‚p ãë¿xgãÉĞŸöÃôŒF'®{OÏ»¯ûì`=`IT)#Sÿy]Şæmò•k‰ı»–p¬ô«(Ø~ùÃÔOÚWÛC,ÉÔĞ¸äF¥–t_8`%\âğÈÿW€!.®İUühX	–ñFò_R1ŞÄ_4HÁC€¯/¥*…êPJø}Ú6å>ŠZº” %èh4^ÛŞ‡n;´ŞÉfQ Çÿ¼f5É¦ƒjá\ØúÂ_g¸ßV}€e!†½x”n‘º•é‹Ì`@vI!ÛuÁİôtÈù0imjèšÔêö¡q€GËf²Á†œÕu—Dïu£òë>µRX^iÑUf‹œ“‡›â½“KYYìrdTŠ8%=!\9a³ÿB“•oÇM¡‹ØM0>v3º­ğS£ñóıdÙ,ñG%w²ÿ ¥*á¸²ßm¬®Oğ1™©¢‚„!j+±‘ö¹ÁÒ€åúùâYƒ›
+½Ùí,·ìŞû6í¦ÇóeòêŠ*ÜØZgèâ5Ğ™.õñ2ı)FİA•™­V{SA¥–ªûQˆøi1QÃÔ ·hÆàB7“éµ¦—•ŒŞèÖµ×Sÿ×)7÷b_°i— ÉÃj}“\çšÎW¨ÈÌJÔ5®Dşû÷ÓĞ 8è2¼5sÖ÷ÕS?ˆÁÃv·9y¤ôÓGûµ×¾ÌØ“oµx ºl‰Ô—(;ã=AÔ¤}³ô@	@bw\Tz¡\p+x²ÃÎ-F*^œª">ÕzÖÍ8ÜÛÍ­ÙÁgïcÆî1Z	õõja
+Ğ<†ĞşŒUe$O³Õ¶RA¹MP9˜ô¢¦Ã zùÖ´=QÇ=*bpMk)4Üy_UN“~Oøtm áCc5yÈ‘u¬o¨x@ŞÖ—óãGÜ3\&a'u7^š’9Ê@c+¬éFX†˜3èáÁÚ}‚®~©c¹>¡¡@TLz«XVßÏäJÿsùUäŠ.7ÿuÈ	•ŠÒËûĞÜÔ>Ì˜²ùÒ¨`éã~vÌ}¥upæ½VÊ ¼pW;¬ä{5[Ã!§¼œ<ôë=flŞÉ-¡p‰´%†ÊMüY9êY·Ñ[Àèq4L¹X¡ë‘h‡ËN…Ì8´¤¸E”ÿaWsH€10~¦Ï¤Ñ·´Ó/;Î›yÃ©ørÙ3bQi9Œu#aÄE„¼[°v°…Í"bm"£•:ª”jk}lCÀl
+H¢‚Î_w;'ï>Ÿé ›Ôç,!ó ÛÇS_Ò 
+„*„c“D³¤ÃJ°a"ïƒ¸ç*ß«Ge&ewMÙ%ÂOY‡J9ù_~î&qh¾dÛ¾şÃ†´ğ·å€½Yüyöê#ÙÕ¹A#Û&î+Ö-iù"¬Cp}=Ş8^dÊ=rã¢ÕØ-sÈ¼ÜRİÇí»b,×áYÓ™ŸÂ´·^„ÛÅ›.d>ë´ac^[¾ú6û@sŞ@1ÂÙû¼Lº}¨t›çáP®ğ_Ë¹˜³¿˜Â¸,ê9ò¢:E[(MÚSGä-?³%$³áölÀu¸1T›g|n@'íİa“÷©!Çöë#Z?àÎjõ+£¥ö„(ÔÄi#ÜÛ[©o¡RM|úú@ƒ>]ÛJŠÊ-^7bX^ş]$µJæ !N¬«µŞC‰
+t±óØ†hmüÇeWy&:b!7x*M›ëSMYÿ†GFV)È?Òeå »Ğ_ÊÇü­‡AGñÓSë;/©Öµ‰BGÚ%=¯)PšŠ DêZ$$´¥»Ãïè™¾V‰¹»ò õ¤CùÔ†(Y.ÁBTcM”ÒUZÏ¤e³46pId@îº‰IÈ2nsÖ±áŸ)dcÿ€,%{%;(¡…•á;4¥¼–ÈÌa‡C"ƒ3"Ç»õ…8	SÙÕFî›T¯šaU
+Ø³¸ìñŸûp!”y#oa¢—a¿÷¨–x®7¬Ã¿\‘¦€ßŸ4¯È]³–‹úçÊ=ÿíÒ¬ûg’®‘£ŒËbÌ+e4´¸–¿x4@õ¾Ì¹²¹|Jºu¯Äƒ‹qâE®Öºû?wcG[‡İxâMË0mÙE¨è5Ğö×Ö“ÛÖÕ&jƒú/+³_&*&:ïg€`Dm©÷ËüHYd“ĞxÎdı¦LŠ_õ¡èH[†âÀAMĞaíï2ş4zğ<Ååì]PÑ¹u­5y_â×çÈàöx€HDvMC2-şÛÇü¢¦à«’Çé`uíhÂ“ÛøqbÃ&7Ù¥L@…˜ÑQÅTÔÂõï¦»ïµ•O˜ÚÀ¼C|KP£#$*Mî
+rÛÓú;.dC0† eâÂÖ$‰R²ÈoŠ‰1:¯%¹U¾Á™Enµ`A_H#eAŠ‹¯š(wg§¦Ù¶_½@=K
+šRq¸ªi;	ÔcX£»U }Gxnº_R@Á²Ğğ)°ÛÂÂ6\¤DUš‹ÇE¼‡oXƒ v[İFvÿ°çÔÒ”'s¢äIõÛû¨E€”slÆ'Ì`øÄd/cÏ`ã(“
+ß`¾~n
+s/7¹‹é5KÖ^b@ä•J,	oeË|ÔÂÈÌ¸äXŒ(
+%2]…bwˆ[Oi®óô²˜ßâ¬Ú6¼årúD<Œ/CÛğæQìOù;§‹ü–ë<Q™Ù“‘ü¯;tÂ°ä*5©4¡k8¾[4ö¿Z;G—…Ş-ÃGF±yÈš‰a7pƒñÆnCıØÕ«ªÓå›ïs§ëà¡ÑŒ&)‘à~ÃÛÆL¬ÔtÀ¹Ë€!‚½ÿè£$<â`:ş?édéV‚şy0ÏœÑëÛê ¦f‚'ˆıºQøÑM˜{1{,ÎÔnßbMbàÆ°¤>Ñô2Ú©sU’R`Š¿ş‡/|«¶Ù¶á•ŸPjbfß»ğJœTr~È|ÏÜŠjIt_µxñİ")ÓàIÏd şIì¤&çA%¿ñı+&¯YÎ‡ùo-İœË„”.™,ãQÊméĞŸó2	‚ë%Î¨°(ÎjjVZÇíw`Ü4voYFé„8çtURªI95´¢¬<g7Àãc±*Xâ:üiÖzFDñ)‰ğÆ*0GÖ5õË/Æó?ûË|°zÂ*•õ7w‰`Ö¤'ÁòÈîåÊ¡†!ù²‚ëâ—±;c:ºhn»ì—›ÕÌà†\CQİ÷°«?/®tò7ú‚¥nb4ßß`Ä5cÑZ¯ÔÔ¤•rMHAâF³ŞA13HCÛ_*ÅÍ›.–Ém|wN”(Müßı'’WWõ·‡õnâÂ¦@ôËÀ±}˜í*·<iÆdëq :³‡QŞ…QÔçlL¤ùæEÄ‡Bç$ø]8¶µ„»Şİ<KÙµNç`J5÷¨jô+…Î’@ìA‘†ñCÈî|&¢kWæ; ?bYfÉà) g“pñ«Åªw›óŸŠÕİÁ„yU÷»
+Qœİì¸É"rOé×§¡/ãğêÎ<P‡ lRşš7tgÍ=4s\åägI¿C-U¸#ÎFD
+D±Ãk³M7·Ëô8Ù•tF\±Ş“ùıU7çôÖ<XÛ)ÖÙ?Àä®€²¶w½İ	Y<Ó¬s{ ê€
+ìjï$ùWƒ2æ>÷2 ˆWÎ¨¤¾9h©‡ùEÖ]r\Š+r€Î²ğı¼)ødÜ£>ˆòu¦ZåU{ğìdd/½†—²@4«1|Šœ*[<‘x/¶;RÃ?qZ Š·yÅºjÂ8Æ«g˜ÒL^‡è„·³f¿^_qPÁ£ŸE
+OöZT^å?#Cš¸šSÌ”z8n…O!	6u,‹ï—Ş)’H'?Ğğ’+6Ø13³Q:á&÷tÿzš®@Ê‘G˜êúu&æRÁ¹¼€.…¹MöµÄA¬3nûÛ…`ÂÉ5Ÿ-ĞqÇŞ‹%İ®¾\à#+7-8'Ğ¶ç}ş·QGpnT¬DÒ«Ù5rFa£©ß˜õÖ—Ck×¿>Ãx„B†¿IÓ30¼	±ZË‚»6VaJÿrW_c¼¬¹&cÕ3Ğl;TŒö¤S·=æù]k~˜]Ñ½XÌ¸t¸!ÚïM'ğ‰ÙûÆ§Ñ­AÛ÷Êµ~Òz*œh†Ê>Cl¸¡¾0ÓÇÿ§mB‘ÕÄÌZWÑ„ù^·™Ş,C9SÔ´GGÛµô ÿñRëì3ªÑnØ@Ga¡ñ—M¯ªŠµ±:²XW™†wúu<…€Ò ziÒ[jªtßD.ıÀbZœ.´©ø|¿á^'sÜA2ˆŠÕF6ß±‘`%òyƒ±3ä=;/`O7÷2kŞÊ ‹„¤ì+›ÒZì´¼§€U,Ó57{‹ä*ƒei¾ä¯úÅ	ù_± À«ˆ¼D½3s—­ª©Y¢Õ¿°b×u±C+s|4ó­ÌåŒŞ<ì©´+ÕfhBœ{òFŒ›u"¥—Åª±i@9Q`ñØ‡ ËÖ©øa),Ø1ÓÁ±¤OO	n<|ûôşãP¿‚eÍÖgew‹’õ€9£u!¶dÍ–¤ÑœéºK¨kı»Ï®&)¸¥YÏ@…ôMì?¡”u|°Ø#½ğhN2©éÃ¢Å@fƒ)vbu¢øßD—®i±·2ÇUT€h”¯@ã­rm
+dTjwb/×»/.>»öHÂ/9[½ĞÂÅ¶& °î[¹&BO´€ø`ªãíú0Üå›aŞMÁŠ#if,¨VŞ¼4?#×_Ã7š¥fÅH¼))¿lÀƒÄ»PRaÆpÅm¿Ç ÇŒ#šÿ›MàÛ¡¹X9òk”9’ß0­º†ğ”ì˜¾áR¼9»‘{TrÔ—R]Éá	CµÃ3=‹İ–»”€¨íç hÅ"õÉ‘^ÈÁ¸#]¶	BÎÖ¬]’¸‚ê…~’\á† :÷SÊ½mÓl Ì|±ÿ¥oOôæğæöİåã€ësçr^‰¹"`Ïèü,dY~®Ğw·?;J™újäT¶Ì€s»åMfëşûAñÈû]Çô£çnù·ªlæ Thg3\¼:ÍåQı­‚.å]ß;áé»Û‰A™™ÀQâĞŒA“ükÔ¨â¿œÃxLN0ï3¦ñ«|ÛÒ `ãt‡ÚçÁG^•ş:‡êY6èözâ’é‰£‹.MĞŒ?í ÔÓåÕ¦d–£œÙBü¤˜ù¨,·ÃQ3Ìö©*¾Ò‹±Gr0;¯ø•ü>j«ìS4vÄîUĞJØ¬–FLƒ«vVšğ«”¶°@O7E MÖ[õÃ­‹ôS`Œ2ßèÖùN#ùŞd İÇËâQ‹[sßÌ¤{™]ø¹Á–òÜtqÁ¤‰.²©´¡Êltòf`aF|Æ¬¸/L=ìßûÀ™´Vğ=7•"J’£‡å„,Ç2x|ÔûõÕ°şÆ£XN†™Q*ª¸æ,&Üô‚’ƒ@áfŸI]ªT°G™¢-“K„ZŸ@NC0bÃÇâxe;5”ù:pï9¿^pwaU£±|Euk¿ğqM jßULr@vÉï,zxkÛœñÍŞ¯R<)“/àÍ@‹3@Gƒ{b×ÓªÒËDÙ–·×A-7½²\@òwùŒáE\,Ú¬ñVT.î–A@ZC^õ&'®£âı>$ì¶Š£SÄæÔ¦²@5ËÒEï ‹«Pƒè>Ï:™\‘m°³º°RkŠó¿VòXó›b|Ø%¶aK8ç„À97ÏŠ­{´£su´äã2&ÑÊİ øù	$}’38µÌaìBá ·o!‡âƒ]=e˜²îª–›ê”ânï ”é…Èb~e/¢åjµ¬Ä¬À£¸ÖæVš‚ÚÆâb_Ø8g\PO÷J!_ŞF½…0I{%ï”sCÕƒÉHWzî6ß¬í³Tk,…Y(g%²|Âk†ÛÊÈ×ŸñøğÁŠq«B~Óšm ß	?»íE‡^ØIšÍ5ÓèäaÙÜl¥ÊÃÜ&öØqk*ä«²z–J÷ä²Ëq6Â£Û’t½v&—*½‘Gü@w0šÆ†Ïq£"ÅwÍjnFØğ5oZÑœ|¦çšcjGÂíwMÿ]t#-Cq¾>èRG-öXLÈì­ Ø ƒ­RÌ÷Y¥±	¯SR•/ò8·Chò˜®«f‚sÖ¼6Ü¦àK£Új–šæ÷‡ÚÉ©´š©ùi*œËÙ×ÉÂ@úÈüòÄ,¥)ß÷SX¤|º´$ƒï0º$Nˆh¤²2Ù>ğ)²Şf[¼^FäàŸ@.Z ¯Ğ%¸D(ç¥cè5¤¦æX.Ñ|­Åµ•õûf%¢ßrOœãËö(Üm›¡Æ[ö< ­œŞ·K¡üZ ôüĞZöbÇ:Ø“!k¨ôbt2o…ìšñå—›£Õ0Ùp†iÿ=İè~ú2§M¨•§ŸOèÍW`]2­Lã®ƒÕîÕ£,2üV4{™ĞA•.İgS÷ÔgIÕ³£ˆ˜ƒØtÏ5«™Hmkşş¶ğ?á\.ğxÛf¥€h3¤ÈcÁ(øj5=ÆÚ”ƒÄ;RÁ©Áµ¨Â	ñ)	NßÿŒ®Çºs¹“Á{zü^Ç6Ë7şĞÀ¶W™jdÒà­÷$z?ÖKÛÜ²lP§a\û²ñÉUCEåhİ]ä¨ˆä”|_ ê³cÌäş<?dœ™duÒ}«\âîlÜäúµì°Ğ àZöiç]ùüÑ
+ë! Û³N,uk“l—åb®Z ¤²úo¬N{ı‡46Â‹]bíãùKtfpO\Nhº¡û£Ö
+™äÑ§ıgáUqå7ºì5‘Şkíh7`
+E½§}XÄpq|¹ö³€¬(îñÄ¯ğû¹2QAİ%p
+äˆlâ[!ÀÌ" h\t²<Iªœ:×³©ü _lhùx€ŞÓú8p·÷="µx­B¢+ò¡V½6Ü[íx_kÕBÅÊŠZx:Ì©üµ@ıJ‘W•k{Ø3ÓÑû(7•ñ[4Pï4K ıŞ).±µEf‹¾-İ}¡~?3ùTÈ›ÜñÙ©¶ 98ğ†Í?9(ã<C1`~±#U‰İ
+vWE»}K_¿PÉåàiåó1p÷‚ß¹æ\†>Ì«Ú ¨2i/=íô‰¾#Iù\¶}ÊäÊÔÀî¬ÿ59ïÖ¤d¿×‚!ÜîsÇ]Ï(Ìê	tÕ¹®•ÙGÆÓ¹Kôß—®J¢¿Q¥÷IÓCºØMiMb (™
+˜ƒrÆH—Ş–‰¾ÅåÓšäÇ­{R×i¢kdFëÁo´AÕµD­<“?Qêjîe©pç“©æÙnÿ·§¯µ99ñ‰f˜|Zø›’p‹¤ÙD,'“…@÷5IæL†‰âËì3\Üš›E5‰•=
+ÙŠ]Ï3têyó%€ÇNÎ¾qÉñLÒëò'õœÅaA+VF‹2’9[×¨`êàk3í¢bç¤>Æµ.ÙŞ3÷wˆ Ox¦oıh‡.¥@µdX#ynáĞVâÚÆlP³Oè—’‡Yâû²$é#‚«šÒwUÄÑo’dpy+t0âc3%³¿‚…ù`ğÜ_DµÆ ı[iûJ®Í%Óé$/ÏVk7SøzL¦T›hÊéóÊSãI,Xv»³(à>ªÏ³Ò,1Êo
+LBÿİh¼Eï–^$›ÇÖúEwÊ¸û%JİhàœƒÏqb£º}¤.¯ÿ×:êö«Án¶${ªª,À
+yšjú=ù§¡Oä½‹€’îYkşÑŒ³8{Uèc°?©qœQÖıÇ™+i7çlfbñj’[œ	Dzá4˜Á1ƒÀÈEiPeõ«{ï¾öÃ´C1ôD¶^£ë–uY¹?j·A²«Îûƒ…oñùƒ˜L0B+¤æq½m@øÈşşŒë;vpÚ´".úb}ÓÜ-g×¶&$O­îèô(„zaÒıíÛ6‡Äµ-°ÿ¬a~ ·0iõÜ²”’Ÿ@ÆÏÆÂES”7I½ƒT{H!<š•¶Ô·×6æ1]£YZ¼NË!HÑêc}Æ‡{‡$±¨î]n•Cm‹ÆhsêıÎXo°·ÉkO‘ÑìU"å3AÙ†<Æõ²éò¢÷çz*:ÏÖHÆEŠ<†ñ¿fd ˜Ñ%MÓF­R
+ÆƒKó‚L=HéWôd[ÅÉÓàFN¼ş«ÇµSSäïCª3ñĞª"†3 ¸â‰v 1ghü¯«Q“¬¸}Ò!\üÍdÊŞÂy·°û)çõ ªSï…Ó¸¤|ë'>'Ì9ò%OïIš'š Úô:{^N1Ò§’Ä¼”)>?E™oÀ´³llÀÊwA ."Ë…jzÉÌçĞ‰,@—GK.B>n¾™°ú0×CåÛ:Cb”}‘Áœ`àfÃhâ×RH?›w]Ô²a ;dÈşÑ%_	œ3äY bsÍ@ŸË„iŒşM¾“<aeòdğrÁÌ™R&òğ¼ÍÜ•áãpq€~ÀX%A'„í¡„lE-]@bSÌuê|£0¸Š+à92èåĞ]kî”fPºÿ?×]£˜ºd5*Ñš—æûE‹ìâ-ÆPW8Ø0hfŸ¿Ï,Bå²ğæÑG•2Âo—?Şm·¬#°/EhßF¡ñm8ë€
+ ïûŠ§Î¦8ğÔu~í)h9uF¢¦gEO§
+¡-"(p:¬ç´=LÚDÒ1¢˜:h¾a$7Œ1gçh­«4bCeS¡=ıïŞD¿çv°ñd~y”%”ÛæfÂŒ9rrœ™İ?ÎwZmV½2yÇJ5ÃA¾	‰Ø=Vg~gD‡÷®ÃR”­¨LÎp»……M—€Œdhùb»÷øjnrøM–x'Ä@‰¶ïàŒºš¦«=G«uØß.ãr:ºt ¿p $ü&)W«Ô*Ö·5­¬åO~5c†>h!¦÷~
+÷'°zŠ"£ÆAšrPóÆ2äy_Î&sa¥Q1÷°Õ’.ÃÄşš#'q±ø.ZffÅ”æ7»…ÿİ.ìÛ ÏBãİs†+(üÆh•ì=Ì8¤¼ÚÚ×pdZÃ»>l’'*9ËÂ±73˜b»)Ö8í×g?ÈzzU5Ò¨«ó&Ñ¹ì7ø]Eä:c™ªÇ[ç.Î11ê²;úrOÍÀ¸¯b}8‰şÖÍcú«A;º…â@n¦Á×cõ•ïÜeñG¤Úï İjçG£ˆ$ş©­ÍŠ’xQ<ÿÃ¨ZàÊì”İU‰JÏ™«‡^}AâÀÔ•?Ôì‹dÒ‹9ã°HÉîäÀK ãnBñ/€Ñ™ôÜ,NE†%ocèò°ÛüšâûÛy¯Î|E1«ûHoİURĞúÂÒFiÕYiS‰s¢[‚”6-'¾Vssú cÿ!ë
+FW(>eµx”AÙ/-{ÎØé×Fnÿ´¼‹Åe×?tS;$Ò-²µã¡XÎn-lêrt}iÏÊÂ´¿UÕ“Uùhcö»oq’vœ1HNr,âœ(è/»ç·KjÏYCş0ë×î? ¥ÂO$`zAñ‚¢Á?/Ê–q*EZßc¼ßt6«7W02IÒ<AÙwíüıUÔ‡nğªÖ=qû›x›IO{ÂİÁ–“_ÅÓ¤YşÙ$Â‰ ñ-&ª/°¡ßxOÉ;ñ%cî«<Q ’·Â¥Wº«M?Ñ³¬°İ™ÕNéŸDŠÁ¨!rı?Û¤¤Àê]ùç{Õ„üÁ¬P­pL=«,?o†#šúUŸ:SLØQ½<1!xTaŠ‚;ÿ_>äµõ=ÔÂİ»u\&r{ò»)”Ëz¾‚˜š[³'Ô ê~9È Ws¥t¼*py;CõşRrÙ;!üÏm¬°˜µçsso¢+~»ÜU<Q÷XbTG“Vÿj­¡¬é>NãåS¬¬Bãˆâ¾>j
+›ğX„x¾ˆjÏØHŒüN‚Dq:Ï§*™ûÄN0g”¼jPç‘ğûî²>õ)“jL‡ëCıË½vmŒQac9 ÉŸZCÔF}hä©Â=_ºD•£:Ib„,"¹TÛóXé¬®M‡æ†‰/ûïgL“Töão’¤€MiS¤Óû’q5(ëeírâùÀD¥Ş{*«²UÄĞómä=©OÇÛ$Õ‚8—8e>®ÄE³YàÇÓé+Á|4°nN*2XÏ<°{($WSùP­F›{Õ6*ÎÏgw¯Cl|Êö ËÕÙ@nğC•C÷·*˜ˆå¼Á{¡Ã³òqd„¢îø_?T!HÍ ªÇÍŸßèÚÄóò¸Éeö…‚Ù¥‹¢/¿‰Îrü¶ÈôFWì³Gi?ıŸ“|ßÚ¾H`1<ĞïpÖÃ¤qH ”N@øPé—Ëı~×²ËeF„œĞ 5ÎfG¶§mŞ1<ˆÔEÄº4b­Ìı‘µECm²ÎGÔÜcfŸT9%•H¹b„™aä¬”ÙY«WÑ.ãdµVi_ØÄÈâã0ÒKè²x
+i”³B´ÃàMšêı”î§+d}ô±zªÆşF³|´8+Hˆåé/^ó’ˆÛ864@¶«¸Ïšé˜½JùÅ~Ñˆ²ÓVS‘;ßYi=ö¼B³ÌYè›
++lt½Œ®`œ@˜ŠD‡Nt˜CğI#=’ë4ïŒªºŒ~„ı‹¥£©C¼à…QÏ}má”ŒÚ@mvšfèB±ŞŞC}•Ñß¬4y‹¯ èãâúvôâ6!³ÜGğGÎğøÏ}Ğèd'IÖk)‹¤“jMjñ:škÜDğÅ®iã¢äÕ$mNîo°ıHél«†ÌhQí>¥„ô^lÓFv‰‡> Ìß…çIåP²SoS™~ô¢Şt€Î‘å¼£-G¼ÃĞZUwiÌHàRÒ*›9òïä¬NQÎEwäÒ˜T©<;EE)ÊhÚnÆ¾…Û§”Òê94*ˆÀ`‘7Éµ‘Ë¾¤¸ˆû¶~ïLXâ5–G´J[3ı*i¶ß2¨Ï c‘G\{k•ôÁ£Pù¯C¤Ì¼gøà[Z£Á†­‰•»?ÌÛÍ²13>ïúùvìO#hÙ+oÿp	pòZ1°nË[6±A˜’»àÅòñTŠYş|á …ĞA-MsüpÍ”ed¥ò?½0«˜_è÷
+Á¸®!½4/µ‡rAÓPÉñÆ¤üG÷Ä†xóTß`ÕêüõÙh7À‰÷Gªœ6FeFTLÜQÆñ–äìnû,i)ñ:mñè,ÕXşŞWhS­_Ï¥:ŒR1òÂ¸ã!8œèoÖº5†ã-c½ˆÑÃçxI©vë¾PÓhô´½’2û÷Oµò$¡ìDâ?ÜÓ¿ÜB»óª<™¶Ä<ëû™"OÔÍäÊDø}êåVÜU.÷î.·uçjíÄyÆ&²iI‡ĞkvÁÛ(î,9q>z,9»¹5dêœ`*"ZãéPîUMÂ[IÅËôßtM»ş"Ø"j×ºB'‹xqKçoz #	m³F`6ß¬¤é%ßÌ<ÛÔĞzùİHk"’ûáßòç ¼Îeİ(gG°\ĞwôôkMÒQ£c^ÅF?Nnn·ĞU€ äŒ±Ú•‡-Æ¸-j¬‘ZŸ—Ò ş8 ‚o>Ä%TL|bğá"˜Lv%+ì3šå±_ŠÚÁ+ÅÔ¡:|6¨ÿ(CPeğQRh¢¡tõ`îkó z=”Ù¥_.ËZ>MËØÌ`(ñ2°YÄš|•öí¸%hMà?Ü[(æµEŞ#ˆ*/{ŒÑ5obé®º""h¿ƒq¢z¨x¶§—·‹<',½3$“•Äöü‰EÏõ0±[&ˆ£‰<•™yUµE ²ÖÄæ@8<\Gœo…l–ƒÒ› Ë‰‹œê
+SNH«o*¿3—…ÖÆ1ÙDŠö»UB
+÷s¼pQüĞK\è£[l¹Æğ seÑiz7 çvOÏ¸åDW…N/S~:Õ”¿»ƒ8G$m)&RÏM
+Ş·»è¯”±b“œÊ@J"¢râÏÆCnTÚ“©è`·oFóª[yÃ^¦*Ú¤TØ••õÏĞ$Øµîìy´w³öQÏğ¥D§óŸòÓ{	0v"êš¹Ğß2@}!•*İ£%¬£‹“½Ih¡WÔzE#ôş0 Küe[_oÍğWĞ2S×éUÿ¯æ,{•ï®8Ìr~VŸa*6Ÿ GGäFŸDû&öÁ€.…˜÷Ö ½¬Ço,ú7÷¡c¦"çıÉæzàƒ·	n4ÈtíîuÄTy ÕtÓ×©0.»{"¡5ö ^ÖsU°CDoß‡EGPI~Ö-"‡Ä“G×š;«›ƒ
+™ªNæ@S–áÊ8ÇŞQBo/C^)äe3Ê&À°¸A›.L¯vJzôôà¢Ş­¼3Ï!f7T¯7¡°k³×DHŠ±ZÜlÉ,*?üç{Tİ’Æ®ò€ºMËNë…AXó<Iïr¼ I™Œ²8ÿqéï¢m)*%{%jÓÏ”Şºw„‘8ä‰Ü“?…Á.4ËÅ?ù¶òJ³ìyf|–æú„S™Šq•÷Rrhé² È„‘mÏk––Í£Cm›F$y¶Õ&<3nHrştevÎWšˆ#Uå–eîà¤Ğt¨”+¦¡¬<?d]Ã(N¼nñ`@{Ú˜Ğrû„ÅÄ—ˆÜ‹§¯(ºäî‘rfÁ€ñÛ ¡0û›t}çuıèÆÅ~u¯ûG»µ“Ûã–<Y±7•½b§[e™J³Y}oïË¾DÄ…ã69­ĞË_}wl-®Ê¯°'ø1¼À@Øz¬!œ,»usêØæËa¹±Äf@zcÔG*–Ë¬ cMîñ4RolèUµµ€á‰\¬•6äKr¬6âØƒ Î²îŒ,XKgk—Ü‡Ö3t«ú—POO.A·Ûµ”.DÁ,ƒÙ	ËÎˆ§å=B6eÊN­F)ó‹Cû™0Øá¶æe¤%¯ı{e¢‰i~G-Fie79ßH¸Ù£49ú“22ò·îÁ†Ó„›{Úìrd:< ½qÆ\Çï‚3ø2h¯]Ü‹å…sÕ)İw’ƒíh„¿w‘Û±˜ØÎ›2"%	•`7wÜ¡Çx£ù
+Å·:`Û3›kÜ¢HmÌaiQ°›R@®Ä‹©¢¸=ÒIüÏgÜµ²MÛT»V!Ì+:„XqpA*'Âû¸Üª3ú2#ÖªC–å}F_€|HÕa…xö!ı†İSøy×6Ù(ºıvF”éhÚIX"¼Æöyú0şè±É7x›Š
+ìøŞ¨=V+âœê(üÑô7å×S½(g¨„ğPÀó‚O×ÕšjèMìkÕ7ÂQ®b"ÁDìVq€¶÷šÉCÇæk>Õ…oÊI­§73÷ê**€,»4¢'®éöA"ØÖÔ‹WP;†–7~öš(õ ÇìÙÈ7ß ³
+>ßä·ªÒù£È©‚âlî¾ip‡´lÏWÄ£I,8B¼rÓh¸qÓ†î‚ˆš²•Ü´ÂÛs´Â»&GSĞ¹öW­´4|ÒÒ):dºöëzI/sŞ_S&(…%biŠ¹s0\wÓÅ×"¶‹t­³u›hÎè5½ÈuÉ)ÂîO<#::f}òDĞÚ³é¢å8kI8gN¶T İ0xGÑÓe»"»«{a«Ó©ß¡×9Ö±îj†y]ğçÄÛÁu¹~#ŠPZ|éõZj‰@dË|®]ŠªQvb%V–óWîn+yA*ãïaÄSf,Õ’&ßn3{}ãIp‹|KO ¤³Våj§ä_¸bôÊ,ŸqÁ~É­JU¯ñb!Ï]r§®OdeF?f'¯ğ^-%¥,åpšİÊA­¤q#¿ÕÉÈÈ48~÷ı†)8MˆÔµpça*CJ¼3¡û,¥%’e„bHXXTÄè­BÉ}”ó˜š[í°lxpÿÀ<Š~e¶7óÿ5Šıj²=¦ –ëèò+ÛıËµÇwˆYs¢œqÊ=ØÒ	4ã*³—"vfşH4°’xø'|·Û‡y†¿ÜV
+¸·rˆÉ‰úÓ¬!.R0µÙÌÁîg6bå4É´Ç±—a‰<DÖ“;¬ä³€9sÉØÂ–¹ö,Q,*âVª¥ª†0şúŒ¤ÚQÎ)•~t§Eæ“ê1z@•šh¥œßÒÙÛ]x®oÁ»şÎFf”;idÔğq7OĞ·~î[É”=#ùdd©ıSGøÆ0®uï»æFwŸµ3¾~Êœ¾ãH}Ïm¬y0eV¨eƒ}İ±š'¶Öuf^ĞJİÜîÖˆ1dWÒ@
+‹ mÚá„L˜Wdî±Á¯OwˆyéjÛ}Ùñ$HÿÂ!H	¹–"ö²ƒ•ß—)÷á+#©HµBsêOW ç‡ËÃµ°ïHf¦ÅNQÒB“Ğ|ÍFØ‡²ˆä´q¶ ]~Ş’9áĞ{ è¼íÊÑUéU½
+Ñœ4€6w¢¢c¢s]ªéìñ¶¡rØÙ×x»Š‘‘ÈqŠ/ú#j²[z®oµHÜö¬¬WH—¿‹m¯9–c`Sxä¼h“ªLĞ÷}|Œ›Ì¯(óg3´Ô¯³RI>‘"Eïà1X¯uÁ-D'äiÁ§±]2KÕ{F²r3©ƒâ»7õªú+5÷£••ë?ÛÔj4¬Æ&-Òûºr_ª‘OÚ\Î|M‚î*Ì´à3lˆ H¢“xí¬·QˆËæå‡şæhHßgÚ BŠñvh};öÑ%0ë‰æ";—¿„+œL•bV€ÇÌ¨n)aâêÙ7£ÃµÉgéÑ¶Á×/?"Úså ÓNØÉêr«_{BNsğXğ¦ä^Òj­³<ØÕ=JVt?ù².tÈ+š¦K¥x©f³¼åÊ6{t‰ÇÎHë<°dıV¶)ƒBCv†©Ì¸ÈH6ıáƒ€ÃÁeïõ±ÑÓíV¦%5x†À—k(Šgè“— ;SG/£Ù9*É—VD, D*N»9p_Ç¸¹ÓÆª£QüÍt5¢éÆø{³c>Cî
+oøgÄÏ0lÿÊ&ŸqÇc[à/ùi À~„¸2ÎP+í û;¼ê¯™£Òsì¯î{S—I+zÏ5?uÃm“®nUõl"°3İÒ¯»¥:”ŞYá!kĞ1®fÃ«¦îR´ö«4S½ÛH›w%Ó"¤«ä'p‹E>{CÖkqÿJ\Tu1zİC%#±¹'öfcî-å¾RLÙÍz$ÿ©SBP!gşÅA@cÕ·CşËèè€,ãíá¸æK-ñaÔ¶JŞ¢\Û¬uííÅxDr,@å?¢_ÕA[¢Ì|‚J),&Ûä=!Âtr`·^á:C «³?k9U¾¤×LÊj$ïè=Ç­ï3á;ªa'L¶ø4°ÇWë¢±÷é(	Œ=Ò×®yœHçq'²•éÀËOú.`T)Ó©~r®kæà¶¤ö>Tk(5]ª¼=¼]©çå°}šË),ƒ˜­õRœ>ÍVıÍèÓá’'ägµ•&ø>rßÇNÍÓ#:ÔóTÅÈµ×[=ğ¢ÖàwZ´“¿ At›™˜‰ôVÈ=ÕÍ—N:Sşº%Ø>NÖş9·ƒXH~Xûò±k•=àá-­íBHĞ†Ò+‡a7©ORUğÑxtÎm8?0¿¹ø¸óŒ}v“Ñ<ëú‹æK×]~®¼sdWìœgrà…Céå­iZsâUÕˆJ”ŒÛ•LwP.v®CÑœ]ëOşé)ˆH´Ñ«ñ@DŞ-®00›Ÿ wÂø¿J>Å(¯Áµ_/¦EF ±ä;§·´şP{ı.PôV¬ÉSù…úNCQXºo‹²lÒ<<õôdódYÎí¨§4|üÖ°w^~+Ü[j¨Ë‡Û,ÚË°z­C©v4Gã°uãiß¥d³2< áu§ÿM4RF°àï×°í„¯eRÊ=-gñZÿ#Fvë´š‚«%İØ}+IêÆxÛ#ÀM{*”~p`ŒEÿ "şmW×XäÒ”’B¶ğ{nU²ÍŠ1.Afl•ä{ıN`Rä¦>¯ÑŸ@Ìf½wÕb55xX$£«Ì¥Šå$ñø<'¿¬›ÿù²!³R è? šÃ}Å+:(Ä^µçI¡'<@ƒ·|Ğ#e„ë'µ/æíí„tBO|Yû-$©è9Åa¾‘z+æ©-'¨[«yµ@“‚nà_‡Ÿ¶ô„5³lªTbF¥yŞk<2 ÌÄéæÎDWñˆ/¹âŠzrÏ~ç¿8cÊì/ÿeÿ,rÂ^m•šóÒ]˜ZèÊ€¡7ûû)Í”ÁğÊ‘B<³¹ÍbyÖn¬?ª/¢]Êã%¬[›Vy"K#”DİJğûX«àšªüØ©¤OşMæ¬¹í²ÌTÓus='5‘Ò'FŞ­jîgÅŠä†C])øK:ğ¼e'Ñ9s€-=2È÷q%’O”µİp(N¤‰0bkâ‘¤Li‹M¡!3Í8]*n/fªu“h€dİ&JC7ò‹¾zVÚH„öÚ„¬'ƒWH€Á\¯!YßÓ%	àÿUçWD:ª=ƒæPLJfš}¢ãøúüDµd^Guá	]ş_¤ádå¯qş|¬½İz0 \ƒs‚¬5àcØ H”ªwËø,ÿ×îıf!ÉE‚CRTÉÌ¢ÌõV“QÎA‹8$‘ÿ•?]	ÕZ3,œH’€­ddë®ÄYïşáù2$€!ùàj Ü–4ë:A‚Ÿ
+{O©JüùN¤Ñé¦şÍhØe{F¤·x3y¤YöV÷AÁ¿n£íû¨tİj¢İ,¾>µz3ÌµêÛ‡ÿÚÔ7Ş,%²%6%<Çi°Ôé(GËıåb–^‘*&a-ntU5mT&]ÃÕW÷	®‘–‡üß4PÜ
+¤9â¥Qœ3v’ií?E<6|Ru] ØÃ(VvÛŞ{ÇHªzs™š—¿†½_ÓXÇï7úLŞ5İÁ³WZ%öÔs,~ÓÕ2µA(hÇo›ÊÙ«–Ñ¤ƒu	°ú/8ËV{6‡Úó[&3Ï”|tv˜yŸ‚eU¹$ñÈ›a’í(C<'‡GL6 åi5Œøm:õô”—Şo±Ö!e&kôÇ©ÉfAjªP‰Œ¤.º·&jÖnÉ` ¸wĞnûn!ê]œg Caî=à˜<3–Ö\TqO³Á–MŠFğ/%­İkÿM+¢ s%°ŞË¾zdt7>f¾ğõmûP‰°´_Lwë·¨_„Qvê…µ~YÖ’M•¤¤é~ßÀF›”RÜîm#Dº÷ 	ëá4¸czöèŠĞ1“ˆ¯77WæÇâ¬àVW<±\ã¥—MciüVít¼‚oÅk/rJ–îSÅƒÂ¶Sƒ­†KF_ŠRöÈ;†—¿·œĞrƒ]ùœÛ²‰@±ĞÄ‹¾z,Ğ›²ìëÅŞnÿ•:¼³H,*)D¸)¤?³ôšeési8™SÈ±"œpÏÀ”sÂáğt£ßè¢.ûÓFì?!İk$FVÛó¾:§³‰¦L òYRòGÂsoç°©¸IòÏ[Ó2©Dïñı	CÿSËf\Ïé¼S_jBGdóÿŞtsT­áÄ1L¬©U…¯k°öbñ4éô+é’(‚ƒ~İ03çKÒJµ<§`xUÑ“òlÜÆóR RD/ú¤;7ã²×ŸiËk:üï¶²´iFµğøµsâÃùä£Ò‚MæS(TFE[ïG5²†|Ÿ$;Ş&=•Ã.Í°¤l@"d¼‡ÜÑÉ÷ÏÄ´!_Èu‘OÁi~ğş‡®œ½t¢ÿl«4>$ªO¿E"ÉÊ—(&wo‚5hgqò!~rL?võuÌ
+[d³Ş[”Lt1”ìáGÇÖ<¯ÛËu£ò€¹ÙZZA‡gUG¢¥’Ôd[n,VÏÂ¦3@r3·ıİÔÚa£Éæ½ôå™’‰:İ^ÚÌ¶ºÆø•UÓTù»>V…?˜á¹Tğö'‰·‡µ?7zX`dğcó„ºˆDüè…ÓzffîdqXqFù§Ó(ß;
+8Û?wtyõpï-@…õÚ­|ü³jãRµs^µš•–²Õ cd±ÊnDCoİ¾,â*HàÏë–-Èoˆ*"yÂT™Ÿñğ6£uËCÛpŸ`Ÿ?jgv¤3ÄÆ‘ nÍäªmÁ,—Œ£»À	2®á£[,Í^-2¤[)),á2íƒûÖafÔ¥ùÀHÀ@/_KâAÕ‰yÔE¿©5ˆlajÖ¶Á…!uî¡†Å‚ª^á§EüŠ]œ¦ö˜Ã]>„Èz)i=N±[E¾.®}ÔP»0ë»fî‹ë><ÿ5LÀ‰4Â™˜ácË%¹¦6\ØôÒ(míŸ®ejê1¬]‹ÕÏeÀü"‹>-œ¡iŞQÍU•† Z¹\Ğ~İ“=t3B¹Ø!>uEa)’xt©Ò{q•ÒÕ¥o÷š!â¢økdÎ^˜n6ê;>púÈŸ
+¦k¥*ƒsŠéKp,à3»ƒÄÓàb)ù~Iƒí”Ï†CE†ÏWŸæoÿ¡nç‰ËMVs ÌÔ¹	Ø<9z$;àÈ{÷p(2/•aµAEyŸ5»=O6" §Æ¨y¾AšùPÊ/ˆ Ï[ü¿‹ Õã¹–ç9®r­c^:'õÍµH)4İÁÑL ¥¹‹e}7´Í¸ew®ÇU;\àşe†xH”­‰-¥W(î™o‚w¢¢ÜD~#·œ.Ñc°Š†?´ˆ¨ …¨0®`ÆP(­ÄIÄ´Ø.-*%õåKøfØ-0S§ó¦kSãLûÓOÍ‘”äôF¢ßÃ{`Ìô°”d ğò=†¬æ¡€tİ·6-h3ŠÍ­2aÊ0ä¥½ĞÚ‹Ü€Ò´èŞãÑÇR¦Àã§*ld5ãÙşB~BŸöÔ$‘E¦i‡‡=6Ø½èøw-«ÔòF0šÁ>J3Î0¢õüò+3Âèo%<lĞÛ:å1ñ"˜KáŒè-$¹s"€)xô‘{ËtÅ²½Âğ-3§Øáæn9Ä%ái»fûq3Šs.Å ĞPÛClX{t$Î$!8¡˜¯ÍIü‰²âøÕøô^¤JÆ¸¬» cYaÕ–şé×üôÑªlÍl§’­Õë2AT“V›Ì³1—„ì•ÖX7 ÷üĞ"R_[‡¢$8úF‚×%q°JQ¼*	XU¾úİô¨Hm/Ø{…±<“Z.¨6»¸D•7ë§ê¯yÇ‘­‡Ä;ûïñ•)Æ\šü/šÉ]»_îÇ×lpÛnî{¢¬í§öü¦@îå/™€VWÓ<KìÕâÏÁì67è+Ì$÷r2“’‹m¼Õ)s&¦P»évş~C™N¸V/Ïš°Dî%`i=Ö‰êNU¬)ŞĞ~jß³[v¡WZ&JF(ôLP¸íU7 ¦HßÔ¸³ZÉ'7CrÀ÷r,ß½¿†åG€L‘$¦;ßŸ¹ƒ‚Ş†,¢a	pÏÌú¾!sOI¥o&÷dI´8dE05ıT
+Aä§ÂŒgÔSc‹ôi` µÿq¢(Y0ÊQ4 o\Ÿxî,^ıÅlH^ãR	ëß¿’¤nç9Ôî¤ûä<ç!TÀ šeRCg{€7…Oéí#&Ì­›—ÀæÚc¹?úlÈ‰µ[¸õ}[x¥_…«Zr–øuù­YŒäfmÓs`AQ t@Î•Ø½IªÛĞVÿ"‰¼³´îµSÚ<c	9¥_™`ƒÎ’öë0Ì^‹”‡It×A?Nmİ2ÏÛäàPfèûÎôåVwÌ½/ª¦t+çïÿmw¶:©8ˆ¨ŞíÜ\œGWõNë€µ2ÜOZû”q¨[æ““EUS—àiRŸ‚¿¼˜MÓ®ÜWˆ­nzYø—?uu€ƒœE/Ø=g~eNgÛmD•™—Hİ/“˜¸îDØÁ¸ ]vğ æLÖØ\¦ààÆÅo>R}fò´òvÚ¶¾RÁ·ËZÈçl…BÚÉB$$²/›iòR­´õ	_°QÜ]&êÚ¿9å@¾Eïœ	ï
+íïy‚5õŸø+'‡…‘­>ë6UL6ˆùÑ,¸y¬i§ÀÚ_àâ±¶-²­·Nƒ†çê/µuò©oI>İ—Ò—  ˆİ.Åm†-ûÊï+'3a*Îj<Nìnì1¼ã÷t‚al±ÀhÎø%-BÊx÷Œª&#|¸ö´»°’ ş1YItÅØ—š|áş„§£LÑ¿““ì€P]ä(Ü\ByŞ–¤h®7:¡
+—İ!Rg¸œ­Tä~:(üVzb	vûÛÎÉà|Ã†e˜ªGƒK–)ß©°¤.#µD~Ó¥úeUSîãQaô·«=°ÏïÏ˜Qú«Ã†ÂÊàÚ–[w™7¯»#ÕÃ‹xò?Ps¤ÄÕtz‹9ŒLsŒûğøé–‚CKnA‚İx\%#dş ä®™ÛB²?æ_Îò¡tàı&–åOo*PÄXÆàlå)ÉÁşf	«l?õëAuø&‹gâf ş=N˜1ÆoO©Õ¶Õ›(Wk>4à1äkPe€Áo¨ Özíb;N€2bŞÓŒ·›¤Ms‘®»&šõ!È/súl‰Ußè	^m1Ck©±Ş<% öò¥k}n¾ÿø»í‡V¸~g(pCî”öx}UV‹bI	Q¶Íå7ÃCK\ºaÓ¸Ù²©ª‰+n©¹tËÇ¯0—ı.â'ñÔ&ª½3Ü3 ã1ó¥ñÅµ¹Ÿâóã[£ ©İ—Asv'äÉ;%[	ÊYB„%y×¡
+ Ş¨\V…¹Á<F¸7‚öœŠŠü,Ñôå5Äªt÷Ó‹ëğ+!($,+5&ntSQ1Ñˆïœ¨ 6t&¿¯õe`/Kâ@÷ŸmİE3%`lÆá¹[«;”í:­¥µısæÌ¶L­6dîô­™ck2,’Ší”|é¦ª¼£9—Ë?ÄØ9Óö8ÅÅ› óh~òRÁÚšoçh‹—EÂtÜxetîòæ‚ü½¹|ÙÑ¿* †ë–i5©HƒÅg…Óö§és‘û3Òù4zËoÛãÑ_ïm¸ç.eÖû2öµEPX«ó]g'ãµ!?WèGˆ¡T9rø¹**¢úÆÍ)ud²2O¾±€,1r¸q|¥'Yö½¯wWÑµ"zyoòÖôªÙÏUÍ£ŸRÌ¾ö?€˜u…¬…Â2A8üş—°”E[÷àñ^G(±ÑõnÒ2¿*Ê[0xIV†Zgğó¶o Ìâ ù“l9Úì–äH¼Şÿ‹iÎ£kdb¨
+íöwë®ÇóÀÆ£2S°Tx'~½20åŞGûşW¹ìxE…Œk º©¹×1ü4sa]Dû¤xvñ[á4çtÒf?†F€²g bÙ¡n%âY•ŞÕ²—6ÙBóX]â¡9>àG4Ü6bÑi+<ğ^Q[˜¯#©%“b °äcİ	«·¹5‡ÕĞ¾Mu"ÎœşĞfÔfâQ¢õzÁê©a#+—;=æåÚûõÜşèP]Y©YvJ®6øè°7ô›ß[Áºù¹:æŞ{òº©¼tv˜¾Å5W$×ÕDw7$7›¡A`îÌR¤mıç{ÚxjHrÑjõ˜í“}x}×“ K‡UÍfaİPƒ¸W¤-õÜİ˜™¸gõÇ]xÄ“‘ç‡«˜@™à;weËÒäŒOÂİ‰åÁÔÈ¢H^ëo¹ôĞÿ(£BU‘Š7»,|üœıÁÕ!¸éÌ=v6|gĞúİ³Ëï„s¶sËy˜)	Ü½ÒôŸOl,D‰^N›ïÚBœUIó¾êZNîvÿ¿ŒƒÁDV¨>p~ı¨óÓÑõ¥Å`€"¡¹;tj¾úTïµáOš¦çæe*Nr°>:sÉ$Pyø
+ñ…#Í¤ÉÂ…ı–ie-ÍÑ¾İôãÈ£sn(]É`Öi£ò£Õâvzñ„·òÿ*ÔÛ£™1n69ıöE	æƒ!.ëö’QÃò‡:óµhæ-¿"/IÊMß¹9ñ$\'"+u×w ‹pN°ªGƒëŸİa5›äîW¯Ê@îşv³ËÏµ?ÃPÖ¥:Cj¹Ó˜rAåòÄÖàûj™jPöãù5	%Hˆ	Ö{­\{±ì­?y¨şHäğµ²¸ZJ½]WÄæ°›´;r-½¤®A2”Á)µ4ÍCJEYşéØöûí•™uğn<R4!¾¯Îæ¡9à.y©ø´şqáÉ®2OÈ Q?§Wrª/ìh_ZM¦™N~çM%Á£¿'ÉªµuëbiªÛW–—TVNÑÒÓé¸¼æ”ÍhWO«´P&BåJ _Ÿ×²rç†Ï3kS+¿¹'ô¹S.tü\Â¡ı•xdé›ÒŠUg…òÍ£65í.n1Cumø¶t¹¦ƒ:»V…úñÂ•I•Ly#KŒWŒÃñt1şÓóZôs7û¸ùŞ²ßF‘2‚°(øS9tå˜1‰ìmXô,’”_6|cIM¶­AlûÑ²(õùR['¹ÌóS­âY&hFQË"=N—Ù‰µ(ëôõnE¸ßÛğË“–Ò{Ä•K+|$=…r†øçæú5{M‹æ|Ì:C[@´ÑÃ”áLühtJt÷Ã²KF©P¦ZZw.?.”Ï£¿tì»{·ÑÁ>k­mAª*y²¾ë-Æ9ÇçÌ),û7'ã‰à[ôŸµe¬_`ì¬´VawO3zÖOm'ººÓSm@ ¢';'êL)“D•˜P/ÕE2,n k./“³~:xéëï‹#×µ…ñ×Ôxó¹~Aõ‡@YÁ€ôšR)+âÿ‘×â0ù‰Hüm1:c]õ|°iËméÑñ˜0+õÄ–,Dhå«Ë¡Ÿ3‹ĞÖÚPà2	|b©2¸V"…Ã,&b£…Ûd«È+1K¯¸ËVöÒ\hwì\vÀÒ/Bª_=‡	j½R€P0À*;ho°T[ß+{«[Ë¸yˆ:.ğÙisw•3:é‘Ysr0ÇÔ'B‰gLwšù%•üÚœ–ñŞ*î?lñ,wCfÛ%Î ÷Í¯à¦Ôë©Ïµx¬±¾±@t{;ò¸×®ñ+]3"Ô¦¦.ªíÒõç@Ş6^Ì°ó„ŸAQ;·¡)L/**
+ * Copyright (c) 2006-2012, JGraph Ltd
+ */
+// Workaround for allowing target="_blank" in HTML sanitizer
+// see https://code.google.com/p/google-caja/issues/detail?can=2&q=&colspec=ID%20Type%20Status%20Priority%20Owner%20Summary&groupby=&sort=&id=1296
+if (typeof html4 !== 'undefined')
+{
+	html4.ATTRIBS["a::target"] = 0;
+	html4.ATTRIBS["source::src"] = 0;
+	html4.ATTRIBS["video::src"] = 0;
+	// Would be nice for tooltips but probably a security risk...
+	//html4.ATTRIBS["video::autoplay"] = 0;
+	//html4.ATTRIBS["video::autobuffer"] = 0;
+}
+
+// Workaround for handling named HTML entities in mxUtils.parseXml
+// LATER: How to configure DOMParser to just ignore all entities?
+(function()
+{
+	var entities = [
+		['nbsp', '160'],
+		['shy', '173']
+    ];
+
+	var parseXml = mxUtils.parseXml;
+	
+	mxUtils.parseXml = function(text)
+	{
+		for (var i = 0; i < entities.length; i++)
+	    {
+	        text = text.replace(new RegExp(
+	        	'&' + entities[i][0] + ';', 'g'),
+		        '&#' + entities[i][1] + ';');
+	    }
+
+		return parseXml(text);
+	};
+})();
+
+// Shim for missing toISOString in older versions of IE
+// See https://stackoverflow.com/questions/12907862
+if (!Date.prototype.toISOString)
+{         
+    (function()
+    {         
+        function pad(number)
+        {
+            var r = String(number);
+            
+            if (r.length === 1) 
+            {
+                r = '0' + r;
+            }
+            
+            return r;
+        };
+        
+        Date.prototype.toISOString = function()
+        {
+            return this.getUTCFullYear()
+                + '-' + pad( this.getUTCMonth() + 1 )
+                + '-' + pad( this.getUTCDate() )
+                + 'T' + pad( this.getUTCHours() )
+                + ':' + pad( this.getUTCMinutes() )
+                + ':' + pad( this.getUTCSeconds() )
+                + '.' + String( (this.getUTCMilliseconds()/1000).toFixed(3) ).slice( 2, 5 )
+                + 'Z';
+        };       
+    }());
+}
+
+// Shim for Date.now()
+if (!Date.now)
+{
+	Date.now = function()
+	{
+		return new Date().getTime();
+	};
+}
+
+// Changes default colors
+/**
+ * Measurements Units
+ */
+mxConstants.POINTS = 1;
+mxConstants.MILLIMETERS = 2;
+mxConstants.INCHES = 3;
+/**
+ * This ratio is with page scale 1
+ */
+mxConstants.PIXELS_PER_MM = 3.937;
+mxConstants.PIXELS_PER_INCH = 100;
+
+mxConstants.SHADOW_OPACITY = 0.25;
+mxConstants.SHADOWCOLOR = '#000000';
+mxConstants.VML_SHADOWCOLOR = '#d0d0d0';
+mxGraph.prototype.pageBreakColor = '#c0c0c0';
+mxGraph.prototype.pageScale = 1;
+
+// Letter page format is default in US, Canada and Mexico
+(function()
+{
+	try
+	{
+		if (navigator != null && navigator.language != null)
+		{
+			var lang = navigator.language.toLowerCase();
+			mxGraph.prototype.pageFormat = (lang === 'en-us' || lang === 'en-ca' || lang === 'es-mx') ?
+				mxConstants.PAGE_FORMAT_LETTER_PORTRAIT : mxConstants.PAGE_FORMAT_A4_PORTRAIT;
+		}
+	}
+	catch (e)
+	{
+		// ignore
+	}
+})();
+
+// Matches label positions of mxGraph 1.x
+mxText.prototype.baseSpacingTop = 5;
+mxText.prototype.baseSpacingBottom = 1;
+
+// Keeps edges between relative child cells inside parent
+mxGraphModel.prototype.ignoreRelativeEdgeParent = false;
+
+// Defines grid properties
+mxGraphView.prototype.gridImage = (mxClient.IS_SVG) ? 'data:image/gif;base64,R0lGODlhCgAKAJEAAAAAAP///8zMzP///yH5BAEAAAMALAAAAAAKAAoAAAIJ1I6py+0Po2wFADs=' :
+	IMAGE_PATH + '/grid.gif';
+mxGraphView.prototype.gridSteps = 4;
+mxGraphView.prototype.minGridSize = 4;
+
+// UrlParams is null in embed mode
+mxGraphView.prototype.defaultGridColor = '#d0d0d0';
+mxGraphView.prototype.gridColor = mxGraphView.prototype.defaultGridColor;
+
+//Units
+mxGraphView.prototype.unit = mxConstants.POINTS;
+
+mxGraphView.prototype.setUnit = function(unit) 
+{
+	if (this.unit != unit)
+	{
+	    this.unit = unit;
+	    
+	    this.fireEvent(new mxEventObject('unitChanged', 'unit', unit));
+	}
+};
+
+// Alternative text for unsupported foreignObjects
+mxSvgCanvas2D.prototype.foAltText = '[Not supported by viewer]';
+
+// Hook for custom constraints
+mxShape.prototype.getConstraints = function(style, w, h)
+{
+	return null;
+};
+
+/**
+ * Constructs a new graph instance. Note that the constructor does not take a
+ * container because the graph instance is needed for creating the UI, which
+ * in turn will create the container for the graph. Hence, the container is
+ * assigned later in EditorUi.
+ */
+/**
+ * Defines graph class.
+ */
+Graph = function(container, model, renderHint, stylesheet, themes, standalone)
+{
+	mxGraph.call(this, container, model, renderHint, stylesheet);
+	
+	this.themes = themes || this.defaultThemes;
+	this.currentEdgeStyle = mxUtils.clone(this.defaultEdgeStyle);
+	this.currentVertexStyle = mxUtils.clone(this.defaultVertexStyle);
+	this.standalone = (standalone != null) ? standalone : false;
+
+	// Sets the base domain URL and domain path URL for relative links.
+	var b = this.baseUrl;
+	var p = b.indexOf('//');
+	this.domainUrl = '';
+	this.domainPathUrl = '';
+	
+	if (p > 0)
+	{
+		var d = b.indexOf('/', p + 2);
+
+		if (d > 0)
+		{
+			this.domainUrl = b.substring(0, d);
+		}
+		
+		d = b.lastIndexOf('/');
+		
+		if (d > 0)
+		{
+			this.domainPathUrl = b.substring(0, d + 1);
+		}
+	}
+	
+    // Adds support for HTML labels via style. Note: Currently, only the Java
+    // backend supports HTML labels but CSS support is limited to the following:
+    // http://docs.oracle.com/javase/6/docs/api/index.html?javax/swing/text/html/CSS.html
+	// TODO: Wrap should not affect isHtmlLabel output (should be handled later)
+	this.isHtmlLabel = function(cell)
+	{
+		var style = this.getCurrentCellStyle(cell);
+		
+		return (style != null) ? (style['html'] == '1' || style[mxConstants.STYLE_WHITE_SPACE] == 'wrap') : false;
+	};
+	
+	// Implements a listener for hover and click handling on edges
+	if (this.edgeMode)
+	{
+		var start = {
+			point: null,
+			event: null,
+			state: null,
+			handle: null,
+			selected: false
+		};
+		
+		// Uses this event to process mouseDown to check the selection state before it is changed
+		this.addListener(mxEvent.FIRE_MOUSE_EVENT, mxUtils.bind(this, function(sender, evt)
+		{
+			if (evt.getProperty('eventName') == 'mouseDown' && this.isEnabled())
+			{
+				var me = evt.getProperty('event');
+				
+				if (!mxEvent.isControlDown(me.getEvent()) && !mxEvent.isShiftDown(me.getEvent()))
+		    	{
+			    	var state = me.getState();
+		
+			    	if (state != null)
+			    	{
+			    		// Checks if state was removed in call to stopEditing above
+			    		if (this.model.isEdge(state.cell))
+			    		{
+			    			start.point = new mxPoint(me.getGraphX(), me.getGraphY());
+			    			start.selected = this.isCellSelected(state.cell);
+			    			start.state = state;
+			    			start.event = me;
+			    			
+	    					if (state.text != null && state.text.boundingBox != null &&
+	    						mxUtils.contains(state.text.boundingBox, me.getGraphX(), me.getGraphY()))
+	    					{
+	    						start.handle = mxEvent.LABEL_HANDLE;
+	    					}
+	    					else
+	    					{
+				    			var handler = this.selectionCellsHandler.getHandler(state.cell);
+	
+				    			if (handler != null && handler.bends != null && handler.bends.length > 0)
+				    			{
+				    				start.handle = handler.getHandleForEvent(me);
+				    			}
+	    					}
+			    		}
+			    	}
+		    	}
+			}
+		}));
+		
+		var mouseDown = null;
+		
+		this.addMouseListener(
+		{
+			mouseDown: function(sender, me) {},
+		    mouseMove: mxUtils.bind(this, function(sender, me)
+		    {
+		    	// Checks if any other handler is active
+		    	var handlerMap = this.selectionCellsHandler.handlers.map;
+		    	
+		    	for (var key in handlerMap)
+		    	{
+		    		if (handlerMap[key].index != null)
+		    		{
+		    			return;
+		    		}
+		    	}
+		    	
+		    	if (this.isEnabled() && !this.panningHandler.isActive() && !mxEvent.isControlDown(me.getEvent()) &&
+		    		!mxEvent.isShiftDown(me.getEvent()) && !mxEvent.isAltDown(me.getEvent()))
+		    	{
+		    		var tol = this.tolerance;
+	
+			    	if (start.point != null && start.state != null && start.event != null)
+			    	{
+			    		var state = start.state;
+			    		
+			    		if (Math.abs(start.point.x - me.getGraphX()) > tol ||
+			    			Math.abs(start.point.y - me.getGraphY()) > tol)
+			    		{
+			    			// Lazy selection for edges inside groups
+			    			if (!this.isCellSelected(state.cell))
+			    			{
+			    				this.setSelectionCell(state.cell);
+			    			}
+			    			
+			    			var handler = this.selectionCellsHandler.getHandler(state.cell);
+			    			
+			    			if (handler != null && handler.bends != null && handler.bends.length > 0)
+			    			{
+			    				var handle = handler.getHandleForEvent(start.event);
+			    				var edgeStyle = this.view.getEdgeStyle(state);
+			    				var entity = edgeStyle == mxEdgeStyle.EntityRelation;
+			    				
+			    				// Handles special case where label was clicked on unselected edge in which
+			    				// case the label will be moved regardless of the handle that is returned
+			    				if (!start.selected && start.handle == mxEvent.LABEL_HANDLE)
+			    				{
+			    					handle = start.handle;
+			    				}
+			    				
+	    						if (!entity || handle == 0 || handle == handler.bends.length - 1 || handle == mxEvent.LABEL_HANDLE)
+	    						{
+				    				// Source or target handle or connected for direct handle access or orthogonal line
+				    				// with just two points where the central handle is moved regardless of mouse position
+				    				if (handle == mxEvent.LABEL_HANDLE || handle == 0 || state.visibleSourceState != null ||
+				    					handle == handler.bends.length - 1 || state.visibleTargetState != null)
+				    				{
+				    					if (!entity && handle != mxEvent.LABEL_HANDLE)
+				    					{
+					    					var pts = state.absolutePoints;
+				    						
+					    					// Default case where handles are at corner points handles
+					    					// drag of corner as drag of existing point
+					    					if (pts != null && ((edgeStyle == null && handle == null) ||
+					    						edgeStyle == mxEdgeStyle.OrthConnector))
+					    					{
+					    						// Does not use handles if they were not initially visible
+					    						handle = start.handle;
+
+					    						if (handle == null)
+					    						{
+							    					var box = new mxRectangle(start.point.x, start.point.y);
+							    					box.grow(mxEdgeHandler.prototype.handleImage.width / 2);
+							    					
+					    							if (mxUtils.contains(box, pts[0].x, pts[0].y))
+					    							{
+						    							// Moves source terminal handle
+					    								handle = 0;
+					    							}
+					    							else if (mxUtils.contains(box, pts[pts.length - 1].x, pts[pts.length - 1].y))
+					    							{
+					    								// Moves target terminal handle
+					    								handle = handler.bends.length - 1;
+					    							}
+					    							else
+					    							{
+							    						// Checks if edge has no bends
+							    						var nobends = edgeStyle != null && (pts.length == 2 || (pts.length == 3 &&
+						    								((Math.round(pts[0].x - pts[1].x) == 0 && Math.round(pts[1].x - pts[2].x) == 0) ||
+						    								(Math.round(pts[0].y - pts[1].y) == 0 && Math.round(pts[1].y - pts[2].y) == 0))));
+							    						
+						    							if (nobends)
+								    					{
+									    					// Moves central handle for straight orthogonal edges
+								    						handle = 2;
+								    					}
+								    					else
+									    				{
+										    				// Finds and moves vertical or horizontal segment
+									    					handle = mxUtils.findNearestSegment(state, start.point.x, start.point.y);
+									    					
+									    					// Converts segment to virtual handle index
+									    					if (edgeStyle == null)
+									    					{
+									    						handle = mxEvent.VIRTUAL_HANDLE - handle;
+									    					}
+									    					// Maps segment to handle
+									    					else
+									    					{
+									    						handle += 1;
+									    					}
+									    				}
+					    							}
+					    						}
+					    					}
+							    			
+						    				// Creates a new waypoint and starts moving it
+						    				if (handle == null)
+						    				{
+						    					handle = mxEvent.VIRTUAL_HANDLE;
+						    				}
+				    					}
+					    				
+				    					handler.start(me.getGraphX(), me.getGraphX(), handle);
+				    					start.state = null;
+				    					start.event = null;
+				    					start.point = null;
+				    					start.handle = null;
+				    					start.selected = false;
+				    					me.consume();
+	
+				    					// Removes preview rectangle in graph handler
+				    					this.graphHandler.reset();
+				    				}
+	    						}
+	    						else if (entity && (state.visibleSourceState != null || state.visibleTargetState != null))
+	    						{
+	    							// Disables moves on entity to make it consistent
+			    					this.graphHandler.reset();
+	    							me.consume();
+	    						}
+			    			}
+			    		}
+			    	}
+			    	else
+			    	{
+			    		// Updates cursor for unselected edges under the mouse
+				    	var state = me.getState();
+				    	
+				    	if (state != null)
+				    	{
+				    		// Checks if state was removed in call to stopEditing above
+				    		if (this.model.isEdge(state.cell))
+				    		{
+				    			var cursor = null;
+			    				var pts = state.absolutePoints;
+			    				
+			    				if (pts != null)
+			    				{
+			    					var box = new mxRectangle(me.getGraphX(), me.getGraphY());
+			    					box.grow(mxEdgeHandler.prototype.handleImage.width / 2);
+			    					
+			    					if (state.text != null && state.text.boundingBox != null &&
+			    						mxUtils.contains(state.text.boundingBox, me.getGraphX(), me.getGraphY()))
+			    					{
+			    						cursor = 'move';
+			    					}
+			    					else if (mxUtils.contains(box, pts[0].x, pts[0].y) ||
+			    						mxUtils.contains(box, pts[pts.length - 1].x, pts[pts.length - 1].y))
+			    					{
+			    						cursor = 'pointer';
+			    					}
+			    					else if (state.visibleSourceState != null || state.visibleTargetState != null)
+			    					{
+		    							// Moving is not allowed for entity relation but still indicate hover state
+			    						var tmp = this.view.getEdgeStyle(state);
+			    						cursor = 'crosshair';
+			    						
+			    						if (tmp != mxEdgeStyle.EntityRelation && this.isOrthogonal(state))
+						    			{
+						    				var idx = mxUtils.findNearestSegment(state, me.getGraphX(), me.getGraphY());
+						    				
+						    				if (idx < pts.length - 1 && idx >= 0)
+						    				{
+					    						cursor = (Math.round(pts[idx].x - pts[idx + 1].x) == 0) ?
+					    							'col-resize' : 'row-resize';
+						    				}
+						    			}
+			    					}
+			    				}
+			    				
+			    				if (cursor != null)
+			    				{
+			    					state.setCursor(cursor);
+			    				}
+				    		}
+				    	}
+			    	}
+		    	}
+		    }),
+		    mouseUp: mxUtils.bind(this, function(sender, me)
+		    {
+				start.state = null;
+				start.event = null;
+				start.point = null;
+				start.handle = null;
+		    })
+		});
+	}
+	
+	// HTML entities are displayed as plain text in wrapped plain text labels
+	this.cellRenderer.getLabelValue = function(state)
+	{
+		var result = mxCellRenderer.prototype.getLabelValue.apply(this, arguments);
+		
+		if (state.view.graph.isHtmlLabel(state.cell))
+		{
+			if (state.style['html'] != 1)
+			{
+				result = mxUtils.htmlEntities(result, false);
+			}
+			else
+			{
+				result = state.view.graph.sanitizeHtml(result);
+			}
+		}
+		
+		return result;
+	};
+
+	// All code below not available and not needed in embed mode
+	if (typeof mxVertexHandler !== 'undefined')
+	{
+		this.setConnectable(true);
+		this.setDropEnabled(true);
+		this.setPanning(true);
+		this.setTooltips(true);
+		this.setAllowLoops(true);
+		this.allowAutoPanning = true;
+		this.resetEdgesOnConnect = false;
+		this.constrainChildren = false;
+		this.constrainRelativeChildren = true;
+		
+		// Do not scroll after moving cells
+		this.graphHandler.scrollOnMove = false;
+		this.graphHandler.scaleGrid = true;
+
+		// Disables cloning of connection sources by default
+		this.connectionHandler.setCreateTarget(false);
+		this.connectionHandler.insertBeforeSource = true;
+		
+		// Disables built-in connection starts
+		this.connectionHandler.isValidSource = function(cell, me)
+		{
+			return false;
+		};
+
+		// Sets the style to be used when an elbow edge is double clicked
+		this.alternateEdgeStyle = 'vertical';
+
+		if (stylesheet == null)
+		{
+			this.loadStylesheet();
+		}
+
+		// Adds page centers to the guides for moving cells
+		var graphHandlerGetGuideStates = this‰PNG
+
+   IHDR  <   Z   ª½}¢  $ñIDATxÚí@çûÇ/’°AE@¶ìá@AE¬ÚáªZ­õ×e­­¶Ö¶â¨uï‰-ÖªU[k«µµÚád¨ˆ¸©ì€"* #!Éÿ¹„Kr—\€
+Ôû¶†÷Ş{ï½÷Ş{?ïó¼ï]Ş0ÜFÏF´iÂ@3­ihÑ¢õ|Ä h³£îêbĞ¢E‹ªhhiÑêab,^¼844´«‹A‹-ª¢¡¥E«‡‰†–­&ZZ´z˜(A+“É %ƒ3rŸ"2ÄË­7‚0åñ-;hÑ¢õ|¤Úf‰ŒÍB±|ô¸zßÉBØˆÅD¸LÁgo;ÙX™âĞ¢Eë9ˆ’¥­6œ,ù'9—V5;À ıévİd_³7† 3ÇÙò»ú*hÑz¤Z©¤9òÆƒãQ‚ğ)›-­AXïºğÚ£Ùõ½R‘˜9ÉõîşøQvl6§«¯…­BZ ½øàj*çÇÅ¥7n¾˜õn‹É8’#ôÒ“f×ˆÌeMƒì^(jG–IøÆD$Lvhµ"Aò-y·¾è‹Ëÿ6ĞåÔL•HZ´^HiöĞÉ¬ÓqM/0*­F"Še"öGŞ(´S…úÍãí{FLª`²{á»^ÄY o³3½‘tÏ_("G--Z´Z¥Úcgrgÿ^ofÄœîiêlm\Æ°8L"iûÛÈŠÏeV?®’üôÁœé®„9 Ì"¿ü‚Ì†Oj ÒĞÒ¢¥IZ ıùŸ¼¥çD}™9}osƒ¶†óFñôXŒƒ×„)ê’+ë=Xë$!“ôçÎp#Ê cöÖHË_9‰(–È|äğao¹ÓŒú¾‹o£;æ£ÛrhÃfšˆÆØƒáK“L‹V‹´C»ìœ¨#KÊõ³0ğég8wÃb¾&¼×
+m™@²ûuhó¬æã¨E¹é-4ªVÑ½‡1XÛFÃ4´´hµˆ‚{ü[}_SæOS‡¾ü„G„­‡sëÏfV?©–şô6±{Œ'¥3s|:
+G .¶Ux>aZZ´Z¤Úƒ'3Ï&ˆ_ò5*®”E” EQÑ)‚)C8Ÿ¾ë©v´Üf*ÅÌW5›4´´hé(-ĞŞI~pé.goLq5ƒãnÂÍib½ï¢xä#É®õBÄGÙ½ìKôÈG4 ø„î1--Z¤Ò­DÒ|ùæƒQ‚°bÂ’-/Wüœ-4gÀNÖD{Æ{cÆÙ2Yl•cÕ9k¥QŞÓfÛ&¢hhiÑ"¥×…Â†¿.?ø;Nv&µúƒ >›Éø)¶nª¯ÙtÆ›¯Ùğy]}´h½@Ò­D*ŸÖìÿ£°¶ÑÉdğYµŸşÏÉº¯)>-Z´ƒtşj^v^9lx¸ô’5¡¿šG‹Öóı%xZ´z˜hhiÑêa¢¡¥E«‡‰†–­&ZZ´z˜hhiÑêa¢¡¥E«‡‰†–­&ZZ´z˜hhiÑêa¢¡¥E«‡‰†–­&ZZ´z˜4@«´XÌğĞ¼Û¯_.2q{1ú•ôÍh #§VÊ¾êbæ­§@ö´´çP*(lŸyC¶<§#yêvaŠÚ£t²V,v}­5©œ›Î×Ş)wY×Sh8és(OÏfhÿÕêÓœ‰N·SãI”[1nëßV;
+ÜáŠÅ_a>ôwÁHk[ ÇtÉš†¶›ê¿-Úp³Ö¶´âçËl—@‹C‚!ÈÌ´,·ÛèëÎ,mw•NĞ*bp»äİy,ºw>õŸë!É¿-·á¡¡>Á§pçZ›åÒêrêvµmÌ’–iÃZ9MÖôuáYpÅ'ˆTÒîjUÀ‰ Ş°R\¼òM„jFëµÍ'¸EïœŠÒ­j(—]Î+çÇ1Õ1më’k*Ğâª8|Áˆœå:z_Šüw¥emrœgGt.]¤hÅDíL­ün!Š¶=bs2³­ùëŞ2ğgiı²ü=¸yÂHù!yí÷	Z/³å~äµşQë°äõ¯Zñd·@­¨y:£¢Ô‡ÿH+†êM+O©äXªüMyôPuÌÒ"m0*İŒ‚ZşJ÷\c¡“Z²}ıB[îäå_ƒ¥BÛú3OmV9P'áÏ¢pÑ[¡r!Šœ T0¤}6Ëë3XØÕC>h½ÂúÄWı•¿*Š¼4-„°%<ç1OwPÇ¡m»:êyA‹å»kXšš#®k³>€¾ZaˆÛ1Ííc¶#ĞâU]GŠË=£Ì¢CÛSªV¡Ğ)¥Z•[CXòü4ÁªiQG%­ƒ
+Âü;ß=FZ[?nğ£©ühc<…(ü½,Ÿ4Ü~ÂêÂ»—X#‹TºÆvyæ*—‹¹ 
+ö5BÛ?œ‚{ÜÂHgT”æ6¦rkˆv½ˆÌvæDT;ÜcåçÀ]kœÚDn§Î¦?hT»4õòãwhÈDx\×A‰Óâ×o×ñÄ*¥VşQoÍĞ"D·@Cù;XQ'¢Ücù¯.Æ¶³‚z¸è7¢hõ8½èÏ~hhiõ8ÑĞÒĞÒêa¢¡¥¡¥E«G	…vÓ¦MÍÿ÷±,3»«ÓZ&7öÑC]]
+Z´º©Ph7lØ 6a2 «ËÓ"VZBW­n*Ú­Ûw‹\=`ƒ›ßÕåAD~şhIr³ºº ´huS)CÛPé>%¡E«{
+…vË¶İn(*ú9]J÷)I7ÔŞo¿	^²T"‘uuAhu¥Ph7oİİä¢¢—­*)Í‹H¾°dø[Ç,úé”µ¯$¨¹ñÅ¥£_Öé9××	nõ
+‹Åj_{÷~³$xi3­6ı{7±³ÔĞÔ¬Ãå°)şÒ³|öxKˆØÃ‘!Ê¨°ÙHÿ0'"#zkÀß^;ñîğ·[Øt·bOøädev$ &/']"‘ôêÕ‹,MEE‡£çæáËãñññ1WNæfg}´hc;Î+5ÄÅ^>ŠËå©ïÍÊL-}Xìêæegï¤ˆÌÏËîïâN1ÿïö†/i´Ba}A~ï`­)ï%ßQ„±ŸÇ>İ=èéé·£Nd2YIqT*0›Å±µ×íéjs³øÉã2‹Ş\R•66Š*+Zôê£¯ÏU?ª#7Q³ 2Bş)…ëAÿIäŸò0º%ÅÅI™æ·›Éˆî•¨Iâ¹ú<_­ˆi7Ç|õZ?s>¥2 ´·„4Ë¡e“C›ó%~³¯C“Á½õç'¶ÎC¼¶åÎßU”?ö¶ÃÜ6Ë¡Í]:HÒ$‚ ×ÌÆaêFßL§LR’ïøúú€A+((pw'@";;ÛÙÙY,§§g<¿ëºü~Ï£p¿¡9	xäòr2>¸oïèâäìª>şÎõ>½{UT<0RyşÌÎŞ¾~
+İlû ­®zv/9ÎØÄtğáZÇÇ^óòòb2™999H+±ĞÙlC.Ww/=}Jm«¡A(nj¬©®7‰xräê…B.×ÀØÄŒ£§¯ÒWª¾¾.áÎ‡ÓÔÔäå3°¥5_UUy/)NOOâú˜™Y¨Hı&ê*¨½?5ä±Ø [P/231ärõYòMì¦³aÑÛVÎ%ƒvÈÆ°’=mÀà5á¿.ÔÚ›C$(*¬LRû–~í«¡ãv*6kÊ3#O˜òÑ,6‡­gÔÜX+¬¯¸üûg“çv°RĞ’ÈdFÑ,=´­y”“{ù˜û{ûuÊ$%9vàÀÈÏÏhkkkñ{ÚşıÑ.?>>~è°Ñí)§¤ùnÒÚšê±¯¾®ˆ¼uı²ƒƒıÓòÊA~x\‹
+5*(6öt††FŠCÌÍÍ…¢ƒX,¶æ“îh—,7ëmrbluu¥ïŞ}úÂ¦XÜ.YâøØh??´IJJÂèe´
+ö¦¦¦ÚÙÙ™š[rôxšOZt?·¡^ ıfyùSìp0A555––}›››¹<Gg-.FRÂ- ÏçCúêê/ŸA–}mª«*áŠLLŒæF0¸¢Æ Ñãtªu"±À¦…ºˆÈ¡]øÕ7L¬^ä˜Ø_yˆÉÿ•ï…¤–Î&…vSXÌú6h§íÿíã@¾‘JJ¾„  íúM!R/Zf)´©Ñ«ıÇoSl²˜ŒøóË«Kã<†:ºO(É	+ÌMÖ3v<ù€®µ "´$2™øï÷ô¹úlD*i×WóãîğŒMZNm`n7i›o¡!“”äÛøB //ÌÒº¸¸@ !!aè°1º²©Q”œtÛÆÚª°ğşKc'b‘Ï*ËïdÁy“’’FŒU?êfLdPĞHèARÓÒ½}‡˜˜ îCb\L`àˆÂÂÂ‡¥®Gäì)´ï;ÔÒê
+íÍ˜Kà¯/“J3ÒïVW?zé5²Ä	w¢œœJJJ€Œ^¼ º¬¬¬ÀÄ›öÑÌmZJœ£ƒ=Ô3PŠÃC¶Pù÷‹Š}h.yì­«DÊår±kjjíúåB´×ÕÇ¼<I§
+Y{ b°»ÍÕøüï¾š¶ıØğgåÿK°ÏÆFqè²)dÇŒ_:½ié;ØfbJ{ÿ~†U±põí+çC+F-íŸ·A»üÇğ“Ÿ~zğ¢JÊ³+ß"(@»nã.™·º‘AVÖ»W×¿E±ÉaC_‚Ä_Vó(nôøE‘ÿl5¶>pÒwĞéèT}ê’´„}m;ôZòm™T"“47³¹-CCõÓ	×ÿ÷“†L Zp!››ëááQ]]ßkjjš••åêŠz°Ğ
+ı‡+ö¸0± ¸4pÌT²Ìëëi)ñ®®.Ğ|£¢®|	í­Ÿ>-ËËNğ×××‰¹EªèöË -4ıúúú¬¬l¡PˆÈıÏ±cÇ€§ıèÑ£‚‚B/Ÿ!|C²Sïÿ.tqğRq³TÃµ755âŸ‚Úš¤„›|#3s‹²G€[G'7;g²ÃZŸººº¢¢" ÷ÁƒX<\—··wòİ»pWÀPÃÿÎ®>Š‘ĞŠD"Â½À!@ëíë¯¹1€QMˆ»ˆ‚QEä^z­@`h` ØŒ}ú[öµV9PóM9kd _-í]ñ¢£Ğ1í÷Ly¥eXPüØ¦¯9WŸÀsùùtÔöUäĞn
+ÿbædEÌÑs—N-D¤ª³Sı,Œ	Ê Ğ®İ°ñû5Mji“¢6›°QQnô?4„ÜûòI^8Û°ß¨÷/HeÄ£²Àa¾ê‘·î¤ŸÉ e$~KV‘ *íÌ	Ïyg4Ôì½¤›´00hÕ ´nnnHLLôş2~×íkÀpèÃ7æ~fnVŠ··ø´À[XX—Ëƒ.œ‡‡;tÿà°%&%ñIıØ»‰7==İ0« B³Ã,†L®ªªªÌ¬l7SSb?bÿ>9´bbhê‹sD¹‹›/ŸÂŸšTYQ&7s8à{3Ì-ú€‘×0~N¸s`iÁˆ<ìøzŸp™ò	)Œ$óòò=}4!—‘†B«Ø„. ª‘wR'ŒP**ŸyxiŸyö¬<QÎ-ŒññrO%¶¯U?õ£4ßÄg5Â‡.­_ğš¹	¥1$^Ps;÷ÿ¶>¸ÅÒŞM/pu²6àXÚà‡·¯Z@í°-*‘ƒÇÚ˜jt´” ]³aÃµ´²4RK›pyÓğ	ëU"Y,†>›q?õogÏG*s{“ŒX(mì6²¢Úš»NûÌ?¯áªî%ŞğññFäĞbcW¼ pG1K#7ÿ¯P©)PùÓ²âÂlèñ#=¤•:Xõâ’Ro?õÃ‹
+sX	zñbô*2#œaçèÖ»•zäĞ6‘@›—bbjÑ§o?(çã²FF¦åÁi‡Œõ¹<`ØÓÇÏ€ÜŒcJ¼s†²`i‹‹‹‡
+ƒØ¶[ÓZf__ßŒŒLĞf*CzIl$øìÙ3¸Lğ™{Y:0µã9·	±1|¬ƒC0“[+ğ`emKñŞ©hñ®3{¾DÍì¦C—°˜u^£r ÔÁÖ½Çç¼ÕÒÑç–ÚZ÷âq	æÕ¿ıéÜ®ÕKuÊXw\tÜ^;Á˜Ë!-@»zıN¦/ÚÄ¥©édéî\Ú6bâj¥#[dPaF¤uÿW¥4| ¸›¢!ºbpcY‚AmÂ¹óşŸ_„¦N6z7á:­@ (--•)wwĞtlmm± |•J…>,)¬,äåå	3>*ö
+;Kvv‰™e/"ä„õ©ñC†øi8>–ŠŠg‡2™ªsìÛ³8x	´wn^|²5Á×ÓãÀ‰äN8ÃÏ?ÈÌœôé^Iqè˜:5´`T¥Å+-=C³¥Íh›`ºİİİ¡/€œ¡†Z6GÏÎÑSk‘U>M¸sÏça^1"‡V ¨ ĞÚØQ¹(u‡¬õïãÛĞåS7şpµ¹Y"5†¿Nv Ü´-{~Yµh&¶™–Uälß—Ï'˜‰Xµãçk>Ñ	ZßµR·Mò_qyùËS7(­¬Í;üAPh×ídC›B
+í­ÈW’îÛ8î+­e
+1àÆíÍi˜¾rh£ƒÉ4Ô
+rRùÏş¶¶®™lt—œã-¥kUrrò°@¥.¶¼8	†CÃF)ME47‹ï&İìÛ×Ò¶êŒ‘Q_øÆcÈüÏ‡%ÕUOİÜ\Uœ=E……÷DMŞ~„3ÉöïY¼˜ÚÄø[;g0ÑiÉ`cML¡ŒÂúZ€cÄHJšIÜÕ`tZZè³Àf¢Ğzk„6=ŞAÙÒ´Š9Wì|
+'—šËÄŞ¹'p[WW?Èo¸•5·„7¯àİgC—MÅf&üª!¶©UP¾>ºrÑl3=§ØÉÎ’Ï#€vmÈñ5	¡…ş¹¬¦A%ÒÒ˜¸=R,•2dÈÕ/_ÕbiW­İÉècZI
+©{|#b×È‰+ÈöŞÛ4şK¤3Ä ‡öÒ|²M2¾ó;«OßûjÊP²Ñ]rÂ5/¯–.Œm~~¾ÂØB1¯õI=@;|äxü±q7NÁphÖGªc‰¤93=‘ÏÓ‡¶ˆ5;•`fmí]{õ&0³
+=.+yP’ojbblln665ŠÈgGa È74utò c^3´ÕUéÉÕU•6¶^ƒôôô›Eñw®rô¸ÃÇ"Ô”˜,++«­­õ÷÷W·´Ø&@ëá¥	ÚìŒx;»6ßõáÃ‡`ö¡;xüø1]@ëØ_´UÏÊoß¼Âãq±>Æ±õB!‹Û¬úÙ×JÕI&»‰
+-ùúì7KQJW,ÆŒÚøîÌºÏk!<;ÿ¡}¿Ş„îñı§BÖ|*%ÓúmºhmÚvÆÇ5Á/Û˜Q~N»ríNö@ÔÒ6ß#µ´×Â¾š´”lï‹_HºW'±1hÃŞ#ÜËäÛ±íß[y2ù@DzÉ9dÍ79>ÚÓ³eş)111((Ã š••UllìàÁ-ïİ½{wxÕuÁPK˜—.j¸¸ôø!OèïUèê 5	…Nfæ½µæ#•J 9ÖVWÖ×Õ666€'/‹ssó,­¬m4ø½ÚF±TcæRŒ+}CK˜z÷‡Í661·wô`“?U().ÊÇÇ§ªª
+† -™¥MMK÷ğÖôÀ&'#ŞÖ¶mŠjŞÓÓSÅÒ¦¥¥;ºÔÉõè°FQ½b®¸¡AÔßÕ+/']1ôtbqó„ÉoS¼ƒ
+-ıúì×rh·üx‹Y3’3u°zÇ¡}›?Æ6“Óò]lùÌ_ñİîu‹È ¹=BååŠ#s†ë íWkvp¡s­â»idé®^Ü3j©ËzıbèØI‹u­8B¡%‘ÉÂŞàqù*»z997tÍé{@,lïÿP´-gããã¡SÇÂ)))†OhXÌ½{÷¨C‹©¬´èñ£"pq¡1Aæ½,LÌMMÌ¨¼Õ¤¢Ô»7Ñç½÷‹ú»újşûrh›¤ÔòFr³’ø&6¶ÎŠr[{­‡$Ç_º>}ZQQÀ ˜ßÔ´4w/MĞæf&ôëg£Øh½¼¼T,-@ë ÑÒŞ¾q©¶æ™ôDBaŒÌmú9T”?x.W¸mF%™8å]«}Ù7çalL»{É”-?EccÚŸ“>ø…;¼rÛ÷óŞiy¤WXüØšä‘ÏÁãw¯ÿœp¢…vGäÕumĞÎø:üèœaÆ¦*)XMe hW¬Ş¡7…¶)™Ú+özıs²½×/ì}…|¯NÂJ"ŠOl¬«ÄÇsy\K+ËU¿ÇaÄ‚Šö‘BæB-XZOÏW933Âğ9dHËÃ€vÄ(İÍ#¨Ûö´ /ÍÉÑ¡  pèpªÃEB$€“»çßPkâƒö|AZ0Biwo:Âµ5U…ùéı‚(”'JÑõ ´xK¤n65ÍM´ñxhÁn+Ş¯Â[Z{gMĞ
+j«££Îóy|¡°^N¬#_YñäfLŒqD"Ñ€—¬mì‘öjyè93c~U­0$x
+•ôP7Ë6ìåñóØRì1õ”Â†ÆMËçó‰aĞ\ÔíW?…ÿ2wXğ‘p•”§–¾IP€öËU;ôıPT“H¡<¿oôë‹Èö^»°oÜdÒ½:‰°$z¦¹	gåo±
+bA÷¿#…6ñÎe´0jõóky óäÉKKË¤¤$Ì=†ş;##sØH%K[]š\P\ê7b2¢QÂº¬Œx™Tê@õ‰¡*Ê™šõf³9T”[Z5hÁ™OŒ‹òò	àòøYé‰†&NÚ¿™ĞÔÔò:DFÊ­aÃ†‘YÚ””T7¯aòÉËN°¶ê«Ø¼ÿ¾âeF,¨|UxøŒĞ\‘¨áÑÃ¢Ş}¬Œ”­P}½ ¬´Ø²o?#5ë„P¾‰ À ºTjô´¢ÒÌÄHk²ªAoBß Ü9ojÛ8'#¢›?Bıå
+s’—+–¯ÚÁõóFdˆ(™tL~ö{ÍEœ0õŠ×¬Y\9´"ehyú?ĞvÉ2U–?ÊÍJÆ&Ÿ ‘ÊWá`tÔúÂ ËÃ'ÀDùM†äÛ§s³³Şş¿uZ‹ÚÔÔXr?ËÆ¶?#Ù):$·´¡Eä|nö=öõéÛÏİs0G—¯éÜKˆBp3äøú‡°>W3´åOJjª°I¾„Ø,‘›öéÓ·ıR³¨ßÄ.Qc³dÒh)ÒV¥LDvbşHKc.•ÃQh—­ÜÎ‚¾üĞ˜Jå˜Uİ§$İP‡¾ÿö‹ÅÁ¢FªĞÒúO
+…véWÛùCQT„	]J÷)	-ZİS(´KVl7ğGQ©ïzTºOIhÑêB¡şr›a :‰W—R#F§˜›Êó»ª@ÓĞéûûÿüŞÕ5C«[H¯wm—-LõJ>îê’>?)A[z3ÃU1İúüõÌ}ß¼¤£_¦×IáQIğÙÏåEı‰n,¬Aö¶&}Eˆ}XúA¿Aé+2ÿ)Aö­qÅÔ%Ğbtin»§ ]BnØGeOeú”&]ÿ3R‚¶KPQQB‹ĞÜvc©sÄ–=)—é½XÄ"*ĞvÑĞÒR!´OV¼¸Ğ²æ¾ÃKïĞª¥(–“ƒÉµK]uvàÖ¦ÿóåVç–)IR[Psé„©g>=ú¹^N§ˆè­q…·± i×ª®=]-Ğ–?ÊìòÑl7Q@K¤ŒÔäóşZ ÿygWÉ3Ş÷¢°j±Bâ§I51Ÿ›¹N¬.¸bÑ¡%¼(ehe’zhÄªkrÙ,İ¿ÄÑİEC«ªî í?'>qDuÕØ÷æ~:íí©Şø0ºöÖj§×Ö›Ûx%{¿÷Œk]{9%hi=ÂiƒV$–n½Ìã´- jn>÷Å(kj/õ ÑĞªJ­sÇói·2Óîn^±ˆÉb}0ç£q“Ğ¯D^<wìèR‰dı®îŞZf„ç	!^S¶[9{×>{{@må&»Ï›lcJïıÜ¹JÃŞWl{n™ (´xh™ˆPÆÆC+yy×Uå/©†}?{èmğî0,ºl"Õ,¯-gŒIÿ±(|.¾U™à0Ï;Z2šZ'&…l>F*g­I.ÄĞ©P—C»ñË…Yi÷æ~¼hêÌYØw¸zÌ³§9¸ÏËwĞÚZÖmxÄÃç­oú‘¡'åÂ×¦ƒ‰ÿ2*…Şk	«FêĞv<DZ6S$c·½wĞŞ¥¼xØs†JŒUÇ²c		r¿µºß×;§g,îØ…‚R]ÿp£Òw*µ@ûÅ®İĞeo}kÅşhõenœ®z
+índ™ ×–OØ™á½¢ Åš‹†€ŠºÚy3Ç	ëëıÎæ¶}ÿ«Y$øàÍ	|ƒOEj>¼&ù@Cş?~Ó¾4ëÕ«¦ºêÖa‚…{¬fœçXx ÔYĞjØÛnh9¬F÷•F€6h[”ò
+àa?Ïº¤um
+…şX®¾TÉï3Ùÿ¹UËŸ¿n®¶¾<ş‘NĞ~¸öO#î³š€–êiPäe»vÀl»÷¼ìI]-Òj`ñ›İÚïLh¿?qÎĞÈDY'¨ùä½)<ÿğáZsdşV“¸ÏwÒ§&†±¿ÓoVŒb—øq,§ÏPğ)¦³ÜãÃÒê³›dÊĞn½¢²ø¯ü	¾¤ª¾ø­UV‘Ê6i_$ày‹¨`Z ­¨ª|ã^fTO#G®È}ç>çpŒ;9i+fü9&»ÕÒbÆÕx…-w #äQ?¶ñ­H‰%lƒVeyqá$#‘Ckíü|¡UŞY»8#-å­YMzóİ¶RùãŸz´lã7T²¬/ˆ¨¸¶ÖÖojiÊeÛÙmĞVşêÆ2v2~õ8“GiEÕNÑ!Ğ. „–è‘Os¥´<=±Œ¥íÈ­WğÇA½[Li"êáñ)GÏ­Ù^†,›rv|p‚¼| éÏ1‡ùö:ş´ïĞÀ˜½Ù'G_};Ù-ßñ{]²OÎ²CëgÎmM¯’z”ãAËÉ{Ğ«>/\ßúlŠlqç*ùm†;zvä•Ğ½ŞÁyãŸl…O©}"jÖêÓ˜™¥:¾Åìä¢‚V¼ 4à¶0hQÜç%U‹‹lşâ,n­¯\ÁrEt²¸*ˆj éh•UZ±qÕƒùæ{s‚ĞE±ãnDıuâˆL&İ¸ó[+ª¿‹)*K,;û!“gn?ûº"²ü¸›Å ¹ÕùWŒÇd›8QÌªƒ:´K#´_Rµ´*Ğp›eÖ:¸6[üÖº×Œ¹Äéo®R4ÿÜûòE›2ø3$46K~î,Ü	øW^C@Ô¯Ó!ß.Ë÷x¥fÛHäú†é»3‘é_ÿı¡íU½//ß<J‘-.«ëLÆïÿ<İÉB]“!=z^ş4$;Mœ·Â¸H´ Á^X¤¢ ” U„±%°€áÏB"°%°ˆÇ´rÔPŸxQøÜûØ¦c+*®*â¸[mo‹`˜¬H'7´Ë(Nlõ,h9lfÔ…S¿ıA}×´·gO˜ö®îY¶éÉ/®¯®ÍÍºy¢,îéØılŸäFQÿ´†<	BZïUaè
+à"¢VŒ²ş·‡•µG>SIssÍ”ûÎÍj…6Ù÷çv¸0r|ºÛâ+mé]lx5’wy\ÃFdåŒû¦	wü{»ı±)?:Ã?qY•GQ—ŸâÁÏ3¾@BQhq‘¨®¯7µö“ûøÈ+-"'TnqÀ@Kp’ÁaÖ2¾UØGy Ù‰¢k_¬ÚI;İ‹Ô¡U5§ÊËÉı¸Çjâë³Šó2Îıs:?'6û»¹›F]B=ÉoÍš4·Meq•áï«Ç[“ ŸEé·ò#·šÕ³
+ ’[Gô/AkÌ—â--ºxµÚ
+à&Üa›.5KQK³ê²Ào­\¸àü,ù²ç~™¼Ùwz¶=.ŒŸ µ$hÑ•æãS\#®Ù>:zòNû\¾9èôÏö@\\VÅm9”}ëä›æØâ#QÅ¬3Š'i´Û%£5R~–g[ğ)u€pÅb´ŒoÛœZ<T
+hIİãVj•ÜcEJLjQZf¦Ú7ÕåĞ"r{Ë×c±YèZVÍ©T&;wúÄŸ'Ãæ¤7ß›8Mû¢¡UÑ‹­­Ì]‚f‘%È»w+?b«ÍÜ,­YuPÿ´&2·•¨Iâ³&Lep°®T~©è:ìt~sPKx1²ï¯Vh±ğÍÕÜ×‘Èê­øßU‹YûFâå:ëÛ’£o~ş7âµì/¥ø¬Š½±Ù{^nt!1²çÌÔ=Æe‰}r—A"C]sZrûÜ+‹T¤ü1À¹DÄ¡N    IEND®B`‚                                                                                                                                                                                                                      ext-danger{color:#dc3545!important}a.text-danger:focus,a.text-danger:hover{color:#bd2130!important}.text-light{color:#f8f9fa!important}a.text-light:focus,a.text-light:hover{color:#dae0e5!important}.text-dark{color:#343a40!important}a.text-dark:focus,a.text-dark:hover{color:#1d2124!important}.text-muted{color:#868e96!important}.text-hide{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0}.visible{visibility:visible!important}.invisible{visibility:hidden!important}
+/*# sourceMappingURL=bootstrap.min.css.map */

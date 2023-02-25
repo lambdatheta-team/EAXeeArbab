@@ -1,0 +1,3 @@
+1	Actor_QqGRcQ0		Actor0		Null														1	admin	2022-05-16	11:47:15	 	 	 	Create	1	admin	2022-05-16 11:47:15
+2	Actor_dsac741		Actor1		Null														1##2	admin##admin	2022-05-16##2022-06-27	11:48:46##17:45:35	 ##Authorized Objects	 ##Business Application_DbJxTN5	 ##Business Application_DbJxTN5---Business_Application,Danish---Business_Application,Business Application_LuuyH42---Business_Application	Create##Update	1	admin	2022-06-27 17:45:35
+3	Actor_nl53il2_checkRelObj		Actor2		Null														1##2	admin##admin	2022-06-27##2022-06-27	15:47:16##15:47:27	 ##Name	 ##Actor_nl53il2	 ##Actor_nl53il2_checkRelObj	Create##Update	1	admin	2022-06-27 15:47:27

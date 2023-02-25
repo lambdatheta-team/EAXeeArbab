@@ -1,0 +1,2 @@
+1	Technology_Node_qp4Wt00		0		Null												1;2	admin;admin	2022-05-13;2022-05-13	21:50:05;21:54:16	 ;Utilized by Business Applications	 ; 	 ;Business Application_ciRGME0---Business_Application,Business Application_OXjLqX1---Business_Application,Business Application_LuuyH42---Business_Application	Create;Update	1	admin	2022-05-13 21:54:16
+2	Technology Node_n8ZVsD1		TechNode1		Null												1	admin	2022-05-13	21:50:47	 	 	 	Create	1	admin	2022-05-13 21:50:47

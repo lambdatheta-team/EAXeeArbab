@@ -1,0 +1,10 @@
+<svg version="1.2" baseProfile="tiny-ps" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 13" width="26" height="13">
+	<title>business-role</title>
+	<defs>
+		<image  width="26" height="13" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAANCAMAAACAR47fAAAAAXNSR0IB2cksfwAAAOFQTFRFAAAA/////v789fHf8u3X8uzY9e/e////////+ffv/v78////8evTAAAA6d+7+/r1hntR8OrT////////9fDiWVIz///+oZVm9fLi////////3c+Y6+LB7efM3s+Z/////Pv19/Tn39Kg////8+7aBQUC////f3VN8ezU////8evT8e3V////////+fft+Pbr3c6W////saVy7ufL7ufNsqVy////////8OnRsaVyXlY27+nR////6d+97ufO+PXpFRML////////+/r09PDc8+7b9/Tn/////v789fHg9O7cAZqkWAAAAEt0Uk5TAE245+vqxEKU3rpm6P/xzv7nYzvS/dL70Dh/9u/o9hat3vUuzv/W+9fR1s/XHLja9oX56+r4hEXd+v3cd/Lu3f91adD4///Ot+z2b5NpJAAAAKxJREFUeJxVkOcOgkAQhBexK3ZRsIAe2BDsYsMC9vd/II9mlvmxM9kvk9wtAAATY+OhEslUOsNmGfCUy3NIhWKJznLFJdUaJnW+4XlToEhsYdTu+N4VASQZE67XD4IsAVEwUQfDICkEhFGkNVaDMBGAaJHWNGxpBHQj0prNg2DoAIslRqu175stfby5w2jPHzw/mu6fTxZm58uVTuvmX8p27o+/nq/35+vYdP0DqxcaiAFWO4kAAAAASUVORK5CYII="/>
+	</defs>
+	<style>
+		tspan { white-space:pre }
+	</style>
+	<use id="Background" href="#img1" x="0" y="0" />
+</svg>

@@ -1,0 +1,169 @@
+* {
+	font-family: helvetica, arial, verdana, sans-serif;
+}
+
+html, body {
+	/*   height: 100%; */
+	/*font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;*/
+	padding: 0 !important;
+	margin: 0 !important;
+	overflow: auto;
+	/*   background:blue; */
+	width: 100%;
+	height: 100%;
+	overflow-x: hidden;
+	font-size: 14px;
+	background:#121212;
+	/*   width: 100%; */
+}
+
+.center {
+	text-align: center;
+}
+
+.pool {
+	border: 1px solid black;
+}
+
+#poolTables {
+	margin-top: 2vh;
+}
+
+.pool_table_data {
+	height: 175px;
+	display: block;
+	overflow-y: scroll;
+	width: 100%;
+	background:#e3fdff;
+}
+.pool_table_data th {
+	width: 500px;
+}
+.pool_table_data td {
+	width: 500px;
+}
+
+.poolSubmitButtons {
+	margin-top: 5px;
+	float: right;
+}
+
+.adminSelectTable {
+	height: 200px;
+	display: block;
+	overflow-y: scroll;
+	width: 100%;
+}
+
+.adminSelectTable td {
+	padding: 7px;
+}
+
+.poolSelectTable {
+	height: 200px;
+	display: block;
+	overflow-y: scroll;
+	width: 100%;
+	background:#212121;
+	color:#ffffff;
+}
+
+.poolSelectTable td {
+	padding: 7px;
+}
+/* Define the hover highlight color for the table row */
+.pools_tbody_tr:hover {
+	background-color: #a6c53b;
+	color:black;
+}
+.selected {
+    background-color: #121212;
+}
+#home-btn a{
+padding:10px;
+padding-right:20px;
+color:black;
+}
+.header{
+    display: flex;
+    justify-content: space-between;
+    width: 100vw;
+    margin-bottom: -10px;
+    background: #121212;
+    height: 60px !important;	
+}
+.col-form-label{
+	
+	color:#e3fdff;
+}
+h5{
+	color:#e3fdff;
+}
+#pool_response{
+	color:#e3fdff;
+}
+#createPoolButton{
+	background:#a6c53b !important;
+}
+#addLicenseToPool{
+	background:#a6c53b !important;
+}
+#addUserToPool{
+	background:#a6c53b !important;
+}
+#deletePool{
+	background:#a6c53b !important;
+	color:black
+}
+#showPool{
+	background:#a6c53b !important;
+	color:black
+}
+.navbar
+{
+	background: #212121 !important;
+    width: 100%;
+    height: 55px;
+    }
+li {
+	color:#ffffff;
+}
+.selectedclass{
+	
+	background-color:#a6c53b;
+	color:black;
+}
+.ui-widget-content{
+	
+	background: #212121!important;
+}
+p{
+	
+	color:#ffffff;
+}
+ .ui-tabs .ui-tabs-nav li.ui-tabs-active{
+ background:#a6c53b !important;
+ color:black;
+ }
+ 
+input.btn.btn-primary.mb-2.poolSubmitButtons{
+	
+	background:#a6c53b !important;
+	color:black;
+} 
+a#ui-id-1 {
+	color:black;
+}
+a#ui-id-2 {
+	color:black;
+}
+a#ui-id-3 {
+	color:black;
+}
+a#ui-id-4 {
+	color:black;
+}
+ul.ui-tabs-nav.ui-corner-all.ui-helper-reset.ui-helper-clearfix.ui-widget-header {
+    background-color: #212121;
+    border: none;
+}

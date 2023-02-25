@@ -1,0 +1,38 @@
+html,
+body{
+/*     background: #e3fdff; */
+	background: linear-gradient(to bottom, #e3fdff 8%, #0d7e8a 100%);
+	direction: rtl;
+
+
+}
+
+#home-btn a {
+    padding-left: 20px;
+}
+
+.profile-head > h5 > p{
+	text-align: right;
+}
+
+#edit_button, #save_button{
+	left: 10px;
+	right: initial;
+}
+
+
+.textAlignRight{
+	text-align: right
+}
+
+.textAlignRight > div > label {
+	padding-right: 42px;
+}
+
+.floatLeft{
+	float: left !important;
+}
+
+#myTab{
+	padding-right: 0px;
+}

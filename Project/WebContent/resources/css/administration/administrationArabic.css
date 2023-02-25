@@ -1,0 +1,132 @@
+html, body {
+	direction: rtl;
+}
+
+.lang-icon{
+	color: #0d7e8a !important;
+	cursor: pointer;
+}
+
+.account-item {
+	margin-left: 20px;
+}
+
+.account-item > .content {
+	padding: 15px 11px 0px 11px;
+}
+
+ul.ui-tabs-nav.ui-corner-all.ui-helper-reset.ui-helper-clearfix.ui-widget-header {
+	display: flex
+}
+
+#removeUserRegistraionButton {
+	float: left
+}
+.formInputLabel {
+	float: right;
+}
+
+.usersTable{
+	text-align: right
+}
+
+.adminSelectTable {
+	text-align: right
+}
+
+#allocateNamedLicense, #createPoolButton, #addLicenseToPool, #addUserToPool{
+	float: left
+}
+
+.poolSelectTable{
+	text-align: right
+}
+.arabicH5{
+	text-align: right
+}
+#repositoryManagementTabs-3{
+	display: flex !important;
+	padding-right: 0px;
+}
+
+#Clear{
+	display:flex;
+	justify-content: space-around;
+}
+#Clear > i {
+	margin-right:0px !important;
+}
+
+.ui-tabs .ui-tabs-panel{
+	padding-right: 3px!important;
+	margin-left: 10px;
+}
+
+.content a {
+	font-size: 16px
+}
+
+.account-dropdown .info {
+    padding: 25px;
+    border-top: 1px solid #f5f5f5;
+    border-bottom: 1px solid #f2f2f2;
+}
+
+.account-dropdown{
+	left: 10px;
+	transform-origin: left top;
+	min-width: 105px;
+	position: absolute;
+    top: 57px;
+	right: initial !important;
+}
+
+.account-dropdown:after{
+	right: initial !important;
+    left: 10%;
+}
+
+.account-dropdown__item a i{
+	margin-left: 20px;
+	text-align: right;
+}
+
+.account-dropdown__item a{
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	padding: 15px 0px;
+}
+
+.account-dropdown__footer a {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	padding: 15px 0px;
+}
+
+.account-dropdown__footer a i{
+	margin-left: 20px;
+	text-align: right;
+}
+.account-dropdown h5 {
+	text-align: right;
+}
+#dialog-confirm{
+	text-align: right !important;
+}
+
+#dialog-confirm + .ui-dialog-buttonpane{
+	float: left !important;
+}
+#users_table > table > thead > tr > th, #license_table > table > thead > tr > th  {
+	text-align: right;
+}
+
+#user_tbody > tr > td:nth-child(even), #license_tbody > tr > td:nth-child(even){
+	text-align:left;
+}
+
+#user_tbody > tr > td:nth-child(odd), #license_tbody > tr > td:nth-child(odd){
+	text-align:right;
+}

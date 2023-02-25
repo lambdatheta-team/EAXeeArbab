@@ -1,0 +1,10 @@
+<svg version="1.2" baseProfile="tiny-ps" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 21" width="24" height="21">
+	<title>business-interaction</title>
+	<defs>
+		<image  width="24" height="21" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAVCAMAAABrN94UAAAAAXNSR0IB2cksfwAAARdQTFRFAAAA/////////v789PHg+/r0////9vPl////////////9/TmhXtSAAAA5962m5Bh9/Pm/////////f384NWk592259224dWl/f38/////f38oZZlt6t2/f38////39Ke39Ge////////7ufM7+nP////////aGA+////////8+7a8+7a////////5ty15922////////4NSh39Oh////////pppp////////5dqv5Nmu////////8u3W8OzW/f38My8cPTgi////6uLA6uHA////yLqExLeA////////+/jyamE+SUMp/Pz4sqVy/Pz4////////8OvTGRcN8OvT////////+ffv6uG/9fDh6eC++fjv////ocD3+gAAAF10Uk5TAA15weraR+rBd3Le///o/91uIqL66Of6nxyj/PykhPf2fkng3kWT/JQy0M0uU+rqVmzy8mlx+XVa7exYNdTTnP79m+fmT/r6kSa2/f62/bQWje//7oea3fri+tqWCcYjBQAAANpJREFUeJxjYAADRiZmFlY2NlZ2Dk5GBiTAxc3Dy8vHxsbHy8svIAgXFhIW4QUCUTY2MRAtLiEJEZeUkuZFluCVkYXIyMnzokrwKiiCxJWUedEleFVUgRJq6pgS6hqMDJpavJgSvNo6DLp62CT0DRgMjbBJGJswmJphkzAzx6HDyJDBwhKbhJU1g40tNgk7GwZGewdMCUcnYBgbOGNKuLiCokLDDV3C3QMcKZ5e3qgSPl6ekHDX8fVDlvDz14HFVEBgUDAsBoNDQgOQ4tYmLDwiko0tMio6BqocAKviJQeZh+1zAAAAAElFTkSuQmCC"/>
+	</defs>
+	<style>
+		tspan { white-space:pre }
+	</style>
+	<use id="Background" href="#img1" x="0" y="0" />
+</svg>

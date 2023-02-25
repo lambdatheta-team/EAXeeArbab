@@ -1,0 +1,510 @@
+html, body {
+	direction: rtl;
+}
+.lang-icon{
+	color: #0d7e8a !important;
+	cursor: pointer;
+}
+
+.content a {
+	font-size: 16px
+}
+.account-item > .content {
+    margin-right: 0px;
+    padding: 18px;
+    padding-right: 12px;
+    font-size: 16px;
+    line-height: 0px;
+}
+.account-dropdown .info {
+    padding: 25px;
+    border-top: 1px solid #f5f5f5;
+    border-bottom: 1px solid #f2f2f2;
+}
+
+.account-dropdown{
+	left: 10px;
+	transform-origin: left top;
+	min-width: 105px;
+	position: absolute;
+    top: 57px;
+	right: initial !important;
+}
+
+.account-dropdown:after{
+	right: initial !important;
+    left: 10%;
+}
+
+.account-dropdown__item a i{
+	margin-left: 20px;
+	text-align: right;
+}
+
+.account-dropdown__item a{
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	padding: 15px 0px;
+}
+
+.account-dropdown__footer a {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	padding: 15px 0px;
+}
+
+.account-dropdown__footer a i{
+	margin-left: 20px;
+	text-align: right;
+}
+.account-dropdown h5 {
+	text-align: right
+}
+
+
+#myUL, #myULaa{
+	direction:rtl !important
+}
+
+#myULaa, #recycle_bin_list, #recycle_bin_list_for_attachments{
+	padding-right: 5px;
+}
+
+#myULaa > li > p, #recycle_bin_list > li{
+	display: flex
+}
+
+.caret, #deletedElements > li, #recycle_bin_list_for_attachments li{
+	display: flex !important
+}
+
+#m1, .model_list{
+	display: flex
+}
+
+#m1 > ul{
+	/* 	border: 1px solid black; */
+	width: 100%
+}
+
+#MIM1{
+	padding-left: initial !important;
+}
+
+.sub_elements > ul > li{
+	display: flex;
+}
+
+.sub_elements > ul > li:hover{
+	min-width: min-content;
+}
+
+.deleteIcon:before {
+    padding-left: 4px !important;
+}
+
+#recycle_bin_for_objects > ul > li > p > i:before {
+    padding-left: 8px !important;
+}
+
+.recycle-bin-caret-down::before {
+    width: 0px !important;
+}
+
+.ui-tabs-nav{
+	display: flex !important;
+}
+
+.navbar{
+	padding-right: 0px;
+}
+
+/* .ui-tabs-nav{ */
+/* 	display: flex; */
+/* 	flex-direction: column; */
+/* } */
+
+
+/* .ui-tabs-tab{ */
+/* 	text-align: right */
+/* } */
+/* .ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; float: right; width: 18%; overflow-x: hidden; overflow-y: hidden;} */
+
+.ui-tabs-vertical .ui-tabs-nav {
+	min-width: 150px !important;
+}
+
+.formDivArabic > div > ul {
+	/* 	border: 2px solid black !important; */
+	display: flex;
+	flex-direction: column;
+}
+
+.formDivArabic > div > form {
+	width: 100% !important;
+}
+
+.formDivArabic > div {
+	display: flex;
+}
+
+.formDivArabic > div > ul > li{
+	text-align: right
+}
+
+#formTitleBarDiv{
+	display: flex;
+    justify-content: space-between;
+    padding-left: 5px !important;
+    padding-right: 10px !important;
+}
+
+.formOfEveryTab{
+	width:100% !important;
+}
+.attWithIcon{
+	display: inline;
+    float: right !important;
+}
+.attWithIcon > span{
+	margin-left: 5px;
+}
+.close {
+    float: left !important;
+	margin: 0px !important;
+	padding: 0px !important;
+	display: flex;
+	align-items: center;
+	padding-right: 10px;
+}
+.showRelationPlusButton{
+	float: left
+}
+.object_name_form{
+	text-align: right;
+}
+.date_class{
+	text-align: right !important
+}
+.urlText{
+    display: flex;
+	justify-content: flex-start;
+    align-items: center;
+}
+.urlIcon{
+	align-self: center;
+	margin-right: 10px;
+}
+.h3Arabic{
+	display: flex;
+}
+
+#context-menu{
+/* 	left: 83vw !important; */
+/*     position: fixed; */
+/*     z-index: 999999999999; */
+/*     width: 150px; */
+/*     background: #e3fdff; */
+/*     border-radius: 5px; */
+/*     transform: scale(0); */
+    transform-origin: top right !important;
+}
+
+#context-menu .item {
+	display: flex;
+    align-items: center;
+}
+
+#context-menu .item i{
+	display: inline-block;
+	margin-left: 5px;
+	margin-right: 0px;
+}
+
+.ui-dialog .ui-dialog-title{
+	float: right;
+	text-align: right;
+}
+.ui-dialog .ui-dialog-titlebar-close {
+	left: 0.3em !important;
+	right: initial;
+}
+#dialog-form > form > fieldset, #dialog-form > form > fieldset > label {
+	text-align: right;
+}
+.ui-dialog-buttonset{
+	float: left !important
+}
+#catalogName > form, #matrixName > form, #dialog-form-navigation > form {
+	text-align: right
+}
+
+#palete > div {
+	inset: initial !important;
+	z-index: 9 !important;
+}
+#graphId{
+	margin-left: initial !important;
+	margin-right: 16% !important;
+}
+
+
+foreignObject > div {
+	float: left !important;
+}
+
+#changeHistoryMypageButtonsDiv + div{
+	width: 20%;
+    display: flex;
+    justify-content: flex-end;
+}
+#catalog table {
+	text-align: right !important
+}
+
+#historyList:not(:first-child) > div {
+    float: right !important;
+}
+
+/* #matrix > table > tbody > tr:first-child, .matirixFirstTd { */
+/*     text-align: right !important; */
+/* } */
+
+.matirixFirstTd {
+    text-align: right !important;
+}
+
+.model_list{
+/* 	padding-right: 40px !important */
+}
+
+#myPageTable{
+	text-align: right;
+}
+
+#myPageTable_filter + div > div > div > table {
+	text-align: right;
+}
+/* table.dataTable thead .sorting_asc { */
+/*   background: url("http://cdn.datatables.net/1.10.0/images/sort_asc.png") no-repeat center left; */
+/* } */
+/* table.dataTable thead .sorting_desc { */
+/*   background: url("http://cdn.datatables.net/1.10.0/images/sort_desc.png") no-repeat center left; */
+/* } */
+/* table.dataTable thead .sorting { */
+/*   background: url("http://cdn.datatables.net/1.10.0/images/sort_both.png") no-repeat center left; */
+/* } */
+
+table.dataTable thead .sorting:before{
+	left:0
+}
+table.dataTable thead .sorting:after, table.dataTable thead .sorting:before, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_asc_disabled:after, table.dataTable thead .sorting_asc_disabled:before, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_desc:before, table.dataTable thead .sorting_desc_disabled:after, table.dataTable thead .sorting_desc_disabled:before {
+	left: 10px;
+	text-align: left;
+}
+table.dataTable>thead>tr>th:not(.sorting_disabled), table.dataTable>thead>tr>td:not(.sorting_disabled){
+	padding-left: 30px;
+	padding-right: 0px;
+}
+
+.objectlist:hover{
+	display: flex !important;
+}
+
+#form_id_mypage > div > div > ul{
+	display: flex !important;
+    flex-direction: column;
+    float: right;
+    text-align: right;
+}
+
+#form_id_mypage > div > div > form{
+	display: flex;
+    flex-direction: column;
+}
+
+.dropdown-menu-right {
+	right: auto !important;
+	left: 0 !important;
+}
+.header {
+	padding-left: 10px;
+}
+
+#modal1_body > ul{
+	padding-right: 0px;
+}
+
+.modal_filter{
+	    min-width: 0px !important;
+}
+
+#modal_info_text{
+	text-align: right;
+}
+
+
+#renameText > form > fieldset, #dialog-form-file > form > fieldset{
+	text-align: right;
+}
+
+.ui-dialog-buttonpane{
+	float: left !important;
+}
+
+#myPageObjectPallete{
+	text-align: right
+}
+
+.columnMyPage {
+	float: right !important;
+}
+
+#updateFormModal_body{
+	height: 90%;
+}
+
+.formOfEveryTab {
+	height: 89%
+}
+
+#updateFormModal_body > div > div > ul{
+	display: flex !important;
+    flex-direction: column;
+    float: right;
+    text-align: right;
+}
+
+#updateFormModal_body > div > div > form{
+	display: flex;
+    flex-direction: column;
+}
+#attachmentExample, .relationshipTable{
+	text-align: right;
+}
+
+.choices__list{
+	float: right;
+}
+
+#diagramFilterDropDownsParentDiv > div > span, #graphObjectDropdownParentDiv > span, #graphElementAttributeDropdownParentDiv > span {
+	float: right;
+}
+
+.enableDisableObjectAttributeParentDiv {
+	float: left !important;
+}
+
+#diagramFilterApplyAndCheckboxDiv{
+	width: 100% !important;
+	
+}
+
+.enableDisableObjectAttributeParentDiv input[type="checkbox"] {
+	left: initial !important;
+	right: 0;
+    margin-left: initial !important;
+    margin-right: -20px;
+}
+
+.enableDisableObjectAttributeParentDiv label{
+	padding-left: 0px !important;
+	padding-right: 40px;
+}
+
+.enableDisableObjectAttributeParentDiv label:before{
+	left: initial !important;
+	right: 8px;
+}
+
+.enableDisableObjectAttributeParentDiv label:after{
+	left: initial !important;
+	right: 15px;
+}
+
+#diagramFilterObjectTableSpanParentDiv > span {
+	display: flex;
+}
+
+#diagramFilterAttributetTableParentDiv > table > thead > tr > th, #diagramFilterObjectTableParentDiv > table > thead > tr > th{
+	text-align: right !important;
+}
+
+#diagramFilterObjectTable > thead > tr > td, #diagramFilterAttributeTable > thead > tr > td{
+	text-align: right !important;
+}
+
+#diagramFilterObjectTable th, #diagramFilterAttributeTable th{
+	padding-left: 0px !important;
+	padding-right: 10px !important;
+}
+
+#diagramFilterModelContent{
+	height: initial !important;
+}
+
+.multiselect-container > li > a > label {
+	display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.multiselect-container > li > a > label > input{
+	margin-left: 5px;
+}
+
+/* .multiselect-dropdown + .btn-group > .multiselect + ul  { */
+/* 	top: 64px !important; */
+/* } */
+
+.multiselect-dropdown + .btn-group > .multiselect + ul > li > a > label {
+	padding-right: 5px;
+}
+
+#catalogScriptActionSelect{
+	margin-left: 5px;
+}
+
+#catalogDropDownItemsDiv > a {
+	text-align: right;
+}
+
+#catalogScriptModalLabelInput{
+	text-align: right;
+}
+
+#catalogScriptRight{
+	transform: rotate(180deg);
+}
+
+#catalogScriptLeft{
+	transform: rotate(180deg);
+}
+#availableColumnsForCatalogScripts, #addedColumnsForCatalogScripts{
+	text-align: right;
+}
+.exportCatalogDropdown{
+	position: initial !important;
+    left: initial !important;
+    right: initial !important;
+    position: absolute !important;
+    left: 0 !important;
+}
+
+.apexcharts-toolbar{
+	right: initial !important;
+	left: 0 !important;
+}
+
+.apexcharts-legend-series{
+	display: flex;
+}
+ 
+#matrix > table > thead > tr > th {
+	direction: initial
+}
+#matrix > table > thead > tr > th:nth-child(1) {
+/* 	display: flex; */
+}

@@ -1,0 +1,30 @@
+ToDo
+
+1) Shoaib (Deadline is 15th Jan) 
+a) Adding general parameters, attributes of different elements and relationships.
+b) Generate group, variant parameters. (Complete till 7th Jan)
+c) Genrate the Meta Model file (Excel file), and test it in the main EAXEE portal.
+d) Integration with the main modules. (Complete till 15th Jan)
+
+
+2) Ahsan/Arbab (Organizational Portal) Charts + Query generator (Dead line 15th Jan)
+a) Read data from XML, and fill the drop down menu with Element name, and Attribute names.
+b) Attribute names only allowed for List, number, currency, radio, checkbox.
+c) Add the option to include multiple attributes. Don't repeat the attributes.
+d) Generate the query, and generate table from the query.
+e) Integrate the Query generator with the chart cell.
+f) Testing and integration.
+
+
+3) Ali (15th Jan)
+a) Role generation webpage link, database contains the role details, tested the checks of different roles. (Completed)
+b) License generation: Generate licence key for named and concurrent licences.
+c) Repository manager: Creat a new user, Assign a role to the user, Assign a licence to the user. The licence can be either named user, or concurrent user.
+   Named licence can be assigned to only one user, and then it should expire.
+d) Repository admin can add licences on any webpage to assign licence to a particular user.
+
+
+Todo Common tasks
+a) Database or table encription.
+b) Docker creation.
+c) Testing at our end.

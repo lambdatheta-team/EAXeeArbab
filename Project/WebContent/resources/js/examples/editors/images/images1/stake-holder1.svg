@@ -1,0 +1,10 @@
+<svg version="1.2" baseProfile="tiny-ps" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+	<title>stakeholder</title>
+	<defs>
+		<image  width="26" height="13" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAANCAMAAACAR47fAAAAAXNSR0IB2cksfwAAANhQTFRFAAAA////////8fL17e/z7O3y8PL2////////+Pn6////////6+3yAAAA3eDo+vr7KSov6uzx////////8/T2FRYY////Oz1D8fP2////////gIOL4eTr5+nue36G////+/v89fb4naCp////7e/y////KCkt6+3y////6u3y6+zx////IiQn////9/f59/j6dXiA////SkxS5+nv5+nv////////6evwSk1T6evw////3uHp6Orw9fb4////////+vr77/H17vD09PX4////////8fL27/D157bkQwAAAEh0Uk5TAE235unpwUKU3blm5v/wzv/lYzvP/tL9zjh/+O3m+Ras3fYuzNb91dHTzdf9HLfY+YX76eiERdv82Xfw7Nx1adD4///Otuv136DB3wAAAKlJREFUeJxV0McWgjAQBdBB7IodFCygwYaCiooFFez//0cmEDzJLOa9k7tJAgAgpMR0MplsLl8QiwJEUypLzFSqNbzrDSLNFiuy0o6yo2LSuiz1+nEONADdYEUajmgxdEAmR+MJLSYCdcrRLClzFZDF0WJJi4XAdjharWlxbICNy9J2F6e7x5f3DiwdFTnKk0fefPZZu1zJ9m/xTwXh/fGf5+v9+YYBPv4BX80Zkqn5d+oAAAAASUVORK5CYII="/>
+	</defs>
+	<style>
+		tspan { white-space:pre }
+	</style>
+	<use id="Background" href="#img1" x="3" y="10" />
+</svg>

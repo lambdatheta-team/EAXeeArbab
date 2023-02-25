@@ -1,0 +1,41 @@
+body{
+
+color: #e3e3ec;
+
+}
+
+#login-btn{
+
+width:100px !important;
+border-radius:12px;
+background-color:#a6c53b !important;
+
+}
+
+.logo{
+
+transition: transform .2s;
+
+}
+
+.logo:hover{
+
+transform: scale(1.5);
+
+}
+.container-login100{
+
+ background:#e3e3ec;
+
+}
+
+.li.ui-tabs-active{
+background:#0d7e8a;
+}
+.ui-tabs .ui-tabs-nav .ui-tabs-anchor{
+background:#e3fdff
+}
+.wrap-login100{
+
+	    background: #f2f3f7;
+}

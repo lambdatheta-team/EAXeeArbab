@@ -1,0 +1,151 @@
+* {
+	font-family: helvetica, arial, verdana, sans-serif;
+}
+
+html, body {
+	/*   height: 100%; */
+	/*font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;*/
+	padding: 0 !important;
+	margin: 0 !important;
+	overflow: auto;
+	/*   background:blue; */
+	width: 100%;
+	height: 100%;
+	overflow-x: hidden;
+	font-size: 14px;
+	background:#e3e3ec ;
+	/*   width: 100%; */
+}
+
+.center {
+	text-align: center;
+}
+
+.pool {
+	border: 1px solid black;
+}
+
+#poolTables {
+	margin-top: 2vh;
+}
+
+.pool_table_data {
+	height: 175px;
+	display: block;
+	overflow-y: scroll;
+	width: 100%;
+	background:#fff;
+}
+
+.pool_table_data th {
+	width: 500px;
+}
+.pool_table_data td {
+	width: 500px;
+}
+
+.poolSubmitButtons {
+	margin-top: 5px;
+	float: right;
+}
+.adminSelectTable {
+	height: 200px;
+	display: block;
+	overflow-y: scroll;
+	width: 100%;
+}
+
+.adminSelectTable td {
+	padding: 7px;
+}
+
+.poolSelectTable {
+	height: 200px;
+	display: block;
+	overflow-y: scroll;
+	width: 100%;
+	background:#ffffff!important;
+}
+
+.poolSelectTable td {
+	padding: 7px;
+}
+/* Define the hover highlight color for the table row */
+.pools_tbody_tr:hover {
+	background-color: #014fb1;
+	color:#fff;
+}
+.selected {
+    background-color: #DCDCDC;
+}
+#home-btn a{
+padding:10px;
+padding-right:20px;
+color:black;
+}
+.header{
+    display: flex;
+    justify-content: space-between;
+    width: 100vw;
+    margin-bottom: -10px;
+    background: #e3e3ec ;
+    height: 60px !important;	
+}
+.col-form-label{
+	
+	color:black;
+}
+h5{
+	color:black;
+}
+#pool_response{
+	color:black;
+}
+#createPoolButton{
+	background:#014fb1 !important;
+	color:#fff;
+}
+#addLicenseToPool{
+	background:#014fb1 !important;
+	color:#fff;
+}
+#addUserToPool{
+	background:#014fb1 !important;
+	color:#fff;
+}
+#deletePool{
+	background:#014fb1 !important;
+	color:#fff;
+}
+#showPool{
+	background:#014fb1 !important;
+	color:#fff;
+}
+.navbar
+{
+	background: #e3e3ec !important;
+    width: 100%;
+    height: 55px;
+    }
+ul.ui-tabs-nav.ui-corner-all.ui-helper-reset.ui-helper-clearfix.ui-widget-header {
+    background-color: #e3e3ec;
+    border: none;
+}
+.ui-widget-content{
+	
+	background:#ffffff !important;
+	}
+.selectedclass {
+    background-color: #014fb1;
+    color: #fff;
+}
+ .ui-tabs .ui-tabs-nav li.ui-tabs-active{
+ background:#014fb1 !important;
+ color:#fff;
+ }
+ 
+input.btn.btn-primary.mb-2.poolSubmitButtons{
+	
+	background:#014fb1 !important;
+	color:#fff;
+} 

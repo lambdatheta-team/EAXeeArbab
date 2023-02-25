@@ -1,0 +1,35 @@
+<!-- updateFormModal script file -->
+<script type="text/javascript" src="<c:url value="/resources/js/updateFormModal.js" />"></script>
+
+<!-- updateFormModal css here -->
+<link href="<c:url value="/resources/css/updateFormModal.css"/>" rel="stylesheet">
+
+#updateFormModal_form > div > form > label{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 250px;
+}
+
+function openFormOnCellDoubleClick(cellValue,elementName,cell){
+	updateFormModal(cellValue,elementName,cell)
+	
+}
+
+<div id="updateFormModal" class="modal" style="display: none;">
+  <!-- Modal content -->
+  <div id="modal_content" >
+    <div class="modal-header">
+      <span id="updateFormModal_heading"></span>
+      <span class="close" >&times;</span>
+    </div>
+    <div id="updateFormModal_body" class="modal-body">
+    	<div id="updateFormModal_form"></div>
+    	<div id="addButton"></div>
+      <!-- <p id="modal_info_text1"></p> -->
+    </div>
+	<!--     <div class="modal-footer"> -->
+	<!--       <h3>Modal Footer</h3> -->
+	<!--     </div> -->
+  </div>
+</div>

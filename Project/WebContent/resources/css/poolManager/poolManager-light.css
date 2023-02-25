@@ -1,0 +1,110 @@
+* {
+	font-family: helvetica, arial, verdana, sans-serif;
+}
+
+html, body {
+	/*   height: 100%; */
+	/*font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;*/
+	padding: 0 !important;
+	margin: 0 !important;
+	overflow: auto;
+	/*   background:blue; */
+	width: 100%;
+	height: 100%;
+	overflow-x: hidden;
+	font-size: 14px;
+	background:#e3e3ec ;
+	/*   width: 100%; */
+}
+
+.center {
+	text-align: center;
+}
+
+.pool {
+	border: 1px solid black;
+}
+
+#poolTables {
+	margin-top: 2vh;
+}
+
+.pool_table_data {
+	height: 175px;
+	display: block;
+	overflow-y: scroll;
+	width: 100%;
+	background:#e3fdff;
+}
+
+.pool_table_data td {
+	width: 500px;
+}
+
+.poolSubmitButtons {
+	margin-top: 5px;
+	float: right;
+}
+
+.poolSelectTable {
+	height: 200px;
+	display: block;
+	overflow-y: scroll;
+	width: 100%;
+	background:#e3fdff;
+}
+
+.poolSelectTable td {
+	padding: 7px;
+}
+/* Define the hover highlight color for the table row */
+.pools_tbody_tr:hover {
+	background-color: #c6ecef;
+}
+.selected {
+    background-color: #DCDCDC;
+}
+#home-btn a{
+padding:10px;
+padding-right:20px;
+color:black;
+}
+.header{
+    display: flex;
+    justify-content: space-between;
+    width: 100vw;
+    margin-bottom: -10px;
+    background: #e3e3ec ;
+    height: 60px !important;	
+}
+.col-form-label{
+	
+	color:black;
+}
+h5{
+	color:black;
+}
+#pool_response{
+	color:black;
+}
+#createPoolButton{
+	background:#a6c53b !important;
+}
+#addLicenseToPool{
+	background:#a6c53b !important;
+}
+#addUserToPool{
+	background:#a6c53b !important;
+}
+#deletePool{
+	background:#a6c53b !important;
+}
+#showPool{
+	background:#a6c53b !important;
+}
+.navbar
+{
+	background: #f2f3f7 !important;
+    width: 100%;
+    height: 55px;
+    }

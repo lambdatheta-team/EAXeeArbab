@@ -1,0 +1,292 @@
+// CREATING DATABASE FROM EXCEL FILE
+	@RequestMapping(value = "/excel_submit", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public ModelAndView fileUpload_excel(@RequestParam("file") MultipartFile file, HttpSession session,
+			@RequestParam String dbName) throws IOException, JAXBException {
+		String path = session.getServletContext().getRealPath("/");
+		fromExcel addRow = new fromExcel();
+		addRow.setDbName(dbName);
+
+		fromExcel addRElRow1 = new fromExcel();
+		RelationsModel addRElRow = new RelationsModel();
+		addRElRow1.setDbName(dbName);
+		addRElRow1.setTableName("relationships");
+
+		addRElRow.setDbName(dbName);
+		addRElRow.setTableName("relationships");
+
+		try {
+			File convertFile = new File(path + "/" + file.getOriginalFilename());
+			convertFile.createNewFile();
+
+			FileOutputStream fout = new FileOutputStream(convertFile);
+
+			fout.write(file.getBytes());
+
+			JAXBContext context = JAXBContext.newInstance(net.lt.eaze.model_metamodel2.Schema.class);
+			Unmarshaller um = context.createUnmarshaller();
+			net.lt.eaze.model_metamodel2.Schema unif = (net.lt.eaze.model_metamodel2.Schema) um
+					.unmarshal(new FileReader(path + "/" + dbName + ".xml"));
+
+			List<Element_Attributes> elementAttributesList = unif.getElement_attributes();
+
+			XSSFWorkbook wb = new XSSFWorkbook(new FileInputStream(path + "/" + file.getOriginalFilename()));
+
+			int sheetsCount = wb.getNumberOfSheets();
+//            System.out.println("Number of sheets: "+sheetsCount);
+			List<String> relationtablessss = new ArrayList<String>();
+			Row row;
+
+			for (int x = 1; x < sheetsCount; x++) {
+				String sheetName = wb.getSheetName(x);
+				if (!(sheetName.equals("Overview"))) { // Overview sheet has some instructions and link to all sheets
+					int currentSheetKey = 0;
+					int currentSheetName = 0;
+					System.out.println("Sheet Name: " + sheetName);
+					String tableName = sheetName.replaceAll("\\s+", "_");
+					List<String> columnNames = new ArrayList<String>();
+					List<String> actualColumnNames = new ArrayList<String>();
+					String firstRowIsColumnName = "1";
+
+					XSSFSheet sheet = wb.getSheetAt(x);
+					int columnsCount = sheet.getRow(1).getLastCellNum();
+					System.out.println("COLUMNS: " + columnsCount);
+					addRow.setTableName(tableName);
+
+					for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+						// System.out.println("1 Loop #: "+i);
+						// Employee employee=new Employee();
+						List<String> rowValues = new ArrayList<String>();
+						row = sheet.getRow(i);
+						// System.out.println("Row "+i);
+
+						if (row != null && sheet.getRow(2) != null) {
+							int removeAttributeCount = 0;
+							for (int j = 0; j < columnsCount; j++) {
+								// System.out.println("Cell Loop Start, Sheet: "+x+", row: "+i+" and column is:
+								// "+j);
+								String cellValue = null;
+								System.out.println("***" + row.getCell(j));
+								boolean isRelation = false;
+//								if (row.getCell(j) != null) {
+								System.out.println("**NULL**" + row.getCell(j));
+								boolean sourceIsNull = false;
+								boolean targetIsNull = false;
+								String sourceRelElement = "";
+								String targetRelElement = "";
+								String sourcePKEy = "";
+								String targetPKEY = "";
+								String sourceAttName = "";
+								String targetAttName = "";
+								String sourceAttValue = "";
+								String targetAttValue = "";
+								String relationshipType = "";
+
+								int elementAttributeCount = 0;
+								if (row.getCell(j) != null) {
+									if (row.getCell(j).getCellType() == CellType.STRING) {
+										cellValue = String.valueOf(row.getCell(j).getRichStringCellValue());
+									} else if (row.getCell(j).getCellType() == CellType.NUMERIC) {
+
+										if (HSSFDateUtil.isCellDateFormatted(row.getCell(j))) {
+											DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+											DateFormat formatTime = new SimpleDateFormat("HH:mm");
+											SimpleDateFormat formatYearOnly = new SimpleDateFormat("yyyy");
+
+											Date date = row.getCell(j).getDateCellValue();
+
+											String dateStamp = formatYearOnly.format(date);
+
+											if (dateStamp.equals("1899"))
+												cellValue = formatTime.format(date);
+											else
+												cellValue = df.format(date);
+
+											// System.out.println("DATE");
+											// System.out.println ("Row No.: " + row.getRowNum ()+ " " +
+											// cellValue);
+											// cellValue = row.getCell(j).getDateCellValue().toString();
+
+										} else {
+											// System.out.println("NUMERIC");
+											cellValue = String.valueOf(row.getCell(j).getNumericCellValue());
+										}
+									}
+								} else if (row.getCell(j) == null && i > 1) {
+									cellValue = null;
+								}
+								// System.out.println("Value at cell"+j+" is "+cellValue);
+								if (i == 1 && firstRowIsColumnName != null) {
+									if (cellValue.equals("ID")) {
+										currentSheetKey = j;
+									}
+									if (cellValue.equals("Name")) {
+										currentSheetName = j;
+									}
+									actualColumnNames.add(cellValue);
+									// System.out.println("Cell Value: "+cellValue);
+									// String name = cellValue.replaceAll("\\(.*\\)", "");
+									String name = cellValue;
+									name = name.replaceAll("\\s+$", "");
+									// name = name.replaceAll("\\s+","_");
+
+//			                		if( !(cellValue.equals("From_OR_To") || cellValue.equals("Relationship_Type")) ) {
+									List<String> selfGeneratedValue = enterpriseDAO
+											.getSelfGeneratedForGivenAttribute(dbName, tableName, name);
+									// System.out.println(selfGeneratedValue.get(0));
+									// cellValue = selfGeneratedValue.get(0);
+									///////
+
+									if (columnNames.contains(selfGeneratedValue.get(0))) {
+										int arr_size = columnNames.size();
+										Map<String, Integer> frequency = methods.findRepeating(columnNames, arr_size);
+										for (Entry<String, Integer> entry : frequency.entrySet()) {
+											// duplicateAttributes.add(entry.getKey());
+											// System.out.println(entry.getKey()+ " --> "+entry.getValue());
+											if (selfGeneratedValue.get(0).equals(entry.getKey())) {
+												cellValue = selfGeneratedValue.get(entry.getValue());
+											}
+										}
+									} else
+										cellValue = selfGeneratedValue.get(0);
+
+									//////
+//			                		}
+
+									addRow.setFirstRowIsColumnName(firstRowIsColumnName);
+
+									columnNames.add(cellValue);
+								} else {
+									for (int temp = elementAttributeCount; temp < elementAttributesList
+											.size(); temp++) {
+//											System.out.println(elementAttributeCount);
+										elementAttributeCount++;
+										String elementName = elementAttributesList.get(temp).getConceptName();
+										String attributeType = elementAttributesList.get(temp).getAttributeType();
+										String attributeName = elementAttributesList.get(temp).getAttrributeName();
+										if (sheetName.equals(elementName)
+												&& attributeName.equals(actualColumnNames.get(j))
+												&& cellValue == null) {
+											DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+											DateTimeFormatter tf = DateTimeFormatter.ofPattern("HH:mm");
+											LocalDateTime now = LocalDateTime.now();
+											if (elementAttributesList.get(temp).getAttributeFormat().equals("Date")) {
+												cellValue = df.format(now);
+											} else if (elementAttributesList.get(temp).getAttributeFormat().equals("Time")) {
+												cellValue = tf.format(now);
+											}
+
+										}
+//											if(sheetName.equals(elementName))
+//												System.out.println(sheetName+" | "+elementName+" | "+attributeType+" | "+attributeName+" | "+actualColumnNames.get(j));
+//											else 
+//												break;
+										if (sheetName.equals(elementName) && attributeType.equals("Relationship")
+												&& attributeName.equals(actualColumnNames.get(j))) {
+											isRelation = true;
+											String sourceRelElement_XML = elementAttributesList.get(temp)
+													.getSourceRelationshipConcept();
+											String targetRelElement_XML = elementAttributesList.get(temp)
+													.getTargetRelationshipConcept();
+
+											if (!sourceRelElement_XML.equals("N/A")) {
+												sourceIsNull = true;
+												sourceRelElement = sourceRelElement_XML;
+												targetRelElement = elementName;
+												sourcePKEy = null;
+												targetPKEY = rowValues.get(currentSheetKey);
+												sourceAttName = null;
+												targetAttName = attributeName;
+												sourceAttValue = rowValues.get(currentSheetName);
+												targetAttValue = cellValue;
+												relationshipType = elementAttributesList.get(temp).getRelationship();
+											} else if (!targetRelElement_XML.equals("N/A")) {
+												targetIsNull = true;
+												sourceRelElement = elementName;
+												targetRelElement = targetRelElement_XML;
+												sourcePKEy = rowValues.get(currentSheetKey);
+												targetPKEY = null;
+												sourceAttName = attributeName;
+												targetAttName = null;
+												sourceAttValue = cellValue;
+												targetAttValue = rowValues.get(currentSheetName);
+												relationshipType = elementAttributesList.get(temp).getRelationship();
+											}
+											break;
+										}
+									}
+									if (isRelation == true) {
+										// NEW CODE FOR RELATION **START//
+										addRElRow.setSourceIsNull(sourceIsNull);
+										addRElRow.setTargetIsNull(targetIsNull);
+										addRElRow.setSourceRelElement(sourceRelElement);
+										addRElRow.setTargetRelElement(targetRelElement);
+										addRElRow.setSourcePKEy(sourcePKEy);
+										addRElRow.setTargetPKEY(targetPKEY);
+										addRElRow.setSourceAttName(sourceAttName);
+										addRElRow.setTargetAttName(targetAttName);
+										if (sourceAttValue != null)
+											addRElRow.setSourceAttValue(sourceAttValue.replaceAll("'", "''"));
+										else
+											addRElRow.setSourceAttValue(sourceAttValue);
+										if (targetAttValue != null)
+											addRElRow.setTargetAttValue(targetAttValue.replaceAll("'", "''"));
+										else
+											addRElRow.setTargetAttValue(targetAttValue);
+										addRElRow.setRelationshipType(relationshipType);
+
+										enterpriseDAO.addRelations(addRElRow);
+
+										// NEW CODE FOR RELATION END**//
+
+//											List<String> rowValuesForRel = new ArrayList<String>();
+//											rowValuesForRel.addAll(Arrays.asList(sourceRelElement, targetRelElement, sourcePKEy, targetPKEY,
+//													sourceAttName, targetAttName, sourceAttValue, targetAttValue, relationshipType));
+//											addRElRow1.setRowValues(rowValuesForRel);
+//											addRElRow1.setFirstRowIsColumnName(null);
+//											enterpriseDAO.addRowsFromExcel(addRElRow1);
+										//
+										if (i == 2) {
+											int attIndex = j - removeAttributeCount;
+											System.out.println("ID KEY: " + currentSheetKey);
+											columnNames.remove(attIndex);
+											System.out.println("check");
+											removeAttributeCount++;
+										}
+									} else
+										rowValues.add(cellValue);
+									System.out.println(actualColumnNames.get(j));
+								}
+
+//								}
+//								if (row.getCell(j) == null && isRelation==false && i>1) {
+//									rowValues.add(null);
+//								}
+							}
+
+							if (i != 1 || firstRowIsColumnName == null) {
+								// System.out.println("\n\n\nCOMING AT SET ROW VALUES\n\n\n");
+								addRow.setColumnNames(columnNames);
+								addRow.setRowValues(rowValues);
+								enterpriseDAO.addRowsFromExcel(addRow);
+								// System.out.println("\n");
+							}
+
+							// System.out.println("2 Loop #: "+i);
+						}
+					}
+
+				}
+			}
+			System.out.println("dfdof" + relationtablessss);
+			fout.close();
+//            wb.close();
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+//		return new ModelAndView("redirect:/");
+		return new ModelAndView("");
+	}

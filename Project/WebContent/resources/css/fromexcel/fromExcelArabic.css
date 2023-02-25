@@ -1,0 +1,414 @@
+
+*{
+	font-family: helvetica, arial, verdana, sans-serif;
+}
+html,
+body{
+/*     background: #e3fdff; */
+	background: linear-gradient(to bottom, #e3fdff 8%, #0d7e8a 100%);
+	direction: rtl;
+
+
+}
+
+
+.wrap-login100{
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 5%;
+
+}
+
+.impex_form_div{
+	backgorund: #f7f8fa;
+	background: #fff;
+	padding: 50px 40px 50px 40px;
+	border-radius: 20px;
+	
+	display: flex;
+	width: 70%;
+	height: 76vh;
+}
+
+.container-login100-form-btn{
+	margin-bottom: 50px;
+	display: contents;	
+}
+
+#home-btn a{
+	padding:3px;
+	padding-right:10px;
+	padding-left:10px;
+	color:black;
+}
+
+
+
+.content a {
+	font-size: 16px
+}
+
+
+.account-dropdown{
+	left: 10px;
+	right: initial !important;
+	transform-origin: left top;
+}
+
+.account-dropdown:after{
+	right: initial !important;
+    left: 10%;
+}
+
+.account-dropdown__item a i{
+	margin-left: 20px;
+	text-align: right;
+}
+
+.account-dropdown__item a{
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	padding: 15px 0px;
+}
+
+.account-dropdown__footer a {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	padding: 15px 0px;
+}
+
+.account-dropdown__footer a i{
+	margin-left: 20px;
+	text-align: right;
+}
+
+.account-dropdown h5 {
+	text-align: right
+}
+
+.fa {
+	color: black !important;
+}
+/* .user-caret-down::before{ */
+/* 	color: black !important; */
+/* } */
+
+.header_impex{
+ 	display:flex;  
+	justify-content: space-between; 
+	width:100%; 
+	background: #f8f9fa;
+	height:46px !important;
+}
+
+#main-container{
+	margin-top: 170px;
+}
+
+#login-btn{
+
+width:100px !important;
+border-radius:12px;
+background-color:#0d7e8a !important;
+
+}
+#import{
+	width:100px !important;
+	border-radius:12px;
+	background-color:#0d7e8a !important;
+}
+
+#import > i{
+	margin-left: 5px;
+}
+
+.export-btn{
+	color:white;
+	background-color:#0d7e8a !important;
+}
+
+.logo{
+
+transition: transform .2s;
+
+}
+
+.logo:hover{
+
+transform: scale(1.5);
+
+}
+.container-login100{
+
+ background: linear-gradient(to bottom, #e3fdff 8%, #0d7e8a 100%);
+
+}
+
+.li.ui-tabs-active{
+	background:#0d7e8a;
+}
+.ui-tabs .ui-tabs-nav .ui-tabs-anchor{
+	background:#e3fdff
+}
+
+.lang-icon{
+	color: #0d7e8a !important;
+	cursor: pointer;
+	/* border: 2px solid #0d7e8a; */
+	/* padding: 0px 5px !important; */
+    /* height: 10px !important; */
+    /* width: 10px !important; */
+	/* border-radius: 50%; */
+}
+
+
+/* 	.loader { */
+/* 	    border: 16px solid #f3f3f3; */
+/* 	    border-top: 16px solid #3498db; */
+/* 	    border-radius: 50%; */
+/* 	    width: 90px; */
+/* 	    height: 90px; */
+/* 	    animation: spin 2s linear infinite; */
+/* 	    position: absolute; */
+/* 	    z-index: 1; */
+
+/* 		top: 48%; */
+/* 		left: 45%; */
+/* 	} */
+
+.loaders {
+	/* 	    border: 16px solid #f3f3f3; */
+	/* 	    border-top: 16px solid #3498db; */
+	/* 	    border-radius: 50%; */
+	/* 	    width: 90px; */
+	/* 	    height: 90px; */
+	animation: spin 3s linear infinite;
+	position: absolute;
+	z-index: 1;
+	top: 48%;
+	left: 45%;
+}
+
+.loader {
+	width:90px;
+	height:90px;
+	display:inline-block;
+	background:#0D7E8A;
+	border: 3px solid white;
+	-webkit-mask:url("/EAZee/resources/images/main-logo-removebg.png") center/contain;
+	        mask:url("/EAZee/resources/images/main-logo-removebg.png") center/contain;
+	        
+	position: absolute;
+	z-index: 1;
+	top: 48%;
+	left: 45%;
+	animation: scale 3s linear infinite;
+	/* animation: spin 1s linear infinite; */
+
+}
+
+
+/* 	@keyframes spin { */
+/*  	  0% { transform: rotate(0deg); }  */
+/*  	  100% { transform: rotate(360deg); } */
+
+/* 	} */
+
+@keyframes scale {
+	0% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.5);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+#impexParentDiv{
+	/* 	    border: 2px solid red; */
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    margin: 0px;
+}
+
+#exportFormsDiv{
+	flex:1;
+	border: 1px solid;
+	margin-left: 10px;
+	padding: 5px;
+	display: flex;
+   	flex-direction: column;
+   	justify-content: space-between;
+}
+
+#logsDiv{
+	flex:1.5;
+	border: 1px solid black;
+	width:	100%;
+	padding: 0px 0px 5px 0px;
+}
+
+#logsTextDiv{
+	overflow-y: scroll;
+    	height: 89%;
+   	margin-top: 1px;
+}
+
+#logsDiv p{
+	color: black;
+	font-size: 14px;
+	line-height: normal;
+	/* transform: rotate(-10deg); */
+}
+
+#logsHeader{
+    color: white;
+   	background-color: #0D7E8A;
+   	padding: 5px 5px 5px 11px;
+   	position: sticky;
+   	top: 0;
+   	height: 40px;
+   	display: flex;
+   	align-items: center;
+}
+
+
+.logsParaTag{
+	padding: 0px 0px 2px 10px !important;
+}
+
+.export-btn{
+	width: 45% !important;
+	border-radius:12px !important;
+	padding: 6px !important;
+}
+.wait {
+	cursor:wait
+}
+
+.export-btn:disabled{
+	opacity: 0.6;
+}
+
+.account-item {
+	margin-left: 20px;
+}
+
+.account-item > .content {
+	padding: 15px 11px 0px 11px;
+}
+
+#exportButtonsDiv{
+	display: flex;
+	justify-content: space-between;
+}
+
+
+
+
+@media only screen and ( min-height: 850px ) {
+	.impex_form_div{
+		height: 60% !important;
+		/* background-color: red; */
+		/* border: 2px solid black; */
+	}
+}
+
+#uploadFileAndUploadButtonDiv{
+	height: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: end;
+}
+
+#uploadFileDiv{
+	display: flex;
+}
+
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #0D7E8A; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+          
+    position: absolute;
+    z-index: 999;
+    top: 50%;
+    left: 50%;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+#exportTemplate > i{
+	position: relative;
+    left: initial !important;
+    right: 0px;
+    margin-right: 0px !important;
+    margin-left: 10px;
+    
+}
+
+#exportTemplateWithData > i{
+	position: relative;
+    left: initial !important;
+    right: 0px;
+    margin-right: 0px !important;
+    margin-left: 10px;
+}
+
+
+@media only screen and (max-width: 1305px) {
+	.export-btn{
+		width: 100% !important;
+	}
+	#exportTemplate{
+		margin-left: 5px;
+	}
+	#exportTemplateWithData{
+		margin-right: 5px;
+	}
+}
+
+
+@media only screen and (max-width: 980px) {
+	.impex_form_div{
+
+		width: 70%;
+		height: 70%;
+	}
+}
+
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 10px #0d7e8a; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background:#13a9ba;
+	border-radius: 10px; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background:#13a9ba;
+}
